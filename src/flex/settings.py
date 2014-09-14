@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3',
     'userena',
     'guardian',
     'easy_thumbnails',
@@ -105,8 +106,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
 TEMPLATE_DIRS = (
-    join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
@@ -124,3 +129,10 @@ LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/accounts/logout/'
 
 USERENA_ACTIVATION_REQUIRED = False
+
+BOOTSTRAP3 = {
+    'field_renderers': {
+        'default': 'utils.bootstrap_render.FieldRenderer',
+        'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+    },
+}

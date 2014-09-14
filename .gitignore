@@ -86,3 +86,6 @@ local.properties
 
 .idea
 src/.project
+
+bower_components
+.sass-cache
