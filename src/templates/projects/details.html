@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content-header %}
+    {{ project.name }}
+{% endblock %}
+
+{% block content %}
+    {% for role in project.roles.all %}
+        {{ role.name }}
+        {% for member in role.members.all %}
+            {{ member.username }}
+        {% endfor %}
+        <br/>
+    {% endfor %}
+{% endblock %}

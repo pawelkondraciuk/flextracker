@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content-header %}
+    {{ project.name }}
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary"> Edit</button>
+        </div>
+    </form>
+{% endblock %}

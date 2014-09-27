@@ -1,0 +1,10 @@
+{% extends 'userena/base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Signed out" %}{% endblock %}
+
+{% block content %}
+    <h3 class="page-header">{% trans "You have been signed out" %}</h3>
+    <p>{% trans "You have been signed out. Till we meet again." %}</p>
+{% endblock %}

@@ -36,13 +36,27 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ###########################
+    'dashboard',
+    'projects',
+    'issues',
+    ###########################
+    'south',
+    'django_activeurl',
     'bootstrap3',
     'userena',
     'guardian',
     'easy_thumbnails',
-    'accounts'
+    'accounts',
+    'sitetree',
+    #'viewflow',
+    #'viewflow.site',
+    'django_tables2',
+    'taggit',
+    'attachments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,10 +75,18 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    'projects.context_processors.project_list',
+)
+
 ROOT_URLCONF = 'flex.urls'
 
 WSGI_APPLICATION = 'flex.wsgi.application'
 
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -114,7 +136,44 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': "logfile.txt",
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'console':{
+            'level':'INFO',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['logfile'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -125,10 +184,8 @@ EMAIL_HOST_PASSWORD = 'flextracke'
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
-LOGIN_URL = '/accounts/login/'
-LOGOUT_URL = '/accounts/logout/'
-
-USERENA_ACTIVATION_REQUIRED = False
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 
 BOOTSTRAP3 = {
     'field_renderers': {

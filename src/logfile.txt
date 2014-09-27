@@ -1,0 +1,646 @@
+[14/Sep/2014 23:09:43] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 276, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 332, in invalid_block_tag
+    raise self.error(token, "Invalid block tag: '%s'" % command)
+TemplateSyntaxError: Invalid block tag: 'trans'
+[14/Sep/2014 23:09:56] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    six.reraise(*exc_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 433, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=context.current_app)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 536, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 456, in _reverse_with_prefix
+    (lookup_view_s, args, kwargs, len(patterns), patterns))
+NoReverseMatch: Reverse for 'userena_profile' with arguments '(u'Pawel3',)' and keyword arguments '{}' not found. 0 pattern(s) tried: []
+[14/Sep/2014 23:10:14] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    six.reraise(*exc_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 433, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=context.current_app)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 536, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 456, in _reverse_with_prefix
+    (lookup_view_s, args, kwargs, len(patterns), patterns))
+NoReverseMatch: Reverse for 'userena_profile' with arguments '()' and keyword arguments '{}' not found. 0 pattern(s) tried: []
+[14/Sep/2014 23:11:54] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    six.reraise(*exc_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 433, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=context.current_app)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 536, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 456, in _reverse_with_prefix
+    (lookup_view_s, args, kwargs, len(patterns), patterns))
+NoReverseMatch: Reverse for 'userena_profile_detail' with arguments '()' and keyword arguments '{}' not found. 1 pattern(s) tried: ['accounts/(?P<username>(?!signout|signup|signin)[\\.\\w-]+)/$']
+[14/Sep/2014 23:11:55] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    six.reraise(*exc_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 433, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=context.current_app)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 536, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 456, in _reverse_with_prefix
+    (lookup_view_s, args, kwargs, len(patterns), patterns))
+NoReverseMatch: Reverse for 'userena_profile_detail' with arguments '()' and keyword arguments '{}' not found. 1 pattern(s) tried: ['accounts/(?P<username>(?!signout|signup|signin)[\\.\\w-]+)/$']
+[14/Sep/2014 23:17:16] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 99, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 337, in resolve
+    for pattern in self.url_patterns:
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 365, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 360, in urlconf_module
+    self._urlconf_module = import_module(self.urlconf_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\utils\importlib.py", line 40, in import_module
+    __import__(name)
+  File "F:\Projekty\flex\src\flex\urls.py", line 12, in <module>
+    url(r'^admin/', include(admin.site.urls)),
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 253, in urls
+    return self.get_urls(), self.app_name, self.name
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 211, in get_urls
+    self.check_dependencies()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 163, in check_dependencies
+    raise ImproperlyConfigured("Put 'django.contrib.auth.context_processors.auth' "
+ImproperlyConfigured: Put 'django.contrib.auth.context_processors.auth' in your TEMPLATE_CONTEXT_PROCESSORS setting in order to use the admin application.
+[14/Sep/2014 23:17:18] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 99, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 337, in resolve
+    for pattern in self.url_patterns:
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 365, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 360, in urlconf_module
+    self._urlconf_module = import_module(self.urlconf_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\utils\importlib.py", line 40, in import_module
+    __import__(name)
+  File "F:\Projekty\flex\src\flex\urls.py", line 12, in <module>
+    url(r'^admin/', include(admin.site.urls)),
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 253, in urls
+    return self.get_urls(), self.app_name, self.name
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 211, in get_urls
+    self.check_dependencies()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\contrib\admin\sites.py", line 163, in check_dependencies
+    raise ImproperlyConfigured("Put 'django.contrib.auth.context_processors.auth' "
+ImproperlyConfigured: Put 'django.contrib.auth.context_processors.auth' in your TEMPLATE_CONTEXT_PROCESSORS setting in order to use the admin application.
+[14/Sep/2014 23:17:33] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 276, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 332, in invalid_block_tag
+    raise self.error(token, "Invalid block tag: '%s'" % command)
+TemplateSyntaxError: Invalid block tag: 'activeurl'
+[14/Sep/2014 23:17:52] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 276, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 332, in invalid_block_tag
+    raise self.error(token, "Invalid block tag: '%s'" % command)
+TemplateSyntaxError: Invalid block tag: 'activeurl'
+[14/Sep/2014 23:18:33] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 278, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 1084, in load
+    (taglib, e))
+TemplateSyntaxError: 'activeurl' is not a valid tag library: ImportError raised loading django_activeurl.templatetags.activeurl: No module named classytags.core
+[14/Sep/2014 23:56:28] ERROR [django.request:224] Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    six.reraise(*exc_info)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\defaulttags.py", line 433, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=context.current_app)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 536, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\urlresolvers.py", line 456, in _reverse_with_prefix
+    (lookup_view_s, args, kwargs, len(patterns), patterns))
+NoReverseMatch: Reverse for 'userena_profile_detail' with arguments '(u'',)' and keyword arguments '{}' not found. 1 pattern(s) tried: ['accounts/(?P<username>(?!signout|signup|signin)[\\.\\w-]+)/$']
+[15/Sep/2014 01:19:58] ERROR [django.request:224] Internal Server Error: /accounts/Pawel3/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 276, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 332, in invalid_block_tag
+    raise self.error(token, "Invalid block tag: '%s'" % command)
+TemplateSyntaxError: Invalid block tag: 'sitetree_breadcrumbs'
+[15/Sep/2014 01:27:46] ERROR [django.request:224] Internal Server Error: /accounts/pawel/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 101, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 98, in get_parent
+    return get_template(parent)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 127, in find_template
+    source, display_name = loader(name, dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 43, in __call__
+    return self.load_template(template_name, template_dirs)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 49, in load_template
+    template = get_template_from_string(source, origin, template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 149, in get_template_from_string
+    return Template(source, origin, name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 125, in __init__
+    self.nodelist = compile_string(template_string, origin)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 153, in compile_string
+    return parser.parse()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 278, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 86, in sitetree_breadcrumbs
+    raise template.TemplateSyntaxError("%r tag requires two arguments. E.g. {%% sitetree_breadcrumbs from \"mytree\" %%}." % tokens[0])
+TemplateSyntaxError: u'sitetree_breadcrumbs' tag requires two arguments. E.g. {% sitetree_breadcrumbs from "mytree" %}.
+[15/Sep/2014 01:28:53] ERROR [django.request:224] Internal Server Error: /accounts/pawel/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 209, in render
+    return render(context, tree_items, self.use_template or 'sitetree/breadcrumbs.html')
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 295, in render
+    content = template.loader.get_template(use_template).render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 131, in find_template
+    raise TemplateDoesNotExist(name)
+TemplateDoesNotExist: mytrees/mybreadcrumbs.html
+[15/Sep/2014 01:29:30] ERROR [django.request:224] Internal Server Error: /accounts/pawel/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 209, in render
+    return render(context, tree_items, self.use_template or 'sitetree/breadcrumbs.html')
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 295, in render
+    content = template.loader.get_template(use_template).render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 131, in find_template
+    raise TemplateDoesNotExist(name)
+TemplateDoesNotExist: breadcrumbs_bootstrap3.html
+[15/Sep/2014 01:29:37] ERROR [django.request:224] Internal Server Error: /accounts/pawel/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 137, in get_response
+    response = response.render()
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 105, in render
+    self.content = self.rendered_content
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\response.py", line 82, in rendered_content
+    content = template.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 140, in render
+    return self._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader_tags.py", line 123, in render
+    return compiled_parent._render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 134, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\base.py", line 840, in render
+    bit = self.render_node(node, context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\debug.py", line 78, in render_node
+    return node.render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 209, in render
+    return render(context, tree_items, self.use_template or 'sitetree/breadcrumbs.html')
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\sitetree\templatetags\sitetree.py", line 295, in render
+    content = template.loader.get_template(use_template).render(context)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 138, in get_template
+    template, origin = find_template(template_name)
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\template\loader.py", line 131, in find_template
+    raise TemplateDoesNotExist(name)
+TemplateDoesNotExist: templates/breadcrumbs_bootstrap3.html
+[25/Sep/2014 01:44:49] ERROR [django.request:224] Internal Server Error: /projects/create/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 130, in get_response
+    raise ValueError("The view %s.%s didn't return an HttpResponse object." % (callback.__module__, view_name))
+ValueError: The view projects.views.CreateProjectView didn't return an HttpResponse object.
+[25/Sep/2014 01:44:58] ERROR [django.request:224] Internal Server Error: /projects/create/
+Traceback (most recent call last):
+  File "C:\Python27\virtualenvs\flex\lib\site-packages\django\core\handlers\base.py", line 130, in get_response
+    raise ValueError("The view %s.%s didn't return an HttpResponse object." % (callback.__module__, view_name))
+ValueError: The view projects.views.CreateProjectView didn't return an HttpResponse object.

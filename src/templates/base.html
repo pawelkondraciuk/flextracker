@@ -1,0 +1,309 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load activeurl %}
+{% load sitetree %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="description" content="description">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+        <link href="{% static 'css/bootstrapValidator.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+				<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+<body>
+<!--Start Header-->
+<div id="screensaver">
+	<canvas id="canvas"></canvas>
+	<i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<div id="modalbox">
+	<div class="devoops-modal">
+		<div class="devoops-modal-header">
+			<div class="modal-header-name">
+				<span>Basic table</span>
+			</div>
+			<div class="box-icons">
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
+			</div>
+		</div>
+		<div class="devoops-modal-inner">
+		</div>
+		<div class="devoops-modal-bottom">
+		</div>
+	</div>
+</div>
+<header class="navbar">
+	<div class="container-fluid expanded-panel">
+		<div class="row">
+			<div id="logo" class="col-xs-12 col-sm-2">
+				<a href="index.html">FlexTracker</a>
+			</div>
+			<div id="top-panel" class="col-xs-12 col-sm-10">
+				<div class="row">
+					<div class="col-xs-8 col-sm-4">
+						<a href="#" class="show-sidebar">
+						  <i class="fa fa-bars"></i>
+						</a>
+						<div id="search">
+							<input type="text" placeholder="search"/>
+							<i class="fa fa-search"></i>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-8 top-panel-right">
+						<ul class="nav navbar-nav pull-right panel-menu">
+							<li class="hidden-xs">
+								<a href="index.html" class="modal-link">
+									<i class="fa fa-bell"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="hidden-xs">
+								<a class="ajax-link" href="ajax/calendar.html">
+									<i class="fa fa-calendar"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="hidden-xs">
+								<a href="ajax/page_messages.html" class="ajax-link">
+									<i class="fa fa-envelope"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+									<div class="avatar">
+										<img src="{{ profile.get_mugshot_url }}" class="img-rounded" alt="avatar" />
+									</div>
+									<i class="fa fa-angle-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span class="welcome">Welcome,</span>
+										<span>Jane Devoops</span>
+									</div>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{% url 'userena_profile_detail' user.username %}">
+											<i class="fa fa-user"></i>
+											<span>Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/page_messages.html" class="ajax-link">
+											<i class="fa fa-envelope"></i>
+											<span>Messages</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/gallery_simple.html" class="ajax-link">
+											<i class="fa fa-picture-o"></i>
+											<span>Albums</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/calendar.html" class="ajax-link">
+											<i class="fa fa-tasks"></i>
+											<span>Tasks</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-cog"></i>
+											<span>Settings</span>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'userena_signout' %}">
+											<i class="fa fa-power-off"></i>
+											<span>Logout</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--End Header-->
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+            {% activeurl menu="no" parent_tag='a' %}
+			<ul class="nav main-menu">
+				<li>
+					<a href="{% url 'home' %}" class="ajax-link">
+						<i class="fa fa-dashboard"></i>
+						<span class="hidden-xs">Dashboard</span>
+					</a>
+				</li>
+                <li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-bar-chart-o"></i>
+						<span class="hidden-xs">Projects</span>
+					</a>
+					<ul class="dropdown-menu">
+                        <li><a href="{% url 'create_project' %}">Create new</a></li>
+                        {% if projects %}
+                            {% for project in projects %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                    <span class="hidden-xs">{{ project.name }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'project_details' project.pk %}">Details</a></li>
+                                    <li><a href="{% url 'update_project' project.pk %}">Edit</a></li>
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-bar-chart-o"></i>
+						<span class="hidden-xs">My profile</span>
+					</a>
+					<ul class="dropdown-menu">
+                        <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
+                        <li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
+                        <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
+                        <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
+					</ul>
+				</li>
+                {% sitetree_menu from "mytree" include "trunk,topmenu" template "sitetree/menu_bootstrap3_dropdown.html" %}
+			</ul>
+            {% endactiveurl %}
+		</div>
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+            <div class="row">
+                <div id="breadcrumb" class="col-md-12">
+                    {% sitetree_breadcrumbs from "mytree" template "sitetree/breadcrumbs_bootstrap3.html" %}
+                </div>
+            </div>
+
+            <div class="box-content">
+                <h4 class="page-header">{% block content-header %}{% endblock %}</h4>
+                {% block content %}{% endblock %}
+            </div>
+
+		</div>
+		<!--End Content-->
+	</div>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrapValidator.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('form').bootstrapValidator({
+            language: 'en',
+        });
+
+        $('.main-menu').on('click', 'a', function (e) {
+            var parents = $(this).parents('li');
+            var li = $(this).closest('li.dropdown');
+            var another_items = $('.main-menu li').not(parents);
+            another_items.find('a').removeClass('active');
+            another_items.find('a').removeClass('active-parent');
+            if ($(this).hasClass('dropdown-toggle') || $(this).closest('li').find('ul').length == 0) {
+                $(this).addClass('active-parent');
+                var current = $(this).next();
+                if (current.is(':visible')) {
+                    li.find("ul.dropdown-menu").slideUp('fast');
+                    li.find("ul.dropdown-menu a").removeClass('active')
+                }
+                else {
+                    another_items.find("ul.dropdown-menu").slideUp('fast');
+                    current.slideDown('fast');
+                }
+            }
+            else {
+                if (li.find('a.dropdown-toggle').hasClass('active-parent')) {
+                    var pre = $(this).closest('ul.dropdown-menu');
+                    pre.find("li.dropdown").not($(this).closest('li')).find('ul.dropdown-menu').slideUp('fast');
+                }
+            }
+            if ($(this).hasClass('active') == false) {
+                $(this).parents("ul.dropdown-menu").find('a').removeClass('active');
+                $(this).addClass('active')
+            }
+            if ($(this).hasClass('ajax-link')) {
+                e.preventDefault();
+                if ($(this).hasClass('add-full')) {
+                    $('#content').addClass('full-content');
+                }
+                else {
+                    $('#content').removeClass('full-content');
+                }
+                var url = $(this).attr('href');
+                window.location.hash = url;
+                LoadAjaxContent(url);
+            }
+            if ($(this).attr('href') == '#') {
+                e.preventDefault();
+            }
+        });
+        var that = $('.main-menu a.active').parents('li').children('a').addClass('active-parent');
+        $('.main-menu a.active-parent').parents('li.dropdown').children('ul').show();
+
+        var height = window.innerHeight - 50;
+        $('#main').css('min-height', height)
+            .on('click', '.expand-link', function (e) {
+                var body = $('body');
+                e.preventDefault();
+                var box = $(this).closest('div.box');
+                var button = $(this).find('i');
+                button.toggleClass('fa-expand').toggleClass('fa-compress');
+                box.toggleClass('expanded');
+                body.toggleClass('body-expanded');
+                var timeout = 0;
+                if (body.hasClass('body-expanded')) {
+                    timeout = 100;
+                }
+                setTimeout(function () {
+                    box.toggleClass('expanded-padding');
+                }, timeout);
+                setTimeout(function () {
+                    box.resize();
+                    box.find('[id^=map-]').resize();
+                }, timeout + 50);
+            })
+            .on('click', '.collapse-link', function (e) {
+                e.preventDefault();
+                var box = $(this).closest('div.box');
+                var button = $(this).find('i');
+                var content = box.find('div.box-content');
+                content.slideToggle('fast');
+                button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                setTimeout(function () {
+                    box.resize();
+                    box.find('[id^=map-]').resize();
+                }, 50);
+            })
+            .on('click', '.close-link', function (e) {
+                e.preventDefault();
+                var content = $(this).closest('div.box');
+                content.remove();
+            });
+    });
+</script>
+<!--<script src="{% static 'js/devoops.min.js' %}"></script>-->
+</body>
+</html>

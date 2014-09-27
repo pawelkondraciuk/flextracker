@@ -1,0 +1,26 @@
+{% extends 'userena/base.html' %}
+
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block header %}
+    <div class="text-right">
+        <a href="{% url 'userena_signin' %}" class="txt-default">Already have an account?</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h3 class="page-header">FlexTracker Register Page</h3>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary"> {% trans "Signup"%}</button>
+        </div>
+    </form>
+{% endblock %}

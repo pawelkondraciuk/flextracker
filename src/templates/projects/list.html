@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content-header %}
+    Project list
+{% endblock %}
+
+{% block content %}
+    {% for project in projects %}
+        <p><a href="{% url 'project_details' project.pk %}">{{ project.name }}</a></p>
+    {% endfor %}
+{% endblock %}
