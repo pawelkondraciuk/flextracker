@@ -164,13 +164,13 @@ LOGGING = {
             'formatter': 'standard'
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['logfile'],
-            'propagate': True,
-            'level': 'ERROR',
-        },
-    }
+    # 'loggers': {
+    #     'django': {
+    #         'handlers': ['logfile'],
+    #         'propagate': True,
+    #         'level': 'ERROR',
+    #     },
+    # }
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

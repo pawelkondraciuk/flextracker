@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+
+{% block content-header %}
+    {{ project.name }} | {{ form.instance.name }}
+{% endblock %}
+
+{% block content %}
+    <style>
+        #id_members {
+            display: none;
+        }
+    </style>
+<form method="post">{% csrf_token %}
+    <div class="col-xs-12 col-sm-6">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                {% bootstrap_form form exclude='members' %}
+                {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+                <div class="text-right">
+                    <a href="{% url 'delete_role' form.instance.pk %}" class="remove-button btn btn-danger pull-left"> Delete</a>
+                    <button type="submit" class="btn btn-primary"> Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-user"></i>
+                    <span>Members</span>
+                </div>
+                <div class="box-icons">
+					<a class="add-members">
+						<i class="fa fa-plus"></i>
+					</a>
+				</div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                {{ form.members }}
+                <table class="table table-bordered table-striped table-hover" id="members-table">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-1">#</th>
+                            <th>Name</th>
+                            <th class="text-right col-xs-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in form.instance.members.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ member.username }}</td>
+                                <td class="text-right"><a href="#" data-id="{{ member.pk }}" class="remove-button label label-danger">Remove from group</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block javascript %}
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script>
+        $(function () {
+            $('#members-table').dataTable( {
+                "aaSorting": [[ 0, "asc" ]],
+                //"sPaginationType": "bootstrap",
+                "oLanguage": {
+                    "sSearch": "",
+                    "sLengthMenu": '_MENU_'
+                },
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search..."
+                }
+            });
+
+            $('table').on("click", ".remove-button", function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr('data-id');
+                $('#id_members option[value=' + id + ']').attr('selected', false);
+                $(this).closest('tr').remove();
+
+            });
+
+            $('.add-members').click(function(e) {
+                bootbox.dialog({
+                    title: "Add members",
+                    message: '<div class="row">  ' +
+                        '<div class="col-md-12"> ' +
+                        '<table class="table table-bordered table-striped table-hover" id="add-members-table">'+
+                        '    <thead>'+
+                        '        <tr>'+
+                        '            <th class="col-xs-1">#</th>'+
+                        '            <th>Name</th>'+
+                        '            <th class="text-right col-xs-1">Action</th>'+
+                        '        </tr>'+
+                        '    </thead>'+
+                        '    <tbody>'+
+                        '    </tbody>'+
+                        '</table>'+
+                        '</div>  </div>',
+                    buttons: {
+                        'cancel': {
+                            label: 'Close',
+                        },
+                    }
+                });
+                var options = $('#id_members option');
+                $.each(options, function(index, option) {
+                    if (!option.attr('selected')) {
+                        $('#add-members-table').find('tbody')
+                            .append($('<tr>')
+                                .append($('<td>')
+                                    .text(index + 1)
+                                )
+                                .append($('<td>')
+                                    .text(name)
+                                )
+                                .append($('<td>')
+                                    .attr('class', 'text-right')
+                                    .append($('<a>')
+                                        .attr('href', '#')
+                                        .attr('data-id', $(option).attr('value'))
+                                        .attr('class', 'remove-button label label-danger')
+                                        .text('Remove from group')
+                                    )
+                                )
+                            );
+                    }
+                });
+
+                $('table').on("click", ".add-button", function(e) {
+                    e.preventDefault();
+
+                    var id = $(this).attr('data-id');
+                    var name = $('#id_members option[value=' + id + ']').text();
+                    var last_p = Number($('#members-table tbody tr:last-child td:first-child').text())+1;
+                    $('#id_members option[value=' + id + ']').attr('selected', true);
+                    $(this).closest('tr').remove();
+                    $('#members-table').find('tbody')
+                        .append($('<tr>')
+                            .append($('<td>')
+                                .text(last_p)
+                            )
+                            .append($('<td>')
+                                .text(name)
+                            )
+                            .append($('<td>')
+                                .attr('class', 'text-right')
+                                .append($('<a>')
+                                    .attr('href', '#')
+                                    .attr('data-id', id)
+                                    .attr('class', 'remove-button label label-danger')
+                                    .text('Remove from group')
+                                )
+                            )
+                        );
+                });
+            });
+        });
+	</script>
+{% endblock %}

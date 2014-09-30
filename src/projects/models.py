@@ -8,7 +8,6 @@ from django.utils import timezone
 class Project(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(default=timezone.now)
-    owner = models.ForeignKey(User, related_name='my_projects')
 
     def __unicode__(self):
         return self.name
@@ -22,23 +21,19 @@ class Role(models.Model):
     name = models.CharField(max_length=100)
     permissions = models.ManyToManyField(Permission, blank=True)
     superuser = models.BooleanField(default=False)
-    members = models.ManyToManyField(User, through='RoleMembership')
+    members = models.ManyToManyField(User)
 
     def __unicode__(self):
         return ' | '.join((str(self.project), self.name))
 
-class RoleMembership(models.Model):
-    role = models.ForeignKey(Role, related_name='membership')
-    user = models.ForeignKey(User, related_name='roles')
-    join_date = models.DateTimeField(default=timezone.now)
-
-    def __unicode__(self):
-        return ' | '.join((self.user.username, str(self.role)))
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('update_role', args=[str(self.pk)])
 
 def create_roles(sender, instance, created, **kwargs):
     if created:
         project_managers = Role.objects.create(project=instance, name='Project managers', superuser=True)
-        RoleMembership.objects.create(role=project_managers, user=instance.owner)
+        project_managers.members.add(instance.user)
         Role.objects.create(project=instance, name='Developers')
 
 post_save.connect(create_roles, sender=Project)
