@@ -103,8 +103,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'flex_tracker',
         'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'PASSWORD': 'qwerty',
+        'HOST': '192.168.56.101',
         'PORT': '5432',
     }
 }
@@ -136,42 +136,42 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'standard': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
-        },
-    },
-    'handlers': {
-        'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
-        },
-        'logfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': "logfile.txt",
-            'maxBytes': 50000,
-            'backupCount': 2,
-            'formatter': 'standard',
-        },
-        'console':{
-            'level':'INFO',
-            'class':'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-    },
-    # 'loggers': {
-    #     'django': {
-    #         'handlers': ['logfile'],
-    #         'propagate': True,
-    #         'level': 'ERROR',
-    #     },
-    # }
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'standard': {
+#             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+#             'datefmt' : "%d/%b/%Y %H:%M:%S"
+#         },
+#     },
+#     'handlers': {
+#         'null': {
+#             'level':'DEBUG',
+#             'class':'django.utils.log.NullHandler',
+#         },
+#         'logfile': {
+#             'level':'DEBUG',
+#             'class':'logging.handlers.RotatingFileHandler',
+#             'filename': "logfile.txt",
+#             'maxBytes': 50000,
+#             'backupCount': 2,
+#             'formatter': 'standard',
+#         },
+#         'console':{
+#             'level':'INFO',
+#             'class':'logging.StreamHandler',
+#             'formatter': 'standard'
+#         },
+#     },
+#     # 'loggers': {
+#     #     'django': {
+#     #         'handlers': ['logfile'],
+#     #         'propagate': True,
+#     #         'level': 'ERROR',
+#     #     },
+#     # }
+# }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
