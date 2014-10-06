@@ -1,13 +1,17 @@
 from django.contrib.auth.models import User, Permission
+from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
+from issues.models import Ticket
 
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(default=timezone.now)
+
+    tickets = generic.GenericRelation(Ticket)
 
     def __unicode__(self):
         return self.name
@@ -32,8 +36,7 @@ class Role(models.Model):
 
 def create_roles(sender, instance, created, **kwargs):
     if created:
-        project_managers = Role.objects.create(project=instance, name='Project managers', superuser=True)
-        project_managers.members.add(instance.user)
+        Role.objects.create(project=instance, name='Project managers', superuser=True)
         Role.objects.create(project=instance, name='Developers')
 
 post_save.connect(create_roles, sender=Project)

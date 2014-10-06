@@ -173,6 +173,16 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'project_details' project.pk %}">Details</a></li>
                                     <li><a href="{% url 'update_project' project.pk %}">Edit</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-bar-chart-o"></i>
+                                            <span class="hidden-xs">Issues</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'project_issues' project.pk %}">List</a></li>
+                                            <li><a href="{% url 'create_issue' project.pk %}">Create new</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             {% endfor %}
@@ -199,7 +209,7 @@
 		<div id="content" class="col-xs-12 col-sm-10">
             <div class="row">
                 <div id="breadcrumb" class="col-md-12">
-                    {% sitetree_breadcrumbs from "mytree" template "sitetree/breadcrumbs_bootstrap3.html" %}
+                    {% sitetree_breadcrumbs from "flex_tree" template "sitetree/breadcrumbs_bootstrap3.html" %}
                 </div>
             </div>
             {% block content %}{% endblock %}

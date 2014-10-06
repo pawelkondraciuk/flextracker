@@ -1,7 +1,11 @@
-from braces.views._access import PermissionRequiredMixin
-from django.core.urlresolvers import reverse
+from braces.views._access import PermissionRequiredMixin, UserPassesTestMixin
+from django.contrib.sitemaps.tests.urls.http import generic_sitemaps
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render
 from django.views import generic
+from django_tables2.views import SingleTableMixin, SingleTableView
+from issues.forms import TicketForm
+from issues.tables import TicketTable
 from projects.forms import RoleEditForm, RoleAddForm, ProjectAddForm
 from projects.models import Project, Role
 
@@ -19,8 +23,9 @@ class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
     fields = ['name',]
 
     def form_valid(self, form):
-        project = form.save(commit=False)
+        project = form.save(commit=True)
         project.owner = self.request.user
+        project.roles.get(name='Project managers').members.add(self.request.user)
 
         return super(CreateProjectView, self).form_valid(form)
 
@@ -61,6 +66,13 @@ class EditProjectView(generic.UpdateView):
         else:
             return self.form_invalid(**{form_name: form})
 
+class DeleteProjectView(generic.DeleteView, UserPassesTestMixin):
+    model = Project
+    success_url = reverse_lazy('projects')
+
+    def test_func(self, user):
+        return True
+
 class RoleEditView(generic.UpdateView):
     template_name = 'projects/role_edit.html'
     form_class = RoleEditForm
@@ -82,3 +94,31 @@ class RoleDeleteView(generic.DeleteView):
 
     def get_success_url(self):
         return reverse('update_project', args=[Role.objects.get(pk=self.kwargs['pk']).project.pk])
+
+class IssueListView(SingleTableView):
+    template_name = 'issues/index.html'
+    table_class = TicketTable
+
+    def get_queryset(self):
+        return Project.objects.get(pk=self.kwargs.get('pk')).tickets.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueListView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs['pk'])
+        return context
+
+class CreateIssueView(generic.CreateView):
+    template_name = 'issues/create.html'
+    form_class = TicketForm
+
+    def form_valid(self, form):
+        ticket = form.save(commit=False)
+        ticket.content_object = Project.objects.get(pk=self.kwargs['pk'])
+        ticket.submitter = self.request.user
+        ticket.save()
+        return super(CreateIssueView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateIssueView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs['pk'])
+        return context
