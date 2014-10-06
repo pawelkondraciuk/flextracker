@@ -1,3 +1,7 @@
 from django.contrib import admin
+from issues.models import Ticket
 
-# Register your models here.
+class TicketAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'modified',)
+
+admin.site.register(Ticket, TicketAdmin)
