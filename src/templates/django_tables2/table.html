@@ -7,7 +7,7 @@
 {% endif %}
 
 {% block table %}
-<table class="table table-striped"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+<table class="table table-striped table-hover"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
     {% block table.thead %}
     <thead>
         <tr>

@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -43,20 +44,22 @@ INSTALLED_APPS = (
     'dashboard',
     'projects',
     'issues',
+    'attachments',
     ###########################
     'south',
     'django_activeurl',
     'bootstrap3',
     'userena',
     'guardian',
-    'easy_thumbnails',
     'accounts',
     'sitetree',
     #'viewflow',
     #'viewflow.site',
     'django_tables2',
     'taggit',
-    'attachments',
+    'sorl.thumbnail',
+    'django_messages',
+    'widget_tweaks',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,6 +83,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'projects.context_processors.project_list',
+    'django_messages.context_processors.inbox',
 )
 
 ROOT_URLCONF = 'flex.urls'
@@ -103,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'flex_tracker',
         'USER': 'postgres',
-        'PASSWORD': 'qwerty',
+        'PASSWORD': 'password',
         'HOST': '192.168.56.101',
         'PORT': '5432',
     }
@@ -127,6 +131,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media', 'media')
+MEDIA_URL = '/site_media/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),

@@ -1,10 +1,10 @@
 from braces.views._access import PermissionRequiredMixin, UserPassesTestMixin
-from django.contrib.sitemaps.tests.urls.http import generic_sitemaps
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render
 from django.views import generic
-from django_tables2.views import SingleTableMixin, SingleTableView
+from django_tables2.views import SingleTableView
+
 from issues.forms import TicketForm
+from issues.models import Ticket
 from issues.tables import TicketTable
 from projects.forms import RoleEditForm, RoleAddForm, ProjectAddForm
 from projects.models import Project, Role
@@ -96,7 +96,7 @@ class RoleDeleteView(generic.DeleteView):
         return reverse('update_project', args=[Role.objects.get(pk=self.kwargs['pk']).project.pk])
 
 class IssueListView(SingleTableView):
-    template_name = 'issues/index.html'
+    template_name = 'issues/list.html'
     table_class = TicketTable
 
     def get_queryset(self):
@@ -121,4 +121,31 @@ class CreateIssueView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super(CreateIssueView, self).get_context_data(**kwargs)
         context['project'] = Project.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def get_success_url(self):
+        return reverse('issue_details', kwargs={'pk': self.object.pk, 'project_pk': self.kwargs['pk']})
+
+class IssueView(generic.DetailView):
+    template_name = 'issues/index.html'
+    model = Ticket
+    context_object_name = 'issue'
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs['project_pk'])
+        return context
+
+class EditIssueView(generic.UpdateView):
+    template_name = 'issues/create.html'
+    model = Ticket
+    form_class = TicketForm
+    context_object_name = 'issue'
+
+    def get_success_url(self):
+        return reverse('issue_details', kwargs={'pk': self.object.pk, 'project_pk': self.kwargs.get('project_pk')})
+
+    def get_context_data(self, **kwargs):
+        context = super(EditIssueView, self).get_context_data(**kwargs)
+        context['project'] = Project.objects.get(pk=self.kwargs['project_pk'])
         return context

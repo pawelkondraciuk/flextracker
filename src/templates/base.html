@@ -16,6 +16,9 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <link href="{% static 'css/devoops.css' %}" rel="stylesheet">
 
+        {% block css %}
+        {% endblock %}
+
         <!-- DataTables CSS -->
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css">
 
@@ -53,7 +56,7 @@
 	<div class="container-fluid expanded-panel">
 		<div class="row">
 			<div id="logo" class="col-xs-12 col-sm-2">
-				<a href="index.html">FlexTracker</a>
+				<a href="/">FlexTracker</a>
 			</div>
 			<div id="top-panel" class="col-xs-12 col-sm-10">
 				<div class="row">
@@ -75,26 +78,20 @@
 								</a>
 							</li>
 							<li class="hidden-xs">
-								<a class="ajax-link" href="ajax/calendar.html">
-									<i class="fa fa-calendar"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							<li class="hidden-xs">
-								<a href="ajax/page_messages.html" class="ajax-link">
+								<a href="{% url 'messages_inbox' %}">
 									<i class="fa fa-envelope"></i>
-									<span class="badge">7</span>
+									<span class="badge">{{ messages_inbox_count }}</span>
 								</a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
 									<div class="avatar">
-										<img src="{{ profile.get_mugshot_url }}" class="img-rounded" alt="avatar" />
+										<img src="{{ user.profile.get_mugshot_url }}" class="img-rounded" alt="avatar" />
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
 										<span class="welcome">Welcome,</span>
-										<span>Jane Devoops</span>
+										<span>{{ user.get_full_name|default:user.username }}</span>
 									</div>
 								</a>
 								<ul class="dropdown-menu">
@@ -226,6 +223,9 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/bootbox.min.js' %}"></script>
 <script src="{% static 'js/bootstrapValidator.min.js' %}"></script>
+<script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
 <script>
     $(document).ready(function() {
         $('form').bootstrapValidator({
