@@ -3,18 +3,23 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from django_tables2.views import SingleTableView
 
+from attachments.views import set_attachments_object
 from issues.forms import TicketForm
 from issues.models import Ticket
 from issues.tables import TicketTable
 from projects.forms import RoleEditForm, RoleAddForm, ProjectAddForm
 from projects.models import Project, Role
+from projects.tables import ProjectTable
 
 
-class ProjectListView(generic.ListView):
+class ProjectListView(SingleTableView):
     template_name = 'projects/list.html'
     model = Project
-    context_object_name = 'projects'
-    queryset = Project.objects.all()
+    table_class = ProjectTable
+
+    def get_queryset(self):
+        return Project.objects.filter(roles__members=self.request.user)
+
 
 class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
     permission_required = "add_project"
@@ -25,7 +30,9 @@ class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         project = form.save(commit=True)
         project.owner = self.request.user
-        project.roles.get(name='Project managers').members.add(self.request.user)
+        managers = project.roles.get(name='Project managers')
+        managers.members.add(self.request.user)
+        managers.save()
 
         return super(CreateProjectView, self).form_valid(form)
 
@@ -69,6 +76,7 @@ class EditProjectView(generic.UpdateView):
 class DeleteProjectView(generic.DeleteView, UserPassesTestMixin):
     model = Project
     success_url = reverse_lazy('projects')
+    template_name = 'projects/delete.html'
 
     def test_func(self, user):
         return True
@@ -116,6 +124,7 @@ class CreateIssueView(generic.CreateView):
         ticket.content_object = Project.objects.get(pk=self.kwargs['pk'])
         ticket.submitter = self.request.user
         ticket.save()
+        set_attachments_object(self.request.user, ticket, self.request.POST.getlist('files[]'))
         return super(CreateIssueView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

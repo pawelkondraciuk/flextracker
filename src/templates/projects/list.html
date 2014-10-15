@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
-{% load bootstrap3 %}
+{% load render_table from django_tables2 %}
 
 {% block content-header %}
-    Project list
+    Projects
 {% endblock %}
 
 {% block content %}
-    {% for project in projects %}
-        <p><a href="{% url 'project_details' project.pk %}">{{ project.name }}</a></p>
-    {% endfor %}
+    {% render_table table %}
 {% endblock %}

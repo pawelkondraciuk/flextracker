@@ -20,10 +20,12 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
 
-                    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-                    <input type="hidden" name="form" />
+                    {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+                    <input type="hidden" name="form"/>
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary"> Edit</button>
+                        <a href="{% url 'delete_project' project.pk %}" class="btn btn-danger pull-right"> Delete</a>
                     </div>
                 </form>
             </div>
@@ -41,26 +43,28 @@
             <div class="box-content">
                 <table class="table table-bordered table-striped table-hover" id="members-table">
                     <thead>
-                        <tr>
-                            <th class="col-xs-1">#</th>
-                            <th>Name</th>
-                            <th class="text-right col-xs-3">Action</th>
-                        </tr>
+                    <tr>
+                        <th class="col-xs-1">#</th>
+                        <th>Name</th>
+                        <th class="text-right col-xs-3">Action</th>
+                    </tr>
                     </thead>
-                        {% for role in form.instance.roles.all %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></td>
-                                <td class="text-right"><a href="{% url 'delete_role' role.pk %}" class="remove-button confirm-box label label-danger">Delete</a></td>
-                            </tr>
-                        {% endfor %}
+                    {% for role in form.instance.roles.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></td>
+                            <td class="text-right"><a href="{% url 'delete_role' role.pk %}"
+                                                      class="remove-button confirm-box label label-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
                 <form method="post">
                     {% csrf_token %}
                     {% bootstrap_form role_form layout='inline' %}
 
-                    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+                    {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary"> Add</button>
                     </div>

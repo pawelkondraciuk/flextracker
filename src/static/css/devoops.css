@@ -1,4 +1,49 @@
 /* line 1, ../sass/devoops/_base.scss */
 .box-content form:first-child {
-  margin-top: -15px;
+    margin-top: -15px;
+}
+
+/* line 7, ../sass/devoops/_base.scss */
+.main-menu > .dropdown > .dropdown-menu > li > a {
+    padding-left: 40px;
+}
+
+/* line 11, ../sass/devoops/_base.scss */
+.main-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > li > a {
+    padding-left: 60px;
+}
+
+/* line 15, ../sass/devoops/_base.scss */
+.main-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > li > a {
+    padding-left: 80px;
+}
+
+/* line 19, ../sass/devoops/_base.scss */
+.main-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > .dropdown > .dropdown-menu > li > a {
+    padding-left: 100px;
+}
+
+/* line 29, ../sass/devoops/_base.scss */
+.issue .description p:last-child {
+    margin: 10px 0 0 0;
+}
+
+/* line 34, ../sass/devoops/_base.scss */
+.accordion-toggle h4:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';
+    /* essential for enabling glyphicon */
+    content: "\e114";
+    /* adjust as needed, taken from bootstrap.css */
+    float: right;
+    /* adjust as needed */
+    color: grey;
+    /* adjust as needed */
+}
+
+/* line 41, ../sass/devoops/_base.scss */
+.accordion-toggle.collapsed h4:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";
+    /* adjust as needed, taken from bootstrap.css */
 }

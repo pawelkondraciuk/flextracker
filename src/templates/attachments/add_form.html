@@ -1,6 +1,7 @@
 {% load i18n %}
 {% if form %}
-<form id="fileupload" method="post" enctype="multipart/form-data" action="{{ form_url }}" class="add-attachment fileinput-button"> {% csrf_token %}
+    <form id="fileupload" method="post" enctype="multipart/form-data" action="{{ form_url }}"
+          class="add-attachment fileinput-button"> {% csrf_token %}
     <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Select files...</span>
@@ -8,5 +9,9 @@
             {{ field }}
         {% endfor %}
     </span>
-</form>
+
+        <div id="progress" class="progress">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+    </form>
 {% endif %}

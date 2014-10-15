@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from os.path import join
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -60,6 +59,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'django_messages',
     'widget_tweaks',
+    'actstream',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +69,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'userena.middleware.UserenaLocaleMiddleware'
+    'userena.middleware.UserenaLocaleMiddleware',
+    'django_tools.middlewares.ThreadLocal.ThreadLocalMiddleware'
 )
 
 AUTHENTICATION_BACKENDS = (

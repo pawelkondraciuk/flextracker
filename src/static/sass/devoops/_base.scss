@@ -1,3 +1,45 @@
 .box-content form:first-child {
-    margin-top: -15px;
+  margin-top: -15px;
+}
+
+.main-menu {
+  & > .dropdown > .dropdown-menu {
+    & > li > a {
+      padding-left: 40px;
+    }
+    & > .dropdown > .dropdown-menu {
+      & > li > a {
+        padding-left: 60px;
+      }
+      & > .dropdown > .dropdown-menu {
+        & > li > a {
+          padding-left: 80px;
+        }
+        & > .dropdown > .dropdown-menu {
+          & > li > a {
+            padding-left: 100px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.issue .description {
+  p:last-child {
+    margin: 10px 0 0 0;
+  }
+}
+
+.accordion-toggle h4:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+  content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+  float: right; /* adjust as needed */
+  color: grey; /* adjust as needed */
+}
+
+.accordion-toggle.collapsed h4:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080"; /* adjust as needed, taken from bootstrap.css */
 }

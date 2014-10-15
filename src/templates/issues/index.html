@@ -2,13 +2,11 @@
 {% load bootstrap3 %}
 {% load thumbnail %}
 {% load attachments_tags %}
+{% load issues_tags %}
 {% load staticfiles %}
+
 {% block content-header %}
     Issue
-{% endblock %}
-
-{% block css %}
-    <link href="{% static 'css/jquery.fileupload.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -16,9 +14,11 @@
         {{ issue.title }}
         <a href="{% url 'edit_issue' issue.object_id issue.pk %}" class="pull-right">Edit</a>
     </h3>
-    <div class="well">
+    <div class="well issue">
         <div class="row">
-            <div class="col-xs-4">Priority<b class="label label-danger pull-right">{{ issue.get_priority_display }}</b></div>
+            <div class="col-xs-4">Priority<b
+                    class="label label-{{ issue.priority|priority_to_bootstrap }} pull-right">{{ issue.get_priority_display }}</b>
+            </div>
             <div class="col-xs-4 col-xs-offset-4">Created<b class="pull-right">{{ issue.created }}</b></div>
         </div>
         <div class="row">
@@ -28,47 +28,73 @@
         <div class="row">
             <div class="col-xs-4">Assigned to<b class="pull-right">{{ issue.assigned_to }}</b></div>
         </div>
-        <div  style="margin-top:15px;">
+        <div class="description">
             <p class="page-header"></p>
+
             <p>{{ issue.description }}</p>
         </div>
-        <div style="margin-top:15px;">
+        <div>
             <p class="page-header"></p>
             {% get_attachments_for issue %}
             <div id="files">
-            {% for attachment in attachments %}
-                {% if attachment.is_image %}
-                    {% thumbnail attachment.attachment_file "100x100" as im %}
-                        <a href="{{ attachment.attachment_file.url }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"></a>
-                    {% endthumbnail %}
-                {% else %}
-                    <a href="{{ attachment.attachment_file.url }}">{{ attachment.filename }}</a>
-                {% endif %}
-            {% endfor %}
+                {% for attachment in attachments %}
+                    {% if attachment.is_image %}
+                        {% thumbnail attachment.attachment_file "100x100" as im %}
+                            <a class="fancybox" href="{{ attachment.attachment_file.url }}"><img src="{{ im.url }}"
+                                                                                                 width="{{ im.width }}"
+                                                                                                 height="{{ im.height }}"></a>
+                        {% endthumbnail %}
+                    {% else %}
+                        <a href="{{ attachment.attachment_file.url }}">{{ attachment.filename }}</a>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <p>
-            {% attachment_form issue %}
-            </p>
         </div>
     </div>
+    {% if issue.changes %}
+        <div style="margin-top:15px;">
+            <a data-toggle="collapse" href="#changes" class="accordion-toggle collapsed"><h4 class="page-header">
+                Changes</h4></a>
+
+            <div id="changes" class="panel-collapse collapse">
+                {% for change in issue.changes.all %}
+                    {{ change.date }} {{ change.user }}
+                    {% for detail in change.details.all %}
+                        <p>{{ detail.field }} {{ detail.old_value }} <i
+                                class="fa fa-arrow-circle-right"></i> {{ detail.new_value }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
     <div style="margin-top:15px;">
-        <h4 class="page-header">Comments</h4>
+        <a data-toggle="collapse" href="#comments" class="accordion-toggle collapsed"><h4 class="page-header">
+            Comments</h4></a>
 
+        <div id="comments" class="panel-collapse collapse">
+            {% for change in issue.changes.all %}
+                {{ change.date }} {{ change.user }}
+                {% for detail in change.details.all %}
+                    <p>{{ detail.field }} {{ detail.old_value }} <i
+                            class="fa fa-arrow-circle-right"></i> {{ detail.new_value }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-
 {% endblock %}
 
 {% block javascript %}
-<script>
-    $(function () {
-        $('#fileupload').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            }
+    <script>
+        $(document).ready(function () {
+            $(".fancybox")
+                    .attr('rel', 'gallery')
+                    .fancybox({
+                        'transitionIn': 'elastic',
+                        'transitionOut': 'elastic',
+                        'speedIn': 600,
+                        'speedOut': 200,
+                        'overlayShow': false
+                    });
         });
-    });
-</script>
+    </script>
 {% endblock %}

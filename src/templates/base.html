@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load activeurl %}
 {% load sitetree %}
+{% load activity_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,6 +17,8 @@
         <link href="{% static 'css/bootstrapValidator.min.css' %}" rel="stylesheet">
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <link href="{% static 'css/devoops.css' %}" rel="stylesheet">
+        <link href="{% static 'css/jquery.fileupload.css' %}" rel="stylesheet">
+        <link href="{% static 'css/jquery.fancybox.css' %}" rel="stylesheet">
 
         {% block css %}
         {% endblock %}
@@ -71,12 +75,6 @@
 					</div>
 					<div class="col-xs-4 col-sm-8 top-panel-right">
 						<ul class="nav navbar-nav pull-right panel-menu">
-							<li class="hidden-xs">
-								<a href="index.html" class="modal-link">
-									<i class="fa fa-bell"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
 							<li class="hidden-xs">
 								<a href="{% url 'messages_inbox' %}">
 									<i class="fa fa-envelope"></i>
@@ -154,8 +152,8 @@
 					</a>
 				</li>
                 <li class="dropdown">
-					<a href="#" class="dropdown-toggle">
-						<i class="fa fa-bar-chart-o"></i>
+                    <a href="{% url 'projects' %}" class="dropdown-toggle">
+                    <i class="fa fa-bar-chart-o"></i>
 						<span class="hidden-xs">Projects</span>
 					</a>
 					<ul class="dropdown-menu">
@@ -168,15 +166,29 @@
                                     <span class="hidden-xs">{{ project.name }}</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'project_details' project.pk %}">Details</a></li>
+                                    <li><a href="{% url 'project_details' project.pk %}">Activity</a></li>
+                                    {% if role %}
+                                        <li class="dropdown">
+                                            <a href="{% url 'update_project' project.pk %}" class="dropdown-toggle">
+                                                <span class="hidden-xs">Edit</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
                                     <li><a href="{% url 'update_project' project.pk %}">Edit</a></li>
+                                    {% endif %}
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle">
-                                            <i class="fa fa-bar-chart-o"></i>
+                                        <a href="{% url 'project_issues' project.pk %}" class="dropdown-toggle">
+                                        <i class="fa fa-bar-chart-o"></i>
                                             <span class="hidden-xs">Issues</span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{% url 'project_issues' project.pk %}">List</a></li>
+                                            {% if issue %}
+                                                <li class="hidden"><a
+                                                        href="{% url 'issue_details' project.pk issue.pk %}"></a></li>
+                                            {% endif %}
                                             <li><a href="{% url 'create_issue' project.pk %}">Create new</a></li>
                                         </ul>
                                     </li>
@@ -219,18 +231,29 @@
 		<!--End Content-->
 	</div>
 </div>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/bootbox.min.js' %}"></script>
 <script src="{% static 'js/bootstrapValidator.min.js' %}"></script>
+<script src="{% static 'js/jquery.mousewheel-3.0.6.pack.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
 <script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
 <script src="{% static 'js/jquery.ui.widget.js' %}"></script>
 <script src="{% static 'js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload-image.js' %}"></script>
 <script>
     $(document).ready(function() {
-        $('form').bootstrapValidator({
-            language: 'en',
-        });
+
+        {% block valitator %}
+            $('form').bootstrapValidator({
+                language: 'en',
+            });
+        {% endblock %}
 
         $('.main-menu').on('click', 'a', function (e) {
             var parents = $(this).parents('li');
