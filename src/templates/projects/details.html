@@ -1,11 +1,32 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load activity_tags i18n %}
 
 {% block content-header %}
     {{ project.name }}
 {% endblock %}
 
 {% block content %}
+{% activity_stream 'target' project as='action_list' %}
+
+    <div class="col-xs-12 col-sm-6">
+        <div class="box ui-draggable ui-droppable">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-bell"></i>
+                    <span>Activity stream</span>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                {% for action in action_list %}
+                    {% display_action action %}
+                {% empty %}
+                    {% trans "No actions yet" %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% for role in project.roles.all %}
         {{ role.name }}
         {% for member in role.members.all %}

@@ -20,7 +20,7 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
 
-                    {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+                    {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary"> Create</button>
                     </div>
@@ -28,4 +28,44 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+
+    <script>
+        $('i.fa-plus').click(function (e) {
+            window.open("{% url 'create_workflow' %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
+        })
+        function addWorkflow(workflow) {
+            var count = $('#id_workflow .radio').length;
+            $('#id_workflow')
+                    .append(
+                    $('<div/>')
+                            .addClass('radio')
+                            .append(
+                                $('<label/>')
+                                        .attr('for', 'id_workflow_' + count)
+                                        .append(
+                                            $('<input/>')
+                                                .attr('id', 'id_workflow_' + count)
+                                                .attr('required', 'required')
+                                                .attr('type', 'radio')
+                                                .attr('name', 'workflow')
+                                                .attr('value', workflow.id)
+                                        )
+                                        .append(workflow.value + '&nbsp;')
+                                        .append(
+                                            $('<i/>')
+                                                .addClass('fa fa-circle-o')
+                                        )
+                            )
+                            .append(
+                                $('<a/>')
+                                    .attr('href', '/workflow/' + workflow.id + '/edit/')
+                                    .text('Edit')
+                            )
+            )
+        }
+    </script>
+
 {% endblock %}

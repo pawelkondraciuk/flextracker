@@ -21,9 +21,9 @@ class CustomTextLinkColumn(tables.LinkColumn):
 
 
 class ProjectTable(tables.Table):
-    details = CustomTextLinkColumn('project_details', kwargs={'pk': A('pk')}, orderable=False, empty_values=(),
-                                   custom_text='View')
+    code = tables.LinkColumn('project_details', kwargs={'pk': A('pk')})
 
     class Meta:
         model = Project
         order_by = ('-created',)
+        fields = ('code', 'name', 'created')

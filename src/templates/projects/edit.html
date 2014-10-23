@@ -49,11 +49,11 @@
                         <th class="text-right col-xs-3">Action</th>
                     </tr>
                     </thead>
-                    {% for role in form.instance.roles.all %}
+                    {% for role in form.instance.roles.all reversed %}
                         <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></td>
-                            <td class="text-right"><a href="{% url 'delete_role' role.pk %}"
+                            <td class="col-lg-1">{{ forloop.counter }}</td>
+                            <td class="col-lg-10"><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></td>
+                            <td class="text-right col-lg-1"><a href="{% url 'delete_role' role.pk %}"
                                                       class="remove-button confirm-box label label-danger">Delete</a>
                             </td>
                         </tr>
@@ -72,4 +72,38 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $('#id_workflow').on('click', 'ii',  function(e) {
+            e.preventDefault();
+            window.open($(this).attr('href'), "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
+        });
+
+        $('#id_workflow label').each(function() {
+            $(this).parent().append(
+                $('<span/>')
+                    .addClass('pull-right')
+                    .append(
+                        $('<ii/>')
+                                .addClass('editworkflow fa fa-edit')
+                                .css('cursor', 'pointer')
+                                .css('margin-right', '10px')
+                                .attr('href', '/workflow/' + $(this).children('input').attr('value') + '/edit/')
+                                .tooltip({title: 'Edit'})
+                        )
+                        .append(
+                            $('<ii/>')
+                                .addClass('deleteworkflow fa fa-times')
+                                .css('cursor', 'pointer')
+                                .attr('href', '/workflow/' + $(this).children('input').attr('value') + '/delete/')
+                                .tooltip({title: 'Remove'})
+                        )
+                    )
+        });
+
+        function deleteWorkflow(id) {
+            $('#id_workflow input[value=' + id + ']').closest('.radio').remove();
+        }
+    </script>
 {% endblock %}

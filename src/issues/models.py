@@ -1,13 +1,48 @@
 from actstream import registry
+from actstream.signals import action
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import signals
+from django.db.models.deletion import SET
 from django.forms.models import model_to_dict
 from django.utils import timezone
 from django_tools.middlewares import ThreadLocal
 from taggit.managers import TaggableManager
+from workflow.models import Status
+
+
+def unique_slug(item, slug_source, slug_field):
+    """Ensures a unique slug field by appending an integer counter to duplicate slugs.
+
+    The item's slug field is first prepopulated by slugify-ing the source field. If that value already exists, a counter is appended to the slug, and the counter incremented upward until the value is unique.
+
+    For instance, if you save an object titled Daily Roundup, and the slug daily-roundup is already taken, this function will try daily-roundup-2, daily-roundup-3, daily-roundup-4, etc, until a unique value is found.
+
+    Call from within a model's custom save() method like so:
+    unique_slug(item, slug_source='field1', slug_field='field2')
+    where the value of field slug_source will be used to prepopulate the value of slug_field.
+    """
+    if True:  # getattr(item, slug_field): # if it's already got a slug, do nothing.
+        from django.template.defaultfilters import slugify
+
+        slug = slugify(getattr(item, slug_source))
+        itemModel = item.__class__
+        # the following gets all existing slug values
+        allSlugs = [sl.values()[0] for sl in itemModel.objects.values(slug_field)]
+        if slug in allSlugs:
+            import re
+
+            counterFinder = re.compile(r'-\d+$')
+            counter = 2
+            slug = "%s-%i" % (slug, counter)
+            while slug in allSlugs:
+                slug = re.sub(counterFinder, "-%i" % counter, slug)
+                counter += 1
+        else:
+            slug = "%s-1" % slug
+        setattr(item, slug_field, slug)
 
 
 class TicketManager(models.Manager):
@@ -15,6 +50,10 @@ class TicketManager(models.Manager):
         object_type = ContentType.objects.get_for_model(obj)
         return self.filter(content_type__pk=object_type.id,
                            object_id=obj.id)
+
+    def assigned_to(self, obj):
+        return self.filter(assigned_to=obj)
+
 
 PRIORITY_CHOICES = (
     (1, ('Critical')),
@@ -24,14 +63,18 @@ PRIORITY_CHOICES = (
     (5, ('Very Low')),
 )
 
+
 class Ticket(models.Model):
+    slug = models.SlugField(max_length=20, unique=True, verbose_name='Code')
     title = models.CharField(max_length=255)
     description = models.TextField()
     priority = models.IntegerField(choices=PRIORITY_CHOICES)
+    status = models.ForeignKey(Status)
     created = models.DateTimeField(auto_now_add=timezone.now)
     modified = models.DateTimeField(auto_now=timezone.now)
     submitter = models.ForeignKey(User, related_name='submitted_tickets')
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name='tickets')
+    confidential = models.BooleanField()
 
     #
     content_type = models.ForeignKey(ContentType)
@@ -41,10 +84,34 @@ class Ticket(models.Model):
     tags = TaggableManager()
     objects = TicketManager()
 
+    def __unicode__(self):
+        return self.title
+
+    @property
+    def workflow(self):
+        return self.content_object.workflow
+
+    @property
+    def get_code(self):
+        return self.content_object.code
+
+    def save(self, *args, **kwargs):
+        if self.slug == '':
+            unique_slug(self, slug_source='get_code', slug_field='slug')
+
+        return super(Ticket, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+
+        return reverse('issue_details', args=[self.object_id, self.slug])
+
+
 class TicketChange(models.Model):
     ticket = models.ForeignKey(Ticket, related_name='changes')
     date = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User)
+
 
 class TicketDisplayChange(models.Model):
     change = models.ForeignKey(TicketChange, related_name='details')
@@ -67,11 +134,13 @@ def apply_ticket_change(sender, instance, **kwargs):
             user = ThreadLocal.get_current_user()
             change = TicketChange.objects.create(ticket=instance, user=user)
             for key in diff:
-                TicketDisplayChange.objects.create(change=change, field=key, old_value=str(getattr(old, key)),
-                                                   new_value=str(getattr(instance, key)))
+                field = Ticket._meta.get_field(key)
+                TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=old._get_FIELD_display(field),
+                                                   new_value=instance._get_FIELD_display(field))
 
             if 'assigned_to' in diff:
-                assigned_to = instance.assigned_to
+                action.send(ThreadLocal.get_current_user(), verb='assigned', action_object=instance,
+                            target=instance.assigned_to)
 
 
 signals.pre_save.connect(apply_ticket_change, sender=Ticket)
@@ -85,13 +154,3 @@ def create_ticket(sender, instance, created, **kwargs):
 signals.post_save.connect(create_ticket, sender=Ticket)
 
 registry.register(Ticket)
-
-#
-#
-# class Workflow(models.Model):
-# pass
-#
-# class Status(models.Model):
-#     name = models.CharField(max_length=50)
-#     available_states = models.ManyToManyField('self')
-#

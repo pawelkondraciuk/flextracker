@@ -124,7 +124,8 @@
                 });
                 var options = $('#id_members option');
                 $.each(options, function(index, option) {
-                    if (!option.attr('selected')) {
+                    if (!$(option).attr('selected')) {
+                        var name = $(option).text();
                         $('#add-members-table').find('tbody')
                             .append($('<tr>')
                                 .append($('<td>')
@@ -138,8 +139,8 @@
                                     .append($('<a>')
                                         .attr('href', '#')
                                         .attr('data-id', $(option).attr('value'))
-                                        .attr('class', 'remove-button label label-danger')
-                                        .text('Remove from group')
+                                        .attr('class', 'add-button label label-success')
+                                        .text('Add to group')
                                     )
                                 )
                             );
@@ -151,7 +152,7 @@
 
                     var id = $(this).attr('data-id');
                     var name = $('#id_members option[value=' + id + ']').text();
-                    var last_p = Number($('#members-table tbody tr:last-child td:first-child').text())+1;
+                    var last_p = (Number($('#members-table tbody tr:last-child td:first-child').text()) || 0)+1;
                     $('#id_members option[value=' + id + ']').attr('selected', true);
                     $(this).closest('tr').remove();
                     $('#members-table').find('tbody')

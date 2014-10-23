@@ -1,35 +1,13 @@
 {% extends "django_messages/base.html" %}
 {% load i18n %}
-{% load url from future %}
+{% load django_tables2 %}
+{% load message_tags %}
 
 {% block content %}
     <h1>{% trans "Inbox" %}</h1>
     {% if message_list %}
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-                <th>{% trans "Sender" %}</th>
-                <th>{% trans "Subject" %}</th>
-                <th>{% trans "Received" %}</th>
-                <th>{% trans "Action" %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for message in message_list %}
-                <tr class="{% cycle "odd" "even" %}">
-                    <td>{{ message.sender }}</td>
-                    <td>
-                        {% if message.new %}<strong>{% endif %}
-                        {% if message.replied %}<em>{% endif %}
-                        <a href="{{ message.get_absolute_url }}">{{ message.subject }}</a>
-                        {% if message.replied %}</em>{% endif %}
-                        {% if message.new %}</strong>{% endif %}</td>
-                    <td>{{ message.sent_at|date:_("DATETIME_FORMAT") }}</td>
-                    <td><a href="{% url 'messages_delete' message.id %}">{% trans "delete" %}</a></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% get_message_table_for message_list as "messages" %}
+        {% render_table messages %}
     {% else %}
         <p>{% trans "No messages." %}</p>
     {% endif %}

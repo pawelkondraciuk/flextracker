@@ -43,3 +43,20 @@
   /* symbol for "collapsed" panels */
   content: "\e080"; /* adjust as needed, taken from bootstrap.css */
 }
+
+i.fa-plus {
+  cursor: pointer;
+}
+
+table td {
+  vertical-align: middle !important;
+}
+
+.profile-avatar {
+  margin-right: 10px;
+
+  & > img {
+    height: 65px;
+    width: 65px;
+  }
+}

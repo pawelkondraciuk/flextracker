@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,10 +41,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     ###########################
+    'accounts',
     'dashboard',
     'projects',
     'issues',
     'attachments',
+    'workflow',
     ###########################
     'south',
     'django_activeurl',
@@ -60,6 +63,7 @@ INSTALLED_APPS = (
     'django_messages',
     'widget_tweaks',
     'actstream',
+    'genericadmin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -138,6 +142,8 @@ MEDIA_URL = '/site_media/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 )
 
 TEMPLATE_DIRS = (
@@ -197,7 +203,7 @@ LOGOUT_URL = '/accounts/signout/'
 
 BOOTSTRAP3 = {
     'field_renderers': {
-        'default': 'utils.bootstrap_render.FieldRenderer',
+        'default': 'utils.bootstrap_render.CustomFieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }

@@ -4,6 +4,12 @@
 
 {% block title %}{% trans "Signed out" %}{% endblock %}
 
+{% block header %}
+    <div class="text-right">
+        <a href="{% url 'userena_signin' %}" class="txt-default">Do you want to login?</a>
+    </div>
+{% endblock %}
+
 {% block content %}
     <h3 class="page-header">{% trans "You have been signed out" %}</h3>
     <p>{% trans "You have been signed out. Till we meet again." %}</p>

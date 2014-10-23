@@ -20,6 +20,8 @@
         <link href="{% static 'css/jquery.fileupload.css' %}" rel="stylesheet">
         <link href="{% static 'css/jquery.fancybox.css' %}" rel="stylesheet">
 
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
         {% block css %}
         {% endblock %}
 
@@ -100,21 +102,9 @@
 										</a>
 									</li>
 									<li>
-										<a href="ajax/page_messages.html" class="ajax-link">
+										<a href="{% url 'messages_inbox' %}" class="ajax-link">
 											<i class="fa fa-envelope"></i>
 											<span>Messages</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/gallery_simple.html" class="ajax-link">
-											<i class="fa fa-picture-o"></i>
-											<span>Albums</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/calendar.html" class="ajax-link">
-											<i class="fa fa-tasks"></i>
-											<span>Tasks</span>
 										</a>
 									</li>
 									<li>
@@ -146,7 +136,7 @@
             {% activeurl menu="no" parent_tag='a' %}
 			<ul class="nav main-menu">
 				<li>
-					<a href="{% url 'home' %}" class="ajax-link">
+					<a href="{% url 'dashboard' %}" class="ajax-link">
 						<i class="fa fa-dashboard"></i>
 						<span class="hidden-xs">Dashboard</span>
 					</a>
@@ -167,7 +157,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'project_details' project.pk %}">Activity</a></li>
-                                    {% if role %}
+                                    {% if role and role.project == project %}
                                         <li class="dropdown">
                                             <a href="{% url 'update_project' project.pk %}" class="dropdown-toggle">
                                                 <span class="hidden-xs">Edit</span>
@@ -185,11 +175,12 @@
                                             <span class="hidden-xs">Issues</span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            {% if issue %}
+                                            {% if issue and issue.content_object == project %}
                                                 <li class="hidden"><a
-                                                        href="{% url 'issue_details' project.pk issue.pk %}"></a></li>
+                                                        href="{% url 'issue_details' project.pk issue.slug %}"></a></li>
                                             {% endif %}
-                                            <li><a href="{% url 'create_issue' project.pk %}">Create new</a></li>
+
+                                            <li><a href="{% url 'create_issue' project.pk %}">Create new {{ issue.name }}</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -210,7 +201,12 @@
                         <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
 					</ul>
 				</li>
-                {% sitetree_menu from "mytree" include "trunk,topmenu" template "sitetree/menu_bootstrap3_dropdown.html" %}
+                <li>
+					<a href="{% url 'userena_profile_list' %}" class="ajax-link">
+						<i class="fa fa-dashboard"></i>
+						<span class="hidden-xs">Users</span>
+					</a>
+				</li>
 			</ul>
             {% endactiveurl %}
 		</div>
@@ -235,7 +231,6 @@
 <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
 <!-- The Canvas to Blob plugin is included for image resizing functionality -->
 <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/bootbox.min.js' %}"></script>
 <script src="{% static 'js/bootstrapValidator.min.js' %}"></script>

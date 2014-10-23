@@ -6,6 +6,7 @@ from attachments.models import Attachment
 
 register = Library()
 
+
 @register.inclusion_tag('attachments/add_form.html', takes_context=True)
 def attachment_form(context, obj):
     """
@@ -25,6 +26,7 @@ def attachment_form(context, obj):
             'form': None,
         }
 
+
 @register.inclusion_tag('attachments/add_form.html', takes_context=True)
 def attachment_ajax_form(context, obj):
     """
@@ -43,6 +45,7 @@ def attachment_ajax_form(context, obj):
             'form': None,
         }
 
+
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
 def attachment_delete_link(context, attachment):
     """
@@ -55,14 +58,13 @@ def attachment_delete_link(context, attachment):
     attachments.
     """
     if context['user'].has_perm('delete_foreign_attachments') \
-       or (context['user'] == attachment.creator and \
-           context['user'].has_perm('attachments.delete_attachment')):
+            or (context['user'] == attachment.creator and \
+                        context['user'].has_perm('attachments.delete_attachment')):
         return {
             'next': context['request'].build_absolute_uri(),
             'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
         }
-    return {'delete_url': None,}
-
+    return {'delete_url': None, }
 
 
 class AttachmentsForObjectNode(Node):
@@ -83,6 +85,7 @@ class AttachmentsForObjectNode(Node):
         context[var_name] = Attachment.objects.attachments_for_object(obj)
         return ''
 
+
 @register.tag
 def get_attachments_for(parser, token):
     """
@@ -100,9 +103,10 @@ def get_attachments_for(parser, token):
         {% get_attachments_for obj as "my_attachments" %}
 
     """
+
     def next_bit_for(bits, key, if_none=None):
         try:
-            return bits[bits.index(key)+1]
+            return bits[bits.index(key) + 1]
         except ValueError:
             return if_none
 

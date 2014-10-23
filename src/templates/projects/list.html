@@ -6,5 +6,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if projects %}
     {% render_table table %}
+    {% else %}
+        <p>There is no projects yet. <a href="{% url 'create_project' %}">Create new one!</a></p>
+    {% endif %}
 {% endblock %}

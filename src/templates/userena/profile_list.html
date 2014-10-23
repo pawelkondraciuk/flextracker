@@ -1,19 +1,22 @@
 {% extends 'userena/base_userena.html' %}
 {% load i18n %}
-{% load url from future %}
+{% load django_tables2 %}
+{% load account_tags %}
 
 {% block content_title %}<h2>{% trans 'Profiles' %}</h2>{% endblock %}
 
 {% block content %}
-<ul id="profile_list">
-  {% for profile in profile_list %}
-  <li>
-  <a href="{% url 'userena_profile_detail' profile.user.username %}"><img src="{{ profile.get_mugshot_url }}" /></a>
-  <a href="{% url 'userena_profile_detail' profile.user.username %}">{{ profile.user.username }}</a>
-  </li>
-  {% endfor %}
-
-</ul>
+    {% get_user_table_for profile_list as "users" %}
+    {% render_table users %}
+{#<ul id="profile_list">#}
+{#  {% for profile in profile_list %}#}
+{#  <li>#}
+{#  <a href="{% url 'userena_profile_detail' profile.user.username %}"><img src="{{ profile.get_mugshot_url }}" /></a>#}
+{#  <a href="{% url 'userena_profile_detail' profile.user.username %}">{{ profile.user.username }}</a>#}
+{#  </li>#}
+{#  {% endfor %}#}
+{##}
+{#</ul>#}
 
 {% if is_paginated %}
 <div class="pagination">

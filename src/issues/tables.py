@@ -18,15 +18,25 @@ class CustomTextLinkColumn(tables.LinkColumn):
       record, bound_column)
 
 class TicketTable(tables.Table):
-    details = CustomTextLinkColumn('issue_details', kwargs={'pk': A('pk'), 'project_pk': A('object_id')}, orderable=False, empty_values=(), custom_text='View')
+    slug = tables.LinkColumn('issue_details', kwargs={'slug': A('slug'), 'project_pk': A('object_id')})
+    submitter = tables.LinkColumn('userena_profile_detail', args=[A('submitter.username')])
+    assigned_to = tables.LinkColumn('userena_profile_detail', args=[A('assigned_to.username')])
 
     class Meta:
         model = Ticket
-        exclude = ('content_type', 'object_id', 'content_object')
+        exclude = ('id', 'content_type', 'object_id', 'content_object', 'description')
+        order_by = ('-modified',)
+
+class ShortTicketTable(tables.Table):
+    slug = tables.LinkColumn('issue_details', kwargs={'slug': A('slug'), 'project_pk': A('object_id')})
+
+    class Meta:
+        model = Ticket
+        fields = ('slug', 'title', 'priority', 'status')
         order_by = ('-modified',)
 
 class MessageTable(tables.Table):
-    details = CustomTextLinkColumn('issue_details', kwargs={'pk': A('pk'), 'project_pk': A('object_id')}, orderable=False, empty_values=(), custom_text='View')
+    details = CustomTextLinkColumn('issue_details', kwargs={'slug': A('slug'), 'project_pk': A('object_id')}, orderable=False, empty_values=(), custom_text='View')
 
     class Meta:
         model = Message
