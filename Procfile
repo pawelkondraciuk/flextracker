@@ -1,0 +1,1 @@
+web: gunicorn src.flex.wsgi --log-file -
