@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'issues',
     'attachments',
     'workflow',
+    'github_hook',
     ###########################
     'south',
     'django_activeurl',
@@ -66,7 +67,7 @@ INSTALLED_APPS = (
     'actstream',
     'genericadmin',
     'watson',
-    'github_hook',
+    'rest_framework',
     #'django_hstore',
 )
 
