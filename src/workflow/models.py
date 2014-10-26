@@ -8,10 +8,16 @@ class WorkflowManager(models.Manager):
         return self.filter(content_type__pk=object_type.id,
                            object_id=obj.id)
 
+TYPE_CHOICES = (
+    (1, 'Start'),
+    (2, 'Middle'),
+    (3, 'Last')
+)
+
 class Status(models.Model):
     name = models.CharField(max_length=50)
     available_states = models.ManyToManyField('self', blank=True)
-    start = models.BooleanField(default=False)
+    type = models.IntegerField(choices=TYPE_CHOICES, default=1)
     workflow = models.ForeignKey('Workflow', related_name='states')
 
     class Meta:
@@ -35,9 +41,20 @@ class Workflow(models.Model):
         ret = super(Workflow, self).save(*args, **kwargs)
 
         if pk is None:
-            Status.objects.create(name='Start', start=True, workflow=self)
+            Status.objects.create(name='Open', type=1, workflow=self)
+            Status.objects.create(name='Closed', type=3, workflow=self)
 
         return ret
 
     def __unicode__(self):
         return self.name
+
+
+    @property
+    def start_state(self):
+        return self.states.get(type=1)
+
+
+    @property
+    def end_state(self):
+        return self.states.get(type=3)

@@ -1,6 +1,6 @@
 from actstream import registry
 from actstream.signals import action
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -11,7 +11,7 @@ from django.utils import timezone
 from django_tools.middlewares import ThreadLocal
 from taggit.managers import TaggableManager
 from workflow.models import Status
-
+import watson
 
 def unique_slug(item, slug_source, slug_field):
     """Ensures a unique slug field by appending an integer counter to duplicate slugs.
@@ -31,6 +31,7 @@ def unique_slug(item, slug_source, slug_field):
         itemModel = item.__class__
         # the following gets all existing slug values
         allSlugs = [sl.values()[0] for sl in itemModel.objects.values(slug_field)]
+        allSlugs.append(slug)
         if slug in allSlugs:
             import re
 
@@ -106,6 +107,16 @@ class Ticket(models.Model):
 
         return reverse('issue_details', args=[self.object_id, self.slug])
 
+class TicketSearchAdapter(watson.SearchAdapter):
+    fields = ('title', 'description', 'get_priority_display', 'status__name', 'submitter__username', 'slug')
+
+    def get_title(self, obj):
+        return obj.title
+
+    def get_description(self, obj):
+        return obj.description
+
+watson.register(Ticket, TicketSearchAdapter)
 
 class TicketChange(models.Model):
     ticket = models.ForeignKey(Ticket, related_name='changes')
@@ -132,6 +143,8 @@ def apply_ticket_change(sender, instance, **kwargs):
         diff = [key for key, value in old_instance.items() if value != new_instance[key]]
         if diff:
             user = ThreadLocal.get_current_user()
+            if type(user) is AnonymousUser:
+                user = instance._user
             change = TicketChange.objects.create(ticket=instance, user=user)
             for key in diff:
                 field = Ticket._meta.get_field(key)

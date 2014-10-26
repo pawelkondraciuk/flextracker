@@ -20,7 +20,9 @@
             </div>
             <div class="box-content">
                 {% for action in action_list %}
-                    {% display_action action %}
+                    <div>
+                        {% display_action action %}
+                    </div>
                 {% empty %}
                     {% trans "No actions yet" %}
                 {% endfor %}

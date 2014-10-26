@@ -5,9 +5,12 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.utils import timezone
 from actstream import action, registry
+import watson
 
 from issues.models import Ticket
 from workflow.models import Workflow
+from github_hook.models import hook_signal, Hook
+
 
 class Role(models.Model):
     project = models.ForeignKey('Project', related_name='roles')
@@ -30,6 +33,8 @@ class Project(models.Model):
     members = models.ForeignKey(Group, null=True, on_delete=models.CASCADE)
     workflow = models.ForeignKey(Workflow)
     private = models.BooleanField()
+
+    github_hook = models.CharField(max_length=255, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://109.231.47.249:8000/hook to your GitHub webhooks.')
 
     tickets = generic.GenericRelation(Ticket)
     workflows = generic.GenericRelation(Workflow)
@@ -59,6 +64,11 @@ class Project(models.Model):
     def on_new_ticket(self, ticket):
         action.send(ticket.submitter, verb='created new ticket', action_object=ticket, target=self)
 
+class ProjectSearchAdapter(watson.SearchAdapter):
+    def get_title(self, obj):
+        return obj.name
+
+watson.register(Project, ProjectSearchAdapter)
 
 def modify_project_group(sender, instance, **kwargs):
     if instance.pk:
@@ -80,3 +90,17 @@ registry.register(Role)
 registry.register(Project)
 registry.register(Group)
 registry.register(User)
+
+def processWebhook(sender, **kwargs):
+    if not Project.objects.filter(github_hook=kwargs['payload']['repository']['html_url']).exists():
+        return
+
+    for commit in kwargs['payload']['commits']:
+        try:
+            author = User.objects.get(email=commit['author']['email'])
+        except User.DoesNotExist:
+            author = None
+
+
+
+hook_signal.connect(processWebhook)

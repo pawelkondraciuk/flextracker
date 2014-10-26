@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils.encoding import force_text
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from github_hook.models import Hook
 from issues.models import Ticket
 from projects.models import Role, Project
 from workflow.models import Workflow
@@ -39,7 +40,7 @@ class RoleAddForm(forms.ModelForm):
 class UpdateProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('name', 'code', 'workflow')
+        fields = ('name', 'code', 'workflow', 'github_hook')
         widgets = {
             'workflow': forms.RadioSelect(),
         }

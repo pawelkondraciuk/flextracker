@@ -2,12 +2,14 @@ from actstream.signals import action
 
 from braces.views._access import PermissionRequiredMixin, UserPassesTestMixin
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models.query import QuerySet
 from django.db.models.query_utils import Q
 from django.forms.widgets import RadioSelect
 from django.views import generic
 from django_tables2.views import SingleTableView
 
 from attachments.views import set_attachments_object
+from issues.filters import TicketFilter
 from issues.forms import TicketForm, CreateTicketForm
 from issues.models import Ticket
 from issues.tables import TicketTable
@@ -127,17 +129,38 @@ class IssueListView(SingleTableView):
     template_name = 'issues/list.html'
     table_class = TicketTable
 
-    def get_queryset(self):
+    def get_qs(self):
         project = Project.objects.get(pk=self.kwargs.get('pk'))
         if self.request.user in project.members.user_set.all():
             return project.tickets.all()
         return project.tickets.filter(Q(confidential=False) | Q(confidential=True, submitter=self.request.user)).all()
+
+    def get_queryset(self):
+        return TicketFilter(self.request.GET, queryset=self.get_qs())
 
     def get_context_data(self, **kwargs):
         context = super(IssueListView, self).get_context_data(**kwargs)
         context['project'] = Project.objects.get(pk=self.kwargs['pk'])
         return context
 
+class GlobalIssueListView(SingleTableView):
+    template_name = 'issues/list.html'
+    table_class = TicketTable
+
+    def get_qs(self):
+        qs = QuerySet(model=Ticket)
+
+        for project in Project.objects.filter(roles__members=self.request.user):
+            qs |= project.tickets.all()
+
+        for project in Project.objects.exclude(roles__members=self.request.user):
+            qs |= project.tickets.filter(confidential=False)
+
+        return qs
+        #return Ticket..filter(Q(confidential=False) | Q(confidential=True, submitter=self.request.user)).all()
+
+    def get_queryset(self):
+        return TicketFilter(self.request.GET, queryset=self.get_qs())
 
 class CreateIssueView(generic.CreateView):
     template_name = 'issues/create.html'
@@ -171,7 +194,7 @@ class IssueView(UserPassesTestMixin, generic.DetailView):
     def test_func(self, user):
         issue = self.get_object()
         project = Project.objects.get(pk=self.kwargs['project_pk'])
-        return not issue.confidential or (issue.confidential and (user == issue.submitter or user in project.members))
+        return not issue.confidential or (issue.confidential and (user == issue.submitter or project.roles.filter(members=user).exists()))
 
     def get_context_data(self, **kwargs):
         context = super(IssueView, self).get_context_data(**kwargs)

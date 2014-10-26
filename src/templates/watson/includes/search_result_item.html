@@ -1,0 +1,9 @@
+<div class="one-result">
+    <a href="{{result.url}}" class="large">{{result.title}}</a>
+    <p class="txt-primary">{{result.url}}</p>
+    <p>
+        {% if result.description %}
+            {{result.description|linebreaks}}
+        {% endif %}
+    </p>
+</div>

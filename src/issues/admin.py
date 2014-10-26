@@ -1,3 +1,4 @@
+import watson
 from attachments.admin import AttachmentInlines
 from django.contrib import admin
 from issues.models import Ticket

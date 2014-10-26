@@ -71,8 +71,8 @@
 						  <i class="fa fa-bars"></i>
 						</a>
 						<div id="search">
-							<input type="text" placeholder="search"/>
-							<i class="fa fa-search"></i>
+                            <input name="q" value="{{request.GET.q}}" type="text" placeholder="search"/>
+                            <i class="fa fa-search"></i>
 						</div>
 					</div>
 					<div class="col-xs-4 col-sm-8 top-panel-right">
@@ -246,9 +246,15 @@
 
         {% block valitator %}
             $('form').bootstrapValidator({
-                language: 'en',
+                language: 'en'
             });
         {% endblock %}
+
+        $('#search input').keypress(function(e) {
+            if(e.which == 10 || e.which == 13) {
+                self.window.location = {% url 'search' %} + '?' + $.param({q: $(this).val()})
+            }
+        });
 
         $('.main-menu').on('click', 'a', function (e) {
             var parents = $(this).parents('li');

@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.contrib import messages
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -64,6 +65,9 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'actstream',
     'genericadmin',
+    'watson',
+    'github_hook',
+    #'django_hstore',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,6 +93,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'projects.context_processors.project_list',
     'django_messages.context_processors.inbox',
+    'django.contrib.messages.context_processors.messages'
 )
 
 ROOT_URLCONF = 'flex.urls'
@@ -206,4 +211,8 @@ BOOTSTRAP3 = {
         'default': 'utils.bootstrap_render.CustomFieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
+}
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
 }

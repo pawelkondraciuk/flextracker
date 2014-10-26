@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load watson %}
+
+{% block content %}
+    <div class="col-xs-12">
+{#        <p class="small">About 3,870,000,000 results (0.28 seconds)</p>#}
+        <h1>Search results{% if query %} for &ldquo;{{query}}&rdquo;{% endif %}</h1>
+        {% if search_results %}
+            {% search_results search_results %}
+        {% else %}
+            {% if query %}
+                <p><em>There are no results to display.</em></p>
+                <p><em>Try entering a less specific search term.</em></p>
+            {% else %}
+                <p><em>Please enter a query in the search form.</em></p>
+            {% endif %}
+        {% endif %}
+
+    {% if is_paginated %}
+        <ul class="pagination pagination-centered">
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1"><<</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}"><</a></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                <li {% if page_obj.number == i %} class="active" {% endif %}><a href="?page={{i}}">{{i}}</a></li>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">></a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}">>></a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+    </div>
+{% endblock %}
