@@ -49,3 +49,4 @@ class UpdateProjectForm(forms.ModelForm):
         super(UpdateProjectForm, self).__init__(*args, **kwargs)
         self.fields['workflow'].queryset = Workflow.objects.workflow_for_object(self.instance)
         self.fields['workflow'].empty_label = None
+        self.fields['workflow'].label = 'Workflow <i class="fa fa-plus"></i>'

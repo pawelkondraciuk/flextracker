@@ -148,8 +148,12 @@ def apply_ticket_change(sender, instance, **kwargs):
             change = TicketChange.objects.create(ticket=instance, user=user)
             for key in diff:
                 field = Ticket._meta.get_field(key)
-                TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=old._get_FIELD_display(field),
-                                                   new_value=instance._get_FIELD_display(field))
+                if not isinstance(field, models.ForeignKey):
+                    TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=old._get_FIELD_display(field),
+                                                       new_value=instance._get_FIELD_display(field))
+                else:
+                    TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=str(getattr(instance, key)),
+                                                       new_value=str(getattr(instance, key)))
 
             if 'assigned_to' in diff:
                 action.send(ThreadLocal.get_current_user(), verb='assigned', action_object=instance,

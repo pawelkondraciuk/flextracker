@@ -7,7 +7,7 @@ from workflow.models import Workflow
 
 
 class UpdateWorkflow(generic.UpdateView):
-    template_name = 'workflow/create.html'
+    template_name = 'workflow/edit.html'
     model = Workflow
     context_object_name = 'workflow'
 

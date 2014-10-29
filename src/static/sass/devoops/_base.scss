@@ -31,17 +31,22 @@
   }
 }
 
-.accordion-toggle h4:after {
+.accordion-toggle h4:before {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
   content: "\e114"; /* adjust as needed, taken from bootstrap.css */
-  float: right; /* adjust as needed */
+//  #float: right; /* adjust as needed */
+  margin-right: 10px;
   color: grey; /* adjust as needed */
 }
 
-.accordion-toggle.collapsed h4:after {
+.accordion-toggle.collapsed h4:before {
   /* symbol for "collapsed" panels */
   content: "\e080"; /* adjust as needed, taken from bootstrap.css */
+}
+
+.workflow a {
+  text-decoration: none;
 }
 
 i.fa-plus {

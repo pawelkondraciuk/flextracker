@@ -36,35 +36,43 @@
         $('i.fa-plus').click(function (e) {
             window.open("{% url 'create_workflow' %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
         })
-        function addWorkflow(workflow) {
-            var count = $('#id_workflow .radio').length;
-            $('#id_workflow')
-                    .append(
-                    $('<div/>')
-                            .addClass('radio')
-                            .append(
+        function workflow(workflow) {
+            var existing = $('#id_workflow .radio input[value=' + workflow.id + ']');
+            if (existing.length > 0 ) {
+                existing.parent().find('span').text(workflow.value);
+            } else {
+
+                var count = $('#id_workflow .radio').length;
+                $('#id_workflow')
+                        .append(
+                        $('<div/>')
+                                .addClass('radio')
+                                .append(
                                 $('<label/>')
                                         .attr('for', 'id_workflow_' + count)
                                         .append(
-                                            $('<input/>')
+                                        $('<input/>')
                                                 .attr('id', 'id_workflow_' + count)
                                                 .attr('required', 'required')
                                                 .attr('type', 'radio')
                                                 .attr('name', 'workflow')
                                                 .attr('value', workflow.id)
-                                        )
-                                        .append(workflow.value + '&nbsp;')
+                                )
                                         .append(
-                                            $('<i/>')
+                                        $('<span/>').text(workflow.value)
+                                )
+                                        .append(
+                                        $('<i/>')
                                                 .addClass('fa fa-circle-o')
-                                        )
-                            )
-                            .append(
+                                )
+                        )
+                                .append(
                                 $('<a/>')
-                                    .attr('href', '/workflow/' + workflow.id + '/edit/')
-                                    .text('Edit')
-                            )
-            )
+                                        .attr('href', '/workflow/' + workflow.id + '/edit/')
+                                        .text('Edit')
+                        )
+                )
+            }
         }
     </script>
 

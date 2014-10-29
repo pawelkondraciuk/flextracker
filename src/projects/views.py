@@ -208,6 +208,14 @@ class EditIssueView(generic.UpdateView):
     form_class = TicketForm
     context_object_name = 'issue'
 
+    def form_valid(self, form):
+        ticket = form.save(commit=False)
+        set_attachments_object(self.request.user, ticket, self.request.POST.getlist('files[]'))
+        return super(EditIssueView, self).form_valid(form)
+
+    def get_form(self, form_class):
+        return form_class(Project.objects.get(pk=self.kwargs['project_pk']).workflow, **self.get_form_kwargs())
+
     def get_success_url(self):
         return reverse('issue_details', kwargs={'slug': self.object.slug, 'project_pk': self.kwargs.get('project_pk')})
 

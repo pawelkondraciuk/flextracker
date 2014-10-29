@@ -1,27 +1,79 @@
 {% extends 'workflow/base.html' %}
 
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{{ workflow.name }}{% endblock %}
 
 {% block box-name %}
     <i class="fa fa-cog"></i>
-    <span>Create new workflow</span>
+    <span>{{ workflow.name }}</span>
 {% endblock %}
 
 {% block box-content %}
-    <form method="post">
-        {% csrf_token %}
+    {% verbatim %}
+        <div ng-app="workflow" ng-controller="WorkflowController" class="ng-cloak form-horizontal row" ng-class="{'ng-cloak': loading}">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="id_name">Name</label>
+                    <div class="col-md-10">
+                        <input id="id_name" name="" type="text" placeholder="Workflow name" class="form-control input-md" required ng-model="workflow.name">
+                    </div>
+                </div>
 
-        {% for field in form %}
+                <div class="workflow" style="margin-top:15px;" ng-repeat="status in workflow.states">
+                    <a data-toggle="collapse" href="#status_{{ status.name }}" class="accordion-toggle collapsed">
+                        <h4 class="page-header" ng-bind="status.name"></h4>
+                    </a>
 
-            {{ field }}
+                    <div id="status_{{ status.name }}" class="panel-collapse collapse">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="id_status_{{ status.name }}_name">Name</label>
+                            <div class="col-md-10">
+                                <input id="id_status_{{ status.name }}_name" name="" type="text" placeholder="Name" class="form-control input-md" required ng-model="status.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="id_{{ status.name }}_available_states">Available states</label>
+                            <div class="col-md-10">
+                                <select id="id_{{ status.name }}_available_states" name="selectmultiple" class="form-control" multiple="multiple"
+                                        ng-model="status.available_states" <!--ng-option="_status.name for _status in workflow.states | filter: {name: '!' + status.name}"-->>
+                                    <option ng-repeat="_status in workflow.states | filter: {name: '!' + status.name}" value="{{ _status.id }}" ng-selected="(status.available_states | filter: _status.id).length > 0">{{ _status.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        {% endfor %}
-
-        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary"> Edit</button>
+                <div>
+                    <i ng-click="addStatus()" class="fa fa-plus"></i>
+                    <button class="btn btn-primary pull-right" ng-click="send()">Send</button>
+                </div>
+            </div>
         </div>
-    </form>
+    {% endverbatim %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/workflow-angularjs.js' %}"></script>
+    <script>
+        angular.module('workflow.urls', [])
+                .constant('workflowId', {{ workflow.id }})
+        $(function() {
+            $("form").submit(function() {
+                window.opener.addWorkflow({id: 1, value: 'Default'});
+{#                var that = this;#}
+{#                $.ajax({#}
+{#                   type: "POST",#}
+{#                   url: '.',#}
+{#                   data: that.serialize(), // serializes the form's elements.#}
+{#                   success: function(data) {#}
+{#                       window.close();#}
+{#                   }#}
+{#                });#}
+
+                return false; // avoid to execute the actual submit of the form.
+            });
+        });
+    </script>
 {% endblock %}

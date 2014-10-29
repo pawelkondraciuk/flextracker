@@ -14,9 +14,20 @@ TYPE_CHOICES = (
     (3, 'Last')
 )
 
-class Status(models.Model):
+class ReadNestedWriteFlatMixin(object):
+    """
+    Mixin that sets the depth of the serializer to 0 (flat) for writing operations.
+    For all other operations it keeps the depth specified in the serializer_class
+    """
+    def get_serializer_class(self, *args, **kwargs):
+        serializer_class = super(ReadNestedWriteFlatMixin, self).get_serializer_class(*args, **kwargs)
+        if self.request.method in ['PATCH', 'POST', 'PUT']:
+            serializer_class.Meta.depth = 0
+        return serializer_class
+
+class Status(ReadNestedWriteFlatMixin, models.Model):
     name = models.CharField(max_length=50)
-    available_states = models.ManyToManyField('self', blank=True)
+    available_states = models.ManyToManyField('self', blank=True, symmetrical=False)
     type = models.IntegerField(choices=TYPE_CHOICES, default=1)
     workflow = models.ForeignKey('Workflow', related_name='states')
 

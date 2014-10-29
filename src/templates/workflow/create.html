@@ -1,6 +1,7 @@
 {% extends 'workflow/base.html' %}
 
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{{ workflow.name }}{% endblock %}
 
@@ -10,24 +11,18 @@
 {% endblock %}
 
 {% block box-content %}
-    <form method="post">
-        {% csrf_token %}
-
-        {% for field in form %}
-
-            {{ field }}
-
-        {% endfor %}
-
-        {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary"> Create</button>
+    {% verbatim %}
+        <div ng-app="workflow" ng-controller="WorkflowController">
+            {{ workflow.name }}
         </div>
-    </form>
+    {% endverbatim %}
 {% endblock %}
 
 {% block javascript %}
+    <script src="{% static 'js/workflow-angularjs.js' %}"></script>
     <script>
+        angular.module('workflow.urls', [])
+                .constant('projectId', {{ object.id }})
         $(function() {
             $("form").submit(function() {
                 window.opener.addWorkflow({id: 1, value: 'Default'});

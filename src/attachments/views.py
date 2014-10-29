@@ -16,17 +16,17 @@ from attachments.forms import AttachmentForm
 
 
 def add_url_for_obj(obj):
-    if obj.pk:
-        return reverse('add_attachment', kwargs={
-            'app_label': obj._meta.app_label,
-            'module_name': obj._meta.module_name,
-            'pk': obj.pk
-        })
-    else:
-        return reverse('add_temp_attachment', kwargs={
-            'app_label': obj._meta.app_label,
-            'module_name': obj._meta.module_name,
-        })
+    # if obj.pk:
+    #     return reverse('add_attachment', kwargs={
+    #         'app_label': obj._meta.app_label,
+    #         'module_name': obj._meta.module_name,
+    #         'pk': obj.pk
+    #     })
+    # else:
+    return reverse('add_temp_attachment', kwargs={
+        'app_label': obj._meta.app_label,
+        'module_name': obj._meta.module_name,
+    })
 
 
 @require_POST
