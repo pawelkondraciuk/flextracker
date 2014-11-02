@@ -64,6 +64,9 @@ class Project(models.Model):
     def on_new_ticket(self, ticket):
         action.send(ticket.submitter, verb='created new ticket', action_object=ticket, target=self)
 
+    def has_perm(self, user, perm):
+        pass
+
 class ProjectSearchAdapter(watson.SearchAdapter):
     def get_title(self, obj):
         return obj.name

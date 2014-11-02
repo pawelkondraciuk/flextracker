@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -36,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'issues',
     'attachments',
     'workflow',
+    'comments',
     'github_hook',
     ###########################
     'south',
@@ -192,6 +193,10 @@ TEMPLATE_DIRS = (
 #     #     },
 #     # }
 # }
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse('userena_profile_detail', args=[u.username]),
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

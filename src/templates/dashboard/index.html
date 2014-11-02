@@ -9,7 +9,7 @@
 
 {% block content %}
 {% get_short_table_assigned_to request.user as "assigned_to_me" %}
-{% activity_stream 'user' user as='action_list' %}
+{% activity_stream 'target' user as='action_list' %}
 
     <div class="col-xs-12 col-sm-6">
         <div class="box ui-draggable ui-droppable">
@@ -22,8 +22,9 @@
             </div>
             <div class="box-content">
                 {% for action in action_list %}
-                    {% display_action action %}
-{#                    <li>{% include 'actstream/action.html' %}</li>#}
+                    <div>
+                        {% display_action action %}
+                    </div>
                 {% empty %}
                     {% trans "No actions yet" %}
                 {% endfor %}
@@ -41,7 +42,7 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content">
-                {% if assigned_to_me.queryset.count %}
+                {% if assigned_to_me.data.queryset %}
                     {% render_table assigned_to_me %}
                 {% else %}
                     You have no assigned tickets

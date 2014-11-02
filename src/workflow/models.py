@@ -29,6 +29,7 @@ class Status(ReadNestedWriteFlatMixin, models.Model):
     name = models.CharField(max_length=50)
     available_states = models.ManyToManyField('self', blank=True, symmetrical=False)
     type = models.IntegerField(choices=TYPE_CHOICES, default=1)
+    verb = models.CharField(max_length=50)
     workflow = models.ForeignKey('Workflow', related_name='states')
 
     class Meta:

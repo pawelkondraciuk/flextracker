@@ -31,7 +31,8 @@
   }
 }
 
-.accordion-toggle h4:before {
+.accordion-toggle h4:before,
+.accordion-toggle .content:before {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
   content: "\e114"; /* adjust as needed, taken from bootstrap.css */
@@ -40,7 +41,8 @@
   color: grey; /* adjust as needed */
 }
 
-.accordion-toggle.collapsed h4:before {
+.accordion-toggle.collapsed h4:before,
+.accordion-toggle.collapsed .content:before{
   /* symbol for "collapsed" panels */
   content: "\e080"; /* adjust as needed, taken from bootstrap.css */
 }
@@ -64,4 +66,9 @@ table td {
     height: 65px;
     width: 65px;
   }
+}
+
+#id_status .radio {
+  float:  left;
+  margin-right: 10px;
 }

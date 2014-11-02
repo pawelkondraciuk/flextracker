@@ -26,7 +26,8 @@
 }
 
 /* line 34, ../sass/devoops/_base.scss */
-.accordion-toggle h4:before {
+.accordion-toggle h4:before,
+.accordion-toggle .content:before {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings';
   /* essential for enabling glyphicon */
@@ -37,34 +38,41 @@
   /* adjust as needed */
 }
 
-/* line 43, ../sass/devoops/_base.scss */
-.accordion-toggle.collapsed h4:before {
+/* line 44, ../sass/devoops/_base.scss */
+.accordion-toggle.collapsed h4:before,
+.accordion-toggle.collapsed .content:before {
   /* symbol for "collapsed" panels */
   content: "\e080";
   /* adjust as needed, taken from bootstrap.css */
 }
 
-/* line 48, ../sass/devoops/_base.scss */
+/* line 50, ../sass/devoops/_base.scss */
 .workflow a {
   text-decoration: none;
 }
 
-/* line 52, ../sass/devoops/_base.scss */
+/* line 54, ../sass/devoops/_base.scss */
 i.fa-plus {
   cursor: pointer;
 }
 
-/* line 56, ../sass/devoops/_base.scss */
+/* line 58, ../sass/devoops/_base.scss */
 table td {
   vertical-align: middle !important;
 }
 
-/* line 60, ../sass/devoops/_base.scss */
+/* line 62, ../sass/devoops/_base.scss */
 .profile-avatar {
   margin-right: 10px;
 }
-/* line 63, ../sass/devoops/_base.scss */
+/* line 65, ../sass/devoops/_base.scss */
 .profile-avatar > img {
   height: 65px;
   width: 65px;
+}
+
+/* line 71, ../sass/devoops/_base.scss */
+#id_status .radio {
+  float: left;
+  margin-right: 10px;
 }

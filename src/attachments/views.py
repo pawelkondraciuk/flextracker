@@ -107,7 +107,7 @@ def delete_attachment(request, attachment_pk):
     if request.user.has_perm('delete_foreign_attachments') \
             or request.user == g.creator:
         g.delete()
-        request.user.message_set.create(message=ugettext('Your attachment was deleted.'))
+        #request.user.message_set.create(message=ugettext('Your attachment was deleted.'))
     next = request.REQUEST.get('next') or '/'
     return HttpResponseRedirect(next)
 

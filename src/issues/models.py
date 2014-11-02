@@ -82,7 +82,7 @@ class Ticket(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    tags = TaggableManager()
+    #tags = TaggableManager()
     objects = TicketManager()
 
     def __unicode__(self):
@@ -158,6 +158,13 @@ def apply_ticket_change(sender, instance, **kwargs):
             if 'assigned_to' in diff:
                 action.send(ThreadLocal.get_current_user(), verb='assigned', action_object=instance,
                             target=instance.assigned_to)
+
+            if 'status' in diff:
+                action.send(ThreadLocal.get_current_user(), verb=instance.status.verb.lower(), action_object=instance,
+                            target=instance.content_object)
+    else:
+        action.send(ThreadLocal.get_current_user(), verb='created new', action_object=instance, target=instance.content_object)
+
 
 
 signals.pre_save.connect(apply_ticket_change, sender=Ticket)

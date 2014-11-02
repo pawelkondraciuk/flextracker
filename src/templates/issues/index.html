@@ -2,6 +2,7 @@
 {% load bootstrap3 %}
 {% load thumbnail %}
 {% load attachments_tags %}
+{% load comments_tags %}
 {% load issues_tags %}
 {% load staticfiles %}
 
@@ -76,13 +77,51 @@
             Comments</h4></a>
 
         <div id="comments" class="panel-collapse collapse">
-            {% for change in issue.changes.all %}
-                {{ change.date }} {{ change.user }}
-                {% for detail in change.details.all %}
-                    <p>{{ detail.field }} {{ detail.old_value }} <i
-                            class="fa fa-arrow-circle-right"></i> {{ detail.new_value }}</p>
-                {% endfor %}
+            {% get_comments_for issue %}
+            {% for comment in comments %}
+
+                <div class="row one-list-message msg-one-item" style="display: block;">
+                    <div class="box">
+                        <div class="avatar" style="width:90px;">
+                            <a href="{% url 'userena_profile_detail' comment.author.username %}"><img
+                                    src="{{ comment.author.profile.get_mugshot_url }}" style="width: 80px; height: initial;"></a>
+                        </div>
+                        <div class="page-feed-content">
+                            <a href="{% url 'messages_delete' comment.id %}" class="pull-right">Delete</a>
+                            <small class="time"><a
+                                    href="{% url 'userena_profile_detail' comment.author.username %}">{{ comment.author }}</a>, {{ comment.created|date:_("DATETIME_FORMAT") }}
+                            </small>
+                            {% autoescape off %}
+                            <p>{{ comment.content|urlize|url_username|linebreaksbr }}</p>
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+
             {% endfor %}
+
+            <div class="box comment-form">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-cog"></i>
+                        <span>
+                            Create new comment
+                        </span>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <form method="post" id="comment_form">
+                        {% csrf_token %}
+                        {% bootstrap_form comment_form %}
+
+                        {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

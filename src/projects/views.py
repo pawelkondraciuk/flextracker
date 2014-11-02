@@ -1,14 +1,18 @@
 from actstream.signals import action
 
 from braces.views._access import PermissionRequiredMixin, UserPassesTestMixin
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models.query import QuerySet
 from django.db.models.query_utils import Q
 from django.forms.widgets import RadioSelect
+from django.shortcuts import redirect, render_to_response
 from django.views import generic
 from django_tables2.views import SingleTableView
 
 from attachments.views import set_attachments_object
+from comments.forms import CommentForm
+from comments.models import Comment
 from issues.filters import TicketFilter
 from issues.forms import TicketForm, CreateTicketForm
 from issues.models import Ticket
@@ -196,9 +200,33 @@ class IssueView(UserPassesTestMixin, generic.DetailView):
         project = Project.objects.get(pk=self.kwargs['project_pk'])
         return not issue.confidential or (issue.confidential and (user == issue.submitter or project.roles.filter(members=user).exists()))
 
+    def post(self, request, *args, **kwargs):
+        ret = super(IssueView, self).get(request, *args, **kwargs)
+        comment_form = CommentForm(self.request.POST)
+        comment_form.set_statuses(self.object.status.available_states)
+        if comment_form.is_valid():
+            content = comment_form.cleaned_data['content']
+            issue_type = ContentType.objects.get_for_model(self.object)
+            Comment.objects.create(content=content, author=self.request.user, content_type=issue_type, object_id=self.object.id)
+
+            if self.object.status.available_states.count() > 0:
+                status = comment_form.cleaned_data['status']
+                if self.object.content_object.workflow.states.filter(pk=status.pk).exists():
+                    self.object.status = status
+                    self.object.save()
+
+        else:
+            context = self.get_context_data(object=self.object)
+            context['comment_form'] = CommentForm()
+            context['comment_form'].set_statuses(self.object.status.available_states)
+            return self.render_to_response(context)
+        return redirect('.')
+
     def get_context_data(self, **kwargs):
         context = super(IssueView, self).get_context_data(**kwargs)
         context['project'] = Project.objects.get(pk=self.kwargs['project_pk'])
+        context['comment_form'] = CommentForm()
+        context['comment_form'].set_statuses(self.object.status.available_states)
         return context
 
 

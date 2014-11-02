@@ -11,7 +11,7 @@ class TicketForm(forms.ModelForm):
     def __init__(self, workflow, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
         self.fields['status'].queryset = (self.instance.status.available_states.all() | Status.objects.filter(pk=self.instance.status.pk)).distinct()
-        #self.fields['status'].queryset = workflow.states
+
 
     def save(self, commit=True):
         obj = super(TicketForm, self).save(commit=False)
@@ -24,7 +24,7 @@ class TicketForm(forms.ModelForm):
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        exclude = ('created', 'modified', 'submitter', 'content_type', 'object_id', 'content_object', 'status', 'slug')
+        exclude = ('created', 'modified', 'submitter', 'content_type', 'object_id', 'content_object', 'status', 'slug', 'assigned_to')
 
     def __init__(self, workflow, *args, **kwargs):
         super(CreateTicketForm, self).__init__(*args, **kwargs)

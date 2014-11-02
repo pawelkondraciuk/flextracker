@@ -45,9 +45,12 @@
                                                                                             width="{{ im.width }}"
                                                                                             height="{{ im.height }}"></a>
                                     {% endthumbnail %}
+
                                 {% else %}
                                     <a href="{{ attachment.attachment_file.url }}">{{ attachment.filename }}</a>
                                 {% endif %}
+
+                                {% attachment_delete_link attachment %}
                             {% endfor %}
                         </div>
 

@@ -1,7 +1,7 @@
+import re
 from django.template import Library, Node, Variable
-from attachments.views import add_url_for_obj
-from django.core.urlresolvers import reverse
 from comments.forms import CommentForm
+from comments.models import Comment
 
 register = Library()
 
@@ -25,28 +25,7 @@ def comment_form(context, obj):
         }
 
 
-@register.inclusion_tag('attachments/delete_link.html', takes_context=True)
-def attachment_delete_link(context, attachment):
-    """
-    Renders a html link to the delete view of the given attachment. Returns
-    no content if the request-user has no permission to delete attachments.
-    
-    The user must own either the ``attachments.delete_attachment`` permission
-    and is the creator of the attachment, that he can delete it or he has
-    ``attachments.delete_foreign_attachments`` which allows him to delete all
-    attachments.
-    """
-    if context['user'].has_perm('delete_foreign_attachments') \
-            or (context['user'] == attachment.creator and \
-                        context['user'].has_perm('attachments.delete_attachment')):
-        return {
-            'next': context['request'].build_absolute_uri(),
-            'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
-        }
-    return {'delete_url': None, }
-
-
-class AttachmentsForObjectNode(Node):
+class CommentsForObjectNode(Node):
     def __init__(self, obj, var_name):
         self.obj = obj
         self.var_name = var_name
@@ -61,28 +40,12 @@ class AttachmentsForObjectNode(Node):
     def render(self, context):
         obj = self.resolve(self.obj, context)
         var_name = self.resolve(self.var_name, context)
-        context[var_name] = Attachment.objects.attachments_for_object(obj)
+        context[var_name] = Comment.objects.comments_for_object(obj)
         return ''
 
 
 @register.tag
-def get_attachments_for(parser, token):
-    """
-    Resolves attachments that are attached to a given object. You can specify
-    the variable name in the context the attachments are stored using the `as`
-    argument. Default context variable name is `attachments`.
-
-    Syntax::
-
-        {% get_attachments_for obj %}
-        {% for att in attachments %}
-            {{ att }}
-        {% endfor %}
-
-        {% get_attachments_for obj as "my_attachments" %}
-
-    """
-
+def get_comments_for(parser, token):
     def next_bit_for(bits, key, if_none=None):
         try:
             return bits[bits.index(key) + 1]
@@ -91,7 +54,7 @@ def get_attachments_for(parser, token):
 
     bits = token.contents.split()
     args = {
-        'obj': next_bit_for(bits, 'get_attachments_for'),
-        'var_name': next_bit_for(bits, 'as', '"attachments"'),
+        'obj': next_bit_for(bits, 'get_comments_for'),
+        'var_name': next_bit_for(bits, 'as', '"comments"'),
     }
-    return AttachmentsForObjectNode(**args)
+    return CommentsForObjectNode(**args)

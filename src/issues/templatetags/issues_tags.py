@@ -1,4 +1,6 @@
+import re
 from django import template
+from django.core.urlresolvers import reverse
 from django.template.base import Node, Variable
 from issues.models import Ticket
 from issues.tables import ShortTicketTable
@@ -75,7 +77,7 @@ class AssignedToObjectShortTableNode(Node):
     def render(self, context):
         obj = self.resolve(self.obj, context)
         var_name = self.resolve(self.var_name, context)
-        context[var_name] = ShortTicketTable(Ticket.objects.assigned_to(obj))
+        context[var_name] = ShortTicketTable(Ticket.objects.assigned_to(obj).exclude(status__type=3))
 
         return ''
 
@@ -106,3 +108,11 @@ def get_short_table_assigned_to(parser, token):
         'var_name': next_bit_for(bits, 'as', '"issues"'),
     }
     return AssignedToObjectShortTableNode(**args)
+
+def slugifier(match_object):
+    val = match_object.group(1)
+    return r'<a href="%s">@%s</a>' % (reverse('userena_profile_detail', args=[val]), val)
+
+@register.filter
+def url_username(text):
+    return re.sub(r'(?: |^)@([\w_-]+)', slugifier, text)

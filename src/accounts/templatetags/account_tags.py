@@ -1,6 +1,8 @@
 from django import template
+from django.contrib.auth.models import User
 from django.template.base import Node, Variable
 from django_tools.middlewares import ThreadLocal
+from accounts.models import UserProfile
 from accounts.tables import UserTable
 
 register = template.Library()
@@ -19,6 +21,10 @@ class UserListTableNode(Node):
 
     def render(self, context):
         obj = self.resolve(self.obj, context)
+
+        if obj and isinstance(obj[0], User):
+            obj = UserProfile.objects.filter(user__in=obj)
+
         var_name = self.resolve(self.var_name, context)
         context[var_name] = UserTable(obj)
 
