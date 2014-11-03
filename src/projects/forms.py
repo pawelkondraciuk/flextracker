@@ -50,3 +50,9 @@ class UpdateProjectForm(forms.ModelForm):
         self.fields['workflow'].queryset = Workflow.objects.workflow_for_object(self.instance)
         self.fields['workflow'].empty_label = None
         self.fields['workflow'].label = 'Workflow <i class="fa fa-plus"></i>'
+
+    def clean_workflow(self):
+        if self.instance:
+            return self.instance.workflow
+        else:
+            return self.fields['workflow']

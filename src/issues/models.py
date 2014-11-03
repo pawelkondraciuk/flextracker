@@ -70,7 +70,7 @@ class Ticket(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     priority = models.IntegerField(choices=PRIORITY_CHOICES)
-    status = models.ForeignKey(Status)
+    status = models.ForeignKey(Status, related_name='tickets')
     created = models.DateTimeField(auto_now_add=timezone.now)
     modified = models.DateTimeField(auto_now=timezone.now)
     submitter = models.ForeignKey(User, related_name='submitted_tickets')

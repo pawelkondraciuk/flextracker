@@ -10,17 +10,19 @@ angular.module('workflow', ['workflow.urls'])
         $scope.loading = true;
 
         $scope.addStatus = function() {
-            var found = false;
-            angular.forEach($scope.workflow.states, function(obj){
-                if (obj.name === undefined)
-                    found = true;
-            });
-            if (!found)
-                $scope.workflow.states.push({
-                    name: '',
-                    type: 2
-                })
+            WorkflowFactory.createStatus({
+                name: 'Status',
+                type: 2
+            }).success(function(result) {
+                $scope.workflow.states.push(result)
+            }).error(function(result) {
+                alert(result);
+            })
         }
+
+        $scope.removeStatus = function(idx) {
+            $scope.workflow.states.splice(idx, 1);
+        };
 
         $scope.send = function() {
             angular.forEach($scope.workflow.states, function(state) {
@@ -39,9 +41,14 @@ angular.module('workflow', ['workflow.urls'])
                     $window.close();
                 })
                 .error(function(result) {
-                    alert('Error');
+                    $scope.errors = result;
                 })
         }
+
+        $scope.isEmpty = function (obj) {
+            for (var i in obj) if (obj.hasOwnProperty(i)) return false;
+            return true;
+        };
 
         WorkflowFactory.get(workflowId)
             .success(function(result) {
@@ -70,6 +77,10 @@ angular.module('workflow', ['workflow.urls'])
 
         dataFactory.updateStatus = function (status) {
             return $http.put(urlBase + 'status/' + status.id, status);
+        };
+
+        dataFactory.createStatus = function (status) {
+            return $http.post(urlBase + 'status/', status);
         };
 
         dataFactory.remove = function (workflow) {

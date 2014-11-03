@@ -13,3 +13,13 @@ class StatusForm(forms.ModelForm):
         start = self.cleaned_data['start']
 
         return start
+
+class MappingForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        from_workflow = kwargs.pop('from_workflow')
+        to_workflow = kwargs.pop('to_workflow')
+        for state in from_workflow.states.all():
+            self.base_fields[str(state.id)] = forms.ModelChoiceField(queryset=to_workflow.states, label=state.name)
+
+        super(MappingForm, self).__init__(*args, **kwargs)

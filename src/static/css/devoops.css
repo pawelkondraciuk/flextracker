@@ -76,3 +76,8 @@ table td {
   float: left;
   margin-right: 10px;
 }
+
+/* line 76, ../sass/devoops/_base.scss */
+.fa-remove {
+  cursor: pointer;
+}
