@@ -33,14 +33,27 @@
 {% block javascript %}
 
     <script>
+        $('#id_workflow').on('click', 'ii', function (e) {
+            e.preventDefault();
+            window.open($(this).attr('href'), "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
+        });
+
         $('i.fa-plus').click(function (e) {
-            window.open("{% url 'create_workflow' %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
+            e.preventDefault();
+            window.open("{% url 'create_empty_workflow' %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
         })
         function workflow(workflow) {
             var existing = $('#id_workflow .radio input[value=' + workflow.id + ']');
             if (existing.length > 0 ) {
-                existing.parent().find('span').text(workflow.value);
+                existing.parent().contents()[1].textContent = workflow.value;
             } else {
+
+                $('form').append(
+                        $('<input/>')
+                                .attr('type', 'hidden')
+                                .attr('name', 'workflow[]')
+                                .attr('value', workflow.id)
+                )
 
                 var count = $('#id_workflow .radio').length;
                 $('#id_workflow')
@@ -59,7 +72,7 @@
                                                 .attr('value', workflow.id)
                                 )
                                         .append(
-                                        $('<span/>').text(workflow.value)
+                                        workflow.value
                                 )
                                         .append(
                                         $('<i/>')
@@ -67,9 +80,23 @@
                                 )
                         )
                                 .append(
-                                $('<a/>')
-                                        .attr('href', '/workflow/' + workflow.id + '/edit/')
-                                        .text('Edit')
+                                $('<span/>')
+                                        .addClass('pull-right')
+                                        .append(
+                                        $('<ii/>')
+                                                .addClass('editworkflow fa fa-edit')
+                                                .css('cursor', 'pointer')
+                                                .css('margin-right', '10px')
+                                                .attr('href', '/workflow/' + workflow.id + '/edit/')
+                                                .tooltip({title: 'Edit'})
+                                )
+                                        .append(
+                                        $('<ii/>')
+                                                .addClass('deleteworkflow fa fa-times')
+                                                .css('cursor', 'pointer')
+                                                .attr('href', '/workflow/' + workflow.id + '/delete/')
+                                                .tooltip({title: 'Remove'})
+                                )
                         )
                 )
             }

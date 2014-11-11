@@ -9,7 +9,7 @@ import watson
 
 from issues.models import Ticket
 from workflow.models import Workflow
-from github_hook.models import hook_signal, Hook
+from github_hook.models import hook_signal
 
 
 class Role(models.Model):
@@ -32,7 +32,7 @@ class Project(models.Model):
     created = models.DateTimeField(default=timezone.now)
     members = models.ForeignKey(Group, null=True, on_delete=models.CASCADE)
     workflow = models.ForeignKey(Workflow)
-    private = models.BooleanField()
+    private = models.BooleanField(default=False)
 
     github_hook = models.CharField(max_length=255, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://109.231.47.249:8000/hook to your GitHub webhooks.')
 

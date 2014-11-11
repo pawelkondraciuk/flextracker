@@ -83,7 +83,7 @@
 
         $('i.fa-plus').click(function (e) {
             e.preventDefault();
-            window.open("{% url 'create_workflow' %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
+            window.open("{% url 'create_workflow' project.pk %}", "_blank", "height=600, width=960, top=100, left=100, status=no, toolbar=no, menubar=no, location=no, addressbar=no");
         })
 
         $('#id_workflow label').each(function() {
@@ -113,7 +113,6 @@
             if (existing.length > 0 ) {
                 existing.parent().contents()[1].textContent=workflow.value;
             } else {
-
                 var count = $('#id_workflow .radio').length;
                 $('#id_workflow')
                         .append(
@@ -131,7 +130,7 @@
                                                 .attr('value', workflow.id)
                                 )
                                         .append(
-                                        $('<span/>').text(workflow.value)
+                                        workflow.value
                                 )
                                         .append(
                                         $('<i/>')
@@ -139,9 +138,23 @@
                                 )
                         )
                                 .append(
-                                $('<a/>')
-                                        .attr('href', '/workflow/' + workflow.id + '/edit/')
-                                        .text('Edit')
+                                $('<span/>')
+                                        .addClass('pull-right')
+                                        .append(
+                                        $('<ii/>')
+                                                .addClass('editworkflow fa fa-edit')
+                                                .css('cursor', 'pointer')
+                                                .css('margin-right', '10px')
+                                                .attr('href', '/workflow/' + workflow.id + '/edit/')
+                                                .tooltip({title: 'Edit'})
+                                )
+                                        .append(
+                                        $('<ii/>')
+                                                .addClass('deleteworkflow fa fa-times')
+                                                .css('cursor', 'pointer')
+                                                .attr('href', '/workflow/' + workflow.id + '/delete/')
+                                                .tooltip({title: 'Remove'})
+                                )
                         )
                 )
             }
@@ -149,6 +162,7 @@
 
         function deleteWorkflow(id) {
             $('#id_workflow input[value=' + id + ']').closest('.radio').remove();
+            $('#id_workflow input[type=hidden, value=' + id + ']').remove();
         }
     </script>
 {% endblock %}

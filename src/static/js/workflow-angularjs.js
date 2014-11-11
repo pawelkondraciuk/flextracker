@@ -4,10 +4,11 @@ angular.module('workflow', ['workflow.urls'])
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         }
     ])
-    .controller('WorkflowController', ['$scope', '$window', 'workflowId', 'WorkflowFactory', function($scope, $window, workflowId, WorkflowFactory) {
+    .controller('WorkflowController', ['$scope', '$window', 'TemplateData', 'WorkflowFactory', function ($scope, $window, TemplateData, WorkflowFactory) {
 
         $scope.workflow = undefined;
         $scope.loading = true;
+        var id = TemplateData.id;
 
         $scope.addStatus = function() {
             WorkflowFactory.createStatus({
@@ -18,7 +19,7 @@ angular.module('workflow', ['workflow.urls'])
             }).error(function(result) {
                 alert(result);
             })
-        }
+        };
 
         $scope.removeStatus = function(idx) {
             $scope.workflow.states.splice(idx, 1);
@@ -30,19 +31,31 @@ angular.module('workflow', ['workflow.urls'])
                 for (var i = 0; i < state.available_states.length; i++) {
                     state.available_states[i] = Number(state.available_states[i]);
                 }
-                /*WorkflowFactory.updateStatus(_state)
-                    .success(function() {
-
-                    })*/
             })
-            WorkflowFactory.update($scope.workflow)
-                .success(function(result) {
-                    $window.opener.workflow({id: workflowId, value: $scope.workflow.name});
+            if (id == undefined) {
+                if (TemplateData.projectId == undefined) {
+                    $window.opener.workflow({id: $scope.workflow.id, value: $scope.workflow.name});
                     $window.close();
-                })
-                .error(function(result) {
-                    $scope.errors = result;
-                })
+                    return;
+                }
+                WorkflowFactory.bind($scope.workflow, TemplateData.projectId)
+                    .success(function (result) {
+                        $window.opener.workflow({id: $scope.workflow.id, value: $scope.workflow.name});
+                        $window.close();
+                    })
+                    .error(function (result) {
+                        $scope.errors = result;
+                    })
+            } else {
+                WorkflowFactory.update($scope.workflow)
+                    .success(function (result) {
+                        $window.opener.workflow({id: $scope.workflow.id, value: $scope.workflow.name});
+                        $window.close();
+                    })
+                    .error(function (result) {
+                        $scope.errors = result;
+                    })
+            }
         }
 
         $scope.isEmpty = function (obj) {
@@ -50,17 +63,33 @@ angular.module('workflow', ['workflow.urls'])
             return true;
         };
 
-        WorkflowFactory.get(workflowId)
-            .success(function(result) {
-                $scope.workflow = result;
-                $scope.loading = false;
+        if (id == undefined) {
+            WorkflowFactory.create({name: 'New workflow'})
+                .success(function (result) {
+                    $scope.workflow = result;
+                    $scope.loading = false;
 
-                angular.forEach($scope.workflow.states, function(state) {
-                    for (var i = 0; i < state.available_states.length; i++) {
-                        state.available_states[i] = String(state.available_states[i]);
-                    }
+                    angular.forEach($scope.workflow.states, function (state) {
+                        for (var i = 0; i < state.available_states.length; i++) {
+                            state.available_states[i] = String(state.available_states[i]);
+                        }
+                    });
                 });
-            });
+        } else {
+            WorkflowFactory.get(id)
+                .success(function (result) {
+                    $scope.workflow = result;
+                    $scope.loading = false;
+
+                    angular.forEach($scope.workflow.states, function (state) {
+                        for (var i = 0; i < state.available_states.length; i++) {
+                            state.available_states[i] = String(state.available_states[i]);
+                        }
+                    });
+                });
+        }
+
+
     }])
     .factory('WorkflowFactory', ['$http', function($http) {
 
@@ -88,7 +117,11 @@ angular.module('workflow', ['workflow.urls'])
         };
 
         dataFactory.create = function (workflow) {
-            return $http.post(urlBase, event);
+            return $http.post(urlBase + 'create/', workflow);
+        };
+
+        dataFactory.bind = function (workflow, projectId) {
+            return $http.put(urlBase + workflow.id + '/' + projectId, workflow);
         };
 
         return dataFactory;

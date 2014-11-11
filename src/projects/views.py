@@ -1,12 +1,10 @@
-from actstream.signals import action
-
 from braces.views._access import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models.query import QuerySet
 from django.db.models.query_utils import Q
 from django.forms.widgets import RadioSelect
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect
 from django.views import generic
 from django_tables2.views import SingleTableView
 
@@ -37,11 +35,10 @@ class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
     permission_required = "add_project"
     template_name = 'projects/create.html'
     model = Project
-    fields = ('name', 'code', 'workflow')
+    fields = ('name', 'code', 'github_hook', 'workflow')
 
     def get_form(self, form_class):
         form = super(CreateProjectView, self).get_form(form_class)
-        form.fields['workflow'].queryset = Workflow.objects.none()
         form.fields['workflow'].widget = RadioSelect()
         form.fields['workflow'].label = 'Workflow <i class="fa fa-plus"></i>'
 
@@ -53,6 +50,9 @@ class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
         managers = project.roles.get(name='Project managers')
         managers.members.add(self.request.user)
         managers.save()
+
+        Workflow.objects.filter(pk__in=self.request.POST.getlist('workflow[]'), object_id__isnull=True).update(
+            object_id=project.pk)
 
         return super(CreateProjectView, self).form_valid(form)
 
@@ -76,6 +76,8 @@ class EditProjectView(generic.UpdateView):
 
         if form.data['workflow'] != form.cleaned_data['workflow']:
             return redirect(reverse('map_workflow', args=[form.cleaned_data['workflow'].pk, int(form.data['workflow'])]))
+
+        return ret
 
     def get_context_data(self, **kwargs):
         context = super(EditProjectView, self).get_context_data(**kwargs)

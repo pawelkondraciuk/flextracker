@@ -25,18 +25,23 @@
 
 {% block javascript %}
     <script>
-        $(function() {
-            $("form").submit(function() {
-                window.opener.deleteWorkflow({{ object.id }});
-                return false;
+        $(function () {
+            $("form").submit(function (event) {
+                event.preventDefault();
+
                 var that = this;
                 $.ajax({
-                   type: "POST",
-                   url: '.',
-                   data: that.serialize(), // serializes the form's elements.
-                   success: function(data) {
-                       window.close();
-                   }
+                    type: "POST",
+                    url: '.',
+                    data: $(that).serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        window.opener.deleteWorkflow({{ object.id }});
+                        window.close();
+                    },
+                    error: function (data) {
+                        window.opener.deleteWorkflow({{ object.id }});
+                        window.close();
+                    }
                 });
 
                 return false; // avoid to execute the actual submit of the form.

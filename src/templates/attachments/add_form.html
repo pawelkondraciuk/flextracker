@@ -1,18 +1,18 @@
 {% load i18n %}
 {% if form %}
-{#    <form id="fileupload" method="post" enctype="multipart/form-data" action="{{ form_url }}"> {% csrf_token %}#}
-        <span class="btn btn-success fileinput-button">
+    {#    <form id="fileupload" method="post" enctype="multipart/form-data" action="{{ form_url }}"> {% csrf_token %}#}
+    <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
             <span>Select files...</span>
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
+        {% for field in form %}
+            {{ field }}
+        {% endfor %}
         </span>
 
-        <div id="progress" class="progress">
-            <div class="progress-bar progress-bar-success"></div>
-        </div>
-{#    </form>#}
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    {#    </form>#}
 
     <script>
         $(function () {
@@ -24,7 +24,7 @@
             }).on('fileuploadadd', function (e, data) {
                 data.context = $('<div/>').appendTo('#files');
                 $.each(data.files, function (index, file) {
-                    var node = $('<p/>')
+                    var node = $('<span/>')
                             .append($('<span/>').text(file.name));
                     node.appendTo(data.context);
                 });
@@ -49,7 +49,7 @@
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress .progress-bar').css(
                         'width',
-                            progress + '%'
+                                progress + '%'
                 );
             }).on('fileuploaddone', function (e, data) {
                 $.each(data.result.files, function (index, file) {

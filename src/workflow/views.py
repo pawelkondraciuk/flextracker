@@ -1,6 +1,4 @@
-from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.shortcuts import render
 
 # Create your views here.
 from django.views import generic
@@ -17,7 +15,16 @@ class UpdateWorkflow(generic.UpdateView):
 class CreateWorkflow(generic.CreateView):
     template_name = 'workflow/create.html'
     model = Workflow
-    
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateWorkflow, self).get_context_data(**kwargs)
+        context['project_id'] = self.kwargs['project_id']
+        return context
+
+
+class CreateEmptyWorkflow(generic.CreateView):
+    template_name = 'workflow/create.html'
+    model = Workflow
 
 class DeleteWorkflow(generic.DeleteView):
     model = Workflow

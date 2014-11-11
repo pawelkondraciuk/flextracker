@@ -3,11 +3,10 @@ from django.contrib.auth.models import Permission
 from django.core.urlresolvers import reverse
 from django.utils.encoding import force_text
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
-from github_hook.models import Hook
-from issues.models import Ticket
+
 from projects.models import Role, Project
 from workflow.models import Workflow
+
 
 class WorkflowRadioChoiceInput(forms.widgets.RadioChoiceInput):
 
@@ -56,3 +55,19 @@ class UpdateProjectForm(forms.ModelForm):
             return self.instance.workflow
         else:
             return self.fields['workflow']
+
+
+class CreateProjectForm(forms.ModelForm):
+    workflow = forms.IntegerField(required=True)
+
+    class Meta:
+        model = Project
+        fields = ('name', 'code', 'github_hook')
+        widgets = {
+            'workflow': forms.RadioSelect(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CreateProjectForm, self).__init__(*args, **kwargs)
+        self.fields['workflow'].empty_label = None
+        self.fields['workflow'].label = 'Workflow <i class="fa fa-plus"></i>'
