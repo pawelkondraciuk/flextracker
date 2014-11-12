@@ -208,6 +208,7 @@ EMAIL_HOST_PASSWORD = 'flextracke'
 
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+USERENA_ACTIVATION_REQUIRED = False
 
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
