@@ -18,5 +18,7 @@ urlpatterns = patterns('',
    url(r'^workflow/', include('workflow.urls')),
    url(r'^projects/', include('projects.urls')),
    url(r'^projects/', include('issues.urls')),
+   url(r'^comments/', include('comments.urls')),
    url(r'^', include('dashboard.urls')),
+   url(r'^', include('accounts.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

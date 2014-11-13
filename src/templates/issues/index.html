@@ -36,7 +36,7 @@
 
         <div class="description">
             <p class="page-header"></p>
-            <p>{{ issue.description }}</p>
+            <p>{{ issue.description|urlify:issue.pk }}</p>
         </div>
         <div>
             <p class="page-header"></p>
@@ -87,12 +87,14 @@
                                     src="{{ comment.author.profile.get_mugshot_url }}" style="width: 80px; height: initial;"></a>
                         </div>
                         <div class="page-feed-content">
-                            <a href="{% url 'messages_delete' comment.id %}" class="pull-right">Delete</a>
+                            {% if comment.author == user %}
+                                <a href="{% url 'comment-delete' comment.id %}" class="pull-right">Delete</a>
+                            {% endif %}
                             <small class="time"><a
                                     href="{% url 'userena_profile_detail' comment.author.username %}">{{ comment.author }}</a>, {{ comment.created|date:_("DATETIME_FORMAT") }}
                             </small>
                             {% autoescape off %}
-                            <p>{{ comment.content|urlize|url_username|linebreaksbr }}</p>
+                            <p>{{ comment.content|urlize|urlify:issue.pk|linebreaksbr }}</p>
                             {% endautoescape %}
                         </div>
                     </div>

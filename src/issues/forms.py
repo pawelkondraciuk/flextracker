@@ -2,7 +2,6 @@ from django import forms
 from issues.models import Ticket
 from workflow.models import Status
 
-
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
@@ -11,7 +10,6 @@ class TicketForm(forms.ModelForm):
     def __init__(self, workflow, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
         self.fields['status'].queryset = (self.instance.status.available_states.all() | Status.objects.filter(pk=self.instance.status.pk)).distinct()
-
 
     def save(self, commit=True):
         obj = super(TicketForm, self).save(commit=False)

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content-header %}
+    Delete comment
+{% endblock %}
+
+{% block content %}
+    <div class="col-xs-12 col-sm-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-cog"></i>
+                    <span>Delete comment</span>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Are you sure you want to delete "{{ object.content }}"?</p>
+
+                    {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger"> Delete</button>
+                        <a href="{{ object.content_object.get_absolute_url }}" class="btn btn-primary"> Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

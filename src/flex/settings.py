@@ -50,16 +50,14 @@ INSTALLED_APPS = (
     'workflow',
     'comments',
     'github_hook',
+    'django_activeurl',
     ###########################
     'south',
-    'django_activeurl',
     'bootstrap3',
     'userena',
     'guardian',
     'accounts',
     'sitetree',
-    #'viewflow',
-    #'viewflow.site',
     'django_tables2',
     'taggit',
     'sorl.thumbnail',
@@ -69,7 +67,6 @@ INSTALLED_APPS = (
     'genericadmin',
     'watson',
     'rest_framework',
-    #'django_hstore',
 )
 
 MIDDLEWARE_CLASSES = (

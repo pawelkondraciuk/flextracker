@@ -5,6 +5,7 @@ from braces.views._access import LoginRequiredMixin
 from dateutil.parser import parse
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages.constants import ERROR
 from django.contrib.redirects.models import Redirect
 from django.core.urlresolvers import reverse
@@ -14,6 +15,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 import watson
 from watson.views import SearchMixin
+from comments.models import Comment
+from github_hook.models import hook_signal
 from issues.models import Ticket
 from projects.models import Project
 
@@ -87,8 +90,12 @@ class Resolver(object):
             return None
 
 class ActionResolver(object):
-    def resolve(self, query):
+    def __init__(self, user):
+        self.user = user
+
+    def resolve(self, query, commit_id=None):
         self.query = query
+        self.commit_id = commit_id
         return self.assign_action() or self.action()
 
     def assign_action(self):
@@ -111,7 +118,12 @@ class ActionResolver(object):
             user = User.objects.get(username=username)
 
             ticket.assigned_to = user
+            ticket._user = user
             ticket.save()
+
+            if self.commit_id:
+                issue_type = ContentType.objects.get_for_model(self.object)
+                Comment.objects.create(content='Assigned ticket to %s #%s' % (user.username, self.commit_id), author=self.user, content_type=issue_type, object_id=ticket.id)
 
             return redirect(ticket.get_absolute_url())
 
@@ -131,9 +143,14 @@ class ActionResolver(object):
             ticket = Ticket.objects.get(slug=ticket)
             project = Project.objects.get(pk=ticket.object_id)
 
-            if action == 'close':
+            if action.lower() == 'close' and ticket.status != project.workflow.end_state:
                 ticket.status = project.workflow.end_state
+                ticket._user = self.user
                 ticket.save()
+
+                if self.commit_id:
+                    issue_type = ContentType.objects.get_for_model(Ticket)
+                    Comment.objects.create(content='Closed ticket #%s' % self.commit_id, author=self.user, content_type=issue_type, object_id=ticket.id)
             else:
                 raise MatchException('Unrecognized action')
 
@@ -160,9 +177,10 @@ class SearchView(SearchMixin, ListView):
             if ticket:
                 return redirect(Ticket.objects.get(slug=ticket).get_absolute_url())
 
-            assign_action = ActionResolver().resolve(query)
-            if assign_action:
-                return assign_action
+            if self.request.user.is_authenticated():
+                resolver = ActionResolver(self.reqest.user).resolve(query)
+                if resolver:
+                    return resolver
 
             q = {}
             q.update(AssignedResolver().resolve(query))
@@ -179,3 +197,18 @@ class SearchView(SearchMixin, ListView):
 
     def get_queryset(self):
         return watson.search(self.query, models=self.get_models(), exclude=self.get_exclude())
+
+def processWebhook(sender, **kwargs):
+    if not Project.objects.filter(github_hook=kwargs['payload']['repository']['html_url']).exists():
+        return
+
+    for commit in kwargs['payload']['commits']:
+        try:
+            author = User.objects.get(email=commit['author']['email'])
+        except User.DoesNotExist:
+            return
+
+        ActionResolver(author).resolve(commit['message'], commit['id'])
+
+
+hook_signal.connect(processWebhook)

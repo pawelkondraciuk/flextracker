@@ -1,6 +1,5 @@
 Django==1.6.7
 South==1.0
-django-activeurl==0.1.8
 django-braces==1.4.0
 django-bootstrap3==4.11.0
 django-guardian==1.2.4

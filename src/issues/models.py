@@ -8,8 +8,10 @@ from django.db.models import signals
 from django.db.models.deletion import SET
 from django.forms.models import model_to_dict
 from django.utils import timezone
+from django.utils.functional import SimpleLazyObject
 from django_tools.middlewares import ThreadLocal
 from taggit.managers import TaggableManager
+from userena.mail import send_mail
 from workflow.models import Status
 import watson
 
@@ -36,7 +38,7 @@ def unique_slug(item, slug_source, slug_field):
             import re
 
             counterFinder = re.compile(r'-\d+$')
-            counter = 2
+            counter = 1
             slug = "%s-%i" % (slug, counter)
             while slug in allSlugs:
                 slug = re.sub(counterFinder, "-%i" % counter, slug)
@@ -143,7 +145,7 @@ def apply_ticket_change(sender, instance, **kwargs):
         diff = [key for key, value in old_instance.items() if value != new_instance[key]]
         if diff:
             user = ThreadLocal.get_current_user()
-            if type(user) is AnonymousUser:
+            if type(user) is SimpleLazyObject:
                 user = instance._user
             change = TicketChange.objects.create(ticket=instance, user=user)
             for key in diff:
@@ -156,12 +158,18 @@ def apply_ticket_change(sender, instance, **kwargs):
                                                        new_value=str(getattr(instance, key)))
 
             if 'assigned_to' in diff:
-                action.send(ThreadLocal.get_current_user(), verb='assigned', action_object=instance,
+                action.send(user, verb='assigned', action_object=instance,
                             target=instance.assigned_to)
 
             if 'status' in diff:
-                action.send(ThreadLocal.get_current_user(), verb=instance.status.verb.lower(), action_object=instance,
+                action.send(user, verb=instance.status.verb.lower(), action_object=instance,
                             target=instance.content_object)
+
+        #if new_instance.submitter.profile.email_notifications:
+         #   send_mail('Subject here', 'Here is the message.', 'from@example.com', ['to@example.com'], fail_silently=False)
+#        for change_obj in change.changes:
+
+
     else:
         action.send(ThreadLocal.get_current_user(), verb='created new', action_object=instance, target=instance.content_object)
 

@@ -34,7 +34,7 @@ class Project(models.Model):
     workflow = models.ForeignKey(Workflow)
     private = models.BooleanField(default=False)
 
-    github_hook = models.CharField(max_length=255, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://109.231.47.249:8000/hook to your GitHub webhooks.')
+    github_hook = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://109.231.47.249:8000/hook to your GitHub webhooks.')
 
     tickets = generic.GenericRelation(Ticket)
     workflows = generic.GenericRelation(Workflow)
@@ -93,17 +93,3 @@ registry.register(Role)
 registry.register(Project)
 registry.register(Group)
 registry.register(User)
-
-def processWebhook(sender, **kwargs):
-    if not Project.objects.filter(github_hook=kwargs['payload']['repository']['html_url']).exists():
-        return
-
-    for commit in kwargs['payload']['commits']:
-        try:
-            author = User.objects.get(email=commit['author']['email'])
-        except User.DoesNotExist:
-            author = None
-
-
-
-hook_signal.connect(processWebhook)

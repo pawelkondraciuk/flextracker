@@ -1,5 +1,6 @@
 import re
 from django import template
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.base import Node, Variable
 from issues.models import Ticket
@@ -109,10 +110,36 @@ def get_short_table_assigned_to(parser, token):
     }
     return AssignedToObjectShortTableNode(**args)
 
-def slugifier(match_object):
-    val = match_object.group(1)
-    return r'<a href="%s">@%s</a>' % (reverse('userena_profile_detail', args=[val]), val)
+class Slugifier(object):
+
+    def __init__(self, ticket_pk):
+        self.ticket = Ticket.objects.get(pk=ticket_pk)
+
+    def slugify(self, match_object):
+        user = match_object.group(1)
+        ticket = match_object.group(2)
+        commit = match_object.group(4)
+
+        if user:
+            if User.objects.filter(username=user).exists():
+                return r' <a href="%s">@%s</a>' % (reverse('userena_profile_detail', args=[user]), user)
+
+        if ticket:
+            ticket_slug = match_object.group(3)
+            if Ticket.objects.filter(slug=ticket_slug).exists():
+                ticket_obj = Ticket.objects.get(slug=ticket_slug)
+                return r' <a href="%s">%s</a>' % (reverse('issue_details', args=[ticket_obj.object_id, ticket_slug]), ticket)
+
+        if commit:
+            if self.ticket.content_object.github_hook:
+                return r' <a href="{0}/commit/{1}">#{1}</a>'.format(self.ticket.content_object.github_hook, commit)
+
+        return match_object.group(0)
 
 @register.filter
-def url_username(text):
-    return re.sub(r'(?: |^)@([\w_-]+)', slugifier, text)
+def urlify(text, arg):
+    slugifier = Slugifier(int(arg))
+    ret = re.sub(r'(?: |^)(?:@([\w_-]+)|(\[([\w_-]+)\])|(?:#([0-9a-f]{5,40})))', slugifier.slugify, text)
+    #ret = re.sub(r'(?: |^)\[([\w_-]+)\]', issue_slugifier, ret)
+
+    return ret

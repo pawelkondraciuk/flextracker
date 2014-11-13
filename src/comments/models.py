@@ -61,3 +61,15 @@ def send_comment_notification(sender, created, instance, **kwargs):
                     action.send(instance.author, recipient=user_found, verb='used your name', action_object=instance, target=instance.content_object)
             except User.DoesNotExist:
                 pass
+
+@receiver(post_save, sender=Comment)
+def send_comment_notification(sender, created, instance, **kwargs):
+    if created:
+        iter = set(re.findall("(?: |^)@([\w_-]+)", instance.content))
+        for i in iter:
+            try:
+                user_found = User.objects.get(username=i)
+                if user_found != instance.author:
+                    action.send(instance.author, recipient=user_found, verb='used your name', action_object=instance, target=instance.content_object)
+            except User.DoesNotExist:
+                pass

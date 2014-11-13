@@ -6,6 +6,7 @@ from django.db.models.query_utils import Q
 from django.forms.widgets import RadioSelect
 from django.shortcuts import redirect
 from django.views import generic
+from django_filters.views import FilterView
 from django_tables2.views import SingleTableView
 
 from attachments.views import set_attachments_object
@@ -75,7 +76,7 @@ class EditProjectView(generic.UpdateView):
         ret = super(EditProjectView, self).form_valid(form)
 
         if isinstance(form, self.get_form_class()):
-            if form.data['workflow'] != form.cleaned_data['workflow']:
+            if self.object.workflow != form.cleaned_data['workflow']:
                 return redirect(reverse('map_workflow', args=[form.cleaned_data['workflow'].pk, int(form.data['workflow'])]))
 
         return ret
@@ -134,7 +135,6 @@ class RoleDeleteView(generic.DeleteView):
     def get_success_url(self):
         return reverse('update_project', args=[Role.objects.get(pk=self.kwargs['pk']).project.pk])
 
-
 class IssueListView(SingleTableView):
     template_name = 'issues/list.html'
     table_class = TicketTable
@@ -146,7 +146,8 @@ class IssueListView(SingleTableView):
         return project.tickets.filter(Q(confidential=False) | Q(confidential=True, submitter=self.request.user)).all()
 
     def get_queryset(self):
-        return TicketFilter(self.request.GET, queryset=self.get_qs())
+        project = Project.objects.get(pk=self.kwargs.get('pk'))
+        return TicketFilter(project.workflow, self.request.GET, queryset=self.get_qs())
 
     def get_context_data(self, **kwargs):
         context = super(IssueListView, self).get_context_data(**kwargs)
@@ -217,7 +218,7 @@ class IssueView(UserPassesTestMixin, generic.DetailView):
 
             if self.object.status.available_states.count() > 0:
                 status = comment_form.cleaned_data['status']
-                if self.object.content_object.workflow.states.filter(pk=status.pk).exists():
+                if status and self.object.content_object.workflow.states.filter(pk=status.pk).exists():
                     self.object.status = status
                     self.object.save()
 

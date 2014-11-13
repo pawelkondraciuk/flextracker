@@ -108,7 +108,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="#">
+										<a href="{% url 'settings' %}">
 											<i class="fa fa-cog"></i>
 											<span>Settings</span>
 										</a>
@@ -254,6 +254,12 @@
             if(e.which == 10 || e.which == 13) {
                 self.window.location = {% url 'search' %} + '?' + $.param({q: $(this).val()})
             }
+        });
+
+    	$('.show-sidebar').on('click', function (e) {
+            e.preventDefault();
+            $('div#main').toggleClass('sidebar-show');
+            setTimeout(MessagesMenuWidth, 250);
         });
 
         $('.main-menu').on('click', 'a', function (e) {
