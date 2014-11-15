@@ -9,7 +9,7 @@
 
 {% block content %}
 {% get_short_table_assigned_to request.user as "assigned_to_me" %}
-{% activity_stream 'target' user as='action_list' %}
+{% activity_stream 'any' user as='action_list' %}
 
     <div class="col-xs-12 col-sm-6">
         <div class="box ui-draggable ui-droppable">

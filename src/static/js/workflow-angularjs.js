@@ -13,11 +13,12 @@ angular.module('workflow', ['workflow.urls'])
         $scope.addStatus = function() {
             WorkflowFactory.createStatus({
                 name: 'Status',
-                type: 2
+                type: 2,
+                verb: 'verb'
             }).success(function(result) {
                 $scope.workflow.states.push(result)
             }).error(function(result) {
-                alert(result);
+                $scope.errors = result;
             })
         };
 

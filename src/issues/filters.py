@@ -13,12 +13,14 @@ class TicketFilter(django_filters.FilterSet):
         model = Ticket
         fields = ('title', 'priority', 'status', 'assigned_to', 'submitter', 'created', 'confidential')
 
-    def __init__(self, workflow, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        if 'workflow' in kwargs:
+            self.workflow = kwargs.pop('workflow')
         super(TicketFilter, self).__init__(*args, **kwargs)
-        self.workflow = workflow
 
     @property
     def form(self):
         form = super(TicketFilter, self).form
-        form.fields['status'].queryset = self.workflow.states
+        if hasattr(self, 'workflow'):
+            form.fields['status'].queryset = self.workflow.states
         return form

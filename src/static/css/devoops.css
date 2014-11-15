@@ -81,3 +81,8 @@ table td {
 .fa-remove {
   cursor: pointer;
 }
+
+/* line 80, ../sass/devoops/_base.scss */
+.box-content > .form-group:first-child {
+  margin-top: 0;
+}

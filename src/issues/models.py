@@ -145,7 +145,7 @@ def apply_ticket_change(sender, instance, **kwargs):
         diff = [key for key, value in old_instance.items() if value != new_instance[key]]
         if diff:
             user = ThreadLocal.get_current_user()
-            if type(user) is SimpleLazyObject:
+            if not user.is_authenticated():
                 user = instance._user
             change = TicketChange.objects.create(ticket=instance, user=user)
             for key in diff:
@@ -154,7 +154,7 @@ def apply_ticket_change(sender, instance, **kwargs):
                     TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=old._get_FIELD_display(field),
                                                        new_value=instance._get_FIELD_display(field))
                 else:
-                    TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=str(getattr(instance, key)),
+                    TicketDisplayChange.objects.create(change=change, field=field.verbose_name.title(), old_value=str(getattr(old, key)),
                                                        new_value=str(getattr(instance, key)))
 
             if 'assigned_to' in diff:
@@ -162,8 +162,7 @@ def apply_ticket_change(sender, instance, **kwargs):
                             target=instance.assigned_to)
 
             if 'status' in diff:
-                action.send(user, verb=instance.status.verb.lower(), action_object=instance,
-                            target=instance.content_object)
+                action.send(user, verb=instance.status.verb.lower(), action_object=instance, target=instance.content_object)
 
         #if new_instance.submitter.profile.email_notifications:
          #   send_mail('Subject here', 'Here is the message.', 'from@example.com', ['to@example.com'], fail_silently=False)

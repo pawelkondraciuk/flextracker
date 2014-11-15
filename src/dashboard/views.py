@@ -143,7 +143,9 @@ class ActionResolver(object):
             ticket = Ticket.objects.get(slug=ticket)
             project = Project.objects.get(pk=ticket.object_id)
 
-            if action.lower() == 'close' and ticket.status != project.workflow.end_state:
+            if action.lower() == 'close':
+                if ticket.status == project.workflow.end_state:
+                    return redirect(ticket.get_absolute_url())
                 ticket.status = project.workflow.end_state
                 ticket._user = self.user
                 ticket.save()
@@ -178,7 +180,7 @@ class SearchView(SearchMixin, ListView):
                 return redirect(Ticket.objects.get(slug=ticket).get_absolute_url())
 
             if self.request.user.is_authenticated():
-                resolver = ActionResolver(self.reqest.user).resolve(query)
+                resolver = ActionResolver(request.user).resolve(query)
                 if resolver:
                     return resolver
 

@@ -33,7 +33,6 @@ class ProjectListView(SingleTableView):
 
 
 class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
-    permission_required = "add_project"
     template_name = 'projects/create.html'
     model = Project
     fields = ('name', 'code', 'github_hook', 'workflow')
@@ -76,7 +75,7 @@ class EditProjectView(generic.UpdateView):
         ret = super(EditProjectView, self).form_valid(form)
 
         if isinstance(form, self.get_form_class()):
-            if self.object.workflow != form.cleaned_data['workflow']:
+            if self.object.workflow.pk != form.data['workflow']:
                 return redirect(reverse('map_workflow', args=[form.cleaned_data['workflow'].pk, int(form.data['workflow'])]))
 
         return ret
@@ -147,7 +146,7 @@ class IssueListView(SingleTableView):
 
     def get_queryset(self):
         project = Project.objects.get(pk=self.kwargs.get('pk'))
-        return TicketFilter(project.workflow, self.request.GET, queryset=self.get_qs())
+        return TicketFilter(self.request.GET, queryset=self.get_qs(), workflow=project.workflow)
 
     def get_context_data(self, **kwargs):
         context = super(IssueListView, self).get_context_data(**kwargs)

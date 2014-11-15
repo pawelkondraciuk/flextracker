@@ -21,14 +21,14 @@ class ReadNestedWriteFlatMixin(object):
 class CreateStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ('name', 'type', 'id', 'available_states', 'workflow')
+        fields = ('name', 'type', 'id', 'available_states', 'workflow', 'verb')
         depth = 0
 
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ('id', 'name', 'type', 'available_states', 'workflow')
+        fields = ('id', 'name', 'type', 'available_states', 'workflow', 'verb')
         read_only_fields = ('workflow',)
         depth = 0
 

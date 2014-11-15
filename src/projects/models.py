@@ -34,7 +34,7 @@ class Project(models.Model):
     workflow = models.ForeignKey(Workflow)
     private = models.BooleanField(default=False)
 
-    github_hook = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://109.231.47.249:8000/hook to your GitHub webhooks.')
+    github_hook = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://localhost:8000/hook to your GitHub webhooks.')
 
     tickets = generic.GenericRelation(Ticket)
     workflows = generic.GenericRelation(Workflow)

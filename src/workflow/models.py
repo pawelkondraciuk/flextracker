@@ -39,6 +39,7 @@ class Status(ReadNestedWriteFlatMixin, models.Model):
 
     class Meta:
         verbose_name = 'Statu'
+        ordering = ('type',)
 
     def __unicode__(self):
         return self.name
@@ -59,8 +60,8 @@ class Workflow(models.Model):
         ret = super(Workflow, self).save(*args, **kwargs)
 
         if pk is None:
-            open = Status.objects.create(name='Open', type=1, workflow=self)
-            closed = Status.objects.create(name='Closed', type=3, workflow=self)
+            open = Status.objects.create(name='Open', type=1, workflow=self, verb='opened')
+            closed = Status.objects.create(name='Closed', type=3, workflow=self, verb='closed')
             open.available_states = [closed]
             open.save()
             closed.save()

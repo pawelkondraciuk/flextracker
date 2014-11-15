@@ -76,3 +76,7 @@ table td {
 .fa-remove {
   cursor: pointer;
 }
+
+.box-content > .form-group:first-child {
+  margin-top: 0px;
+}
