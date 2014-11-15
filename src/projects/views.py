@@ -32,7 +32,7 @@ class ProjectListView(SingleTableView):
         return Project.objects.filter(Q(roles__members=self.request.user, private=True) | Q(private=False)).distinct()
 
 
-class CreateProjectView(PermissionRequiredMixin, generic.CreateView):
+class CreateProjectView(generic.CreateView):
     template_name = 'projects/create.html'
     model = Project
     fields = ('name', 'code', 'github_hook', 'workflow')
