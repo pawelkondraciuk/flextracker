@@ -4,12 +4,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-28 00:43+0100\n"
+"POT-Creation-Date: 2014-11-28 01:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +24,6 @@ msgid "user"
 msgstr "użytkownik"
 
 #: .\accounts\models.py:11
-#, fuzzy
 msgid "Email notifications"
 msgstr "Powiadomienia email"
 
@@ -183,8 +181,7 @@ msgid "Please add http://localhost:8000/hook to your GitHub webhooks."
 msgstr "Dodaj http://localhost:8000/hook do 'WebHooks' na GitHub"
 
 #: .\templates\base.html:54
-#, fuzzy
-msgid "search"
+msgid "Search"
 msgstr "szukaj"
 
 #: .\templates\base.html:64
@@ -196,12 +193,10 @@ msgid "Welcome"
 msgstr "Witaj"
 
 #: .\templates\base.html:102
-#, fuzzy
 msgid "Profile"
 msgstr "Profile"
 
 #: .\templates\base.html:108
-#, fuzzy
 msgid "Messages"
 msgstr "Usunięte wiadomości"
 
@@ -290,12 +285,10 @@ msgid "Inbox"
 msgstr "Skrzynka odbiorcza"
 
 #: .\templates\django_messages\base.html:10
-#, fuzzy
 msgid "Sent Messages"
 msgstr "Usunięte wiadomości"
 
 #: .\templates\django_messages\base.html:11
-#, fuzzy
 msgid "New Message"
 msgstr "Usunięte wiadomości"
 
@@ -309,7 +302,6 @@ msgid "Compose Message"
 msgstr ""
 
 #: .\templates\django_messages\compose.html:26
-#, fuzzy
 msgid "Send"
 msgstr "Przesyłający"
 
@@ -365,7 +357,6 @@ msgid "DATETIME_FORMAT"
 msgstr ""
 
 #: .\templates\django_messages\trash.html:20
-#, fuzzy
 msgid "undelete"
 msgstr "Odzyskaj"
 
@@ -523,7 +514,6 @@ msgid ""
 msgstr ""
 
 #: .\templates\userena\disabled.html:5
-#, fuzzy
 msgid "Disabled account"
 msgstr "Posiadasz konto?"
 
@@ -566,7 +556,6 @@ msgid "Email changed!"
 msgstr "Email został zmieniony!"
 
 #: .\templates\userena\email_confirm_complete.html:6
-#, fuzzy
 msgid "New email"
 msgstr "Nowy email"
 
@@ -598,7 +587,6 @@ msgid "Account"
 msgstr "Konto"
 
 #: .\templates\userena\email_form.html:15
-#, fuzzy
 msgid "Change email address"
 msgstr "Zmień email"
 
@@ -615,7 +603,6 @@ msgid "From now on you can use your new password to signin"
 msgstr "Od teraz możesz używać nowego hasła do logowania"
 
 #: .\templates\userena\password_form.html:15
-#, fuzzy
 msgid "Change Password"
 msgstr "Zmień hasło"
 
@@ -640,7 +627,6 @@ msgstr ""
 #: .\templates\userena\password_reset_confirm_form.html:17
 #: .\templates\userena\password_reset_form.html:6
 #: .\templates\userena\password_reset_form.html:10
-#, fuzzy
 msgid "Reset password"
 msgstr "Zresetuj hasło"
 
@@ -655,7 +641,6 @@ msgid ""
 msgstr "Hasło z dalszą instrukcją zostało wysłane na twój email"
 
 #: .\templates\userena\password_reset_form.html:17
-#, fuzzy
 msgid "Send password"
 msgstr "Wyślij hasło"
 
@@ -665,22 +650,18 @@ msgid "%(username)s's profile."
 msgstr "Profil %(username)s"
 
 #: .\templates\userena\profile_detail.html:14
-#, fuzzy
 msgid "User profile"
 msgstr "Zobacz profil"
 
 #: .\templates\userena\profile_detail.html:34
-#, fuzzy
 msgid "Send message"
 msgstr "Usunięte wiadomości"
 
 #: .\templates\userena\profile_form.html:26
-#, fuzzy
 msgid "Save changes"
 msgstr "Zapisz"
 
 #: .\templates\userena\profile_list.html:6
-#, fuzzy
 msgid "Profiles"
 msgstr "Profile"
 
@@ -705,7 +686,6 @@ msgstr ""
 
 #: .\templates\userena\signin_form.html:6
 #: .\templates\userena\signin_form.html:24
-#, fuzzy
 msgid "Signin"
 msgstr "Rejestracja"
 
@@ -714,17 +694,14 @@ msgid "Forgot your password?"
 msgstr "Zapomniałeś hasła?"
 
 #: .\templates\userena\signin_form.html:11
-#, fuzzy
 msgid "Need an account?"
 msgstr "Potrzebujesz konta?"
 
 #: .\templates\userena\signin_form.html:17
-#, fuzzy
 msgid "Login Page"
 msgstr "Logowanie"
 
 #: .\templates\userena\signout.html:5
-#, fuzzy
 msgid "Signed out"
 msgstr "Wylogowano"
 
@@ -733,12 +710,10 @@ msgid "Do you want to login?"
 msgstr "Czy chcesz się zalogować?"
 
 #: .\templates\userena\signout.html:14
-#, fuzzy
 msgid "You have been signed out"
 msgstr "Zostałeś wylogowany"
 
 #: .\templates\userena\signout.html:15
-#, fuzzy
 msgid "You have been signed out. Till we meet again."
 msgstr "Zostałeś wylogowany"
 
