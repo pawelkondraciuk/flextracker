@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load render_table from django_tables2 %}
+{% load i18n %}
 
 {% block content-header %}
-    Projects
+    {% trans "Projects" %}
 {% endblock %}
 
 {% block content %}
     {% if projects %}
     {% render_table table %}
     {% else %}
-        <p>There is no projects yet. <a href="{% url 'create_project' %}">Create new one!</a></p>
+        <p>{% trans "There is no projects yet." %} <a href="{% url 'create_project' %}">{% trans "Create new one!"%}</a></p>
     {% endif %}
 {% endblock %}

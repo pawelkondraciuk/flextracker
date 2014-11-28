@@ -1,11 +1,12 @@
 {% extends 'actstream/base.html' %}
+{% load i18n %}
 {% load url from future %}
 {% load activity_tags i18n %}
 {% load issues_tags %}
 {% load render_table from django_tables2 %}
 
-{% block title %}{% ifequal user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
-{% block content_title %}{% ifequal user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block title %}{% ifequal user actor %}{% trans "Your feed" %}{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block content_title %}{% ifequal user actor %}{% trans "Your feed" %}{% else %}{{ actor }}{% endifequal %}{% endblock %}
 
 {% block content %}
 {% get_short_table_assigned_to request.user as "assigned_to_me" %}
@@ -16,7 +17,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-bell"></i>
-                    <span>Activity stream</span>
+                    <span>{% trans "Activity stream" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -37,7 +38,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-tasks"></i>
-                    <span>Assigned to me</span>
+                    <span>{% trans "Assigned to me" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -45,7 +46,7 @@
                 {% if assigned_to_me.data.queryset %}
                     {% render_table assigned_to_me %}
                 {% else %}
-                    You have no assigned tickets
+                    {% trans "You have no assigned tickets" %}
                 {% endif %}
             </div>
         </div>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block content-header %}
     {{ project.name }}
@@ -12,7 +13,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-cog"></i>
-                    <span>Settings</span>
+                    <span>{% trans "Settings" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -25,8 +26,8 @@
                     <input type="hidden" name="form"/>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary"> Edit</button>
-                        <a href="{% url 'delete_project' project.pk %}" class="btn btn-danger pull-right"> Delete</a>
+                        <button type="submit" class="btn btn-primary"> {% trans "Save" %}</button>
+                        <a href="{% url 'delete_project' project.pk %}" class="btn btn-danger pull-right"> {% trans "Delete" %}</a>
                     </div>
                 </form>
             </div>
@@ -37,7 +38,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-user"></i>
-                    <span>Groups</span>
+                    <span>{% trans "Groups" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -46,8 +47,8 @@
                     <thead>
                     <tr>
                         <th class="col-xs-1">#</th>
-                        <th>Name</th>
-                        <th class="text-right col-xs-3">Action</th>
+                        <th>{% trans "Name" %}</th>
+                        <th class="text-right col-xs-3">{% trans "Action" %}</th>
                     </tr>
                     </thead>
                     {% for role in form.instance.roles.all reversed %}
@@ -55,7 +56,7 @@
                             <td class="col-lg-1">{{ forloop.counter }}</td>
                             <td class="col-lg-10"><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></td>
                             <td class="text-right col-lg-1"><a href="{% url 'delete_role' role.pk %}"
-                                                      class="remove-button confirm-box label label-danger">Delete</a>
+                                                      class="remove-button confirm-box label label-danger">{% trans "Delete" %}</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -67,7 +68,7 @@
 
                     {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary"> Add</button>
+                        <button type="submit" class="btn btn-primary"> {% trans "Add" %}</button>
                     </div>
                 </form>
             </div>
@@ -96,14 +97,14 @@
                                 .css('cursor', 'pointer')
                                 .css('margin-right', '10px')
                                 .attr('href', '/workflow/' + $(this).children('input').attr('value') + '/edit/')
-                                .tooltip({title: 'Edit'})
+                                .tooltip({title: '{% trans "Edit" %}'})
                         )
                         .append(
                             $('<ii/>')
                                 .addClass('deleteworkflow fa fa-times')
                                 .css('cursor', 'pointer')
                                 .attr('href', '/workflow/' + $(this).children('input').attr('value') + '/delete/')
-                                .tooltip({title: 'Remove'})
+                                .tooltip({title: '{% trans "Remove" %}'})
                         )
                     )
         });
@@ -146,14 +147,14 @@
                                                 .css('cursor', 'pointer')
                                                 .css('margin-right', '10px')
                                                 .attr('href', '/workflow/' + workflow.id + '/edit/')
-                                                .tooltip({title: 'Edit'})
+                                                .tooltip({title: '{% trans "Edit" %}'})
                                 )
                                         .append(
                                         $('<ii/>')
                                                 .addClass('deleteworkflow fa fa-times')
                                                 .css('cursor', 'pointer')
                                                 .attr('href', '/workflow/' + workflow.id + '/delete/')
-                                                .tooltip({title: 'Remove'})
+                                                .tooltip({title: '{% trans "Remove" %}'})
                                 )
                         )
                 )

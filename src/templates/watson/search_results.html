@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 {% load watson %}
+{% load i18n %}
 
 {% block content %}
     <div class="col-xs-12">
 {#        <p class="small">About 3,870,000,000 results (0.28 seconds)</p>#}
-        <h1>Search results{% if query %} for &ldquo;{{query}}&rdquo;{% endif %}</h1>
+    {% if query %}
+        <h1>{% blocktrans with query_t=query %}Search results for &ldquo;{{query_t}}&rdquo;{% endblocktrans %}</h1>
+    {% else %}
+        <h1>{% trans "Search results" %}</h1>
+    {% endif %}
+
         {% if search_results %}
             {% search_results search_results %}
         {% else %}
             {% if query %}
-                <p><em>There are no results to display.</em></p>
-                <p><em>Try entering a less specific search term.</em></p>
+                <p><em>{% trans "There are no results to display." %}</em></p>
+                <p><em>{% trans "Try entering a less specific search term." %}</em></p>
             {% else %}
-                <p><em>Please enter a query in the search form.</em></p>
+                <p><em>{% trans "Please enter a query in the search form." %}</em></p>
             {% endif %}
         {% endif %}
 

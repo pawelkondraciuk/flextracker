@@ -1,24 +1,25 @@
 {% extends 'workflow/base.html' %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block content-header %}
-    Delete workflow
+    {% trans "Delete workflow" %}
 {% endblock %}
 
 {% block box-name %}
     <i class="fa fa-cog"></i>
-    <span>Delete {{ object.name }}</span>
+    <span>{% trans "Delete" %} {{ object.name }}</span>
 {% endblock %}
 
 {% block box-content %}
     <form method="post">
         {% csrf_token %}
-        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <p>{% blocktrans with object_t=object %}Are you sure you want to delete "{{ object_t }}"?{% endblocktrans %}</p>
 
         {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
         <div class="text-center">
-            <button type="submit" class="btn btn-danger"> Delete</button>
-            <a onclick="window.close()" class="btn btn-primary"> Cancel</a>
+            <button type="submit" class="btn btn-danger"> {% trans "Delete" %}</button>
+            <a onclick="window.close()" class="btn btn-primary"> {% trans "Cancel" %}</a>
         </div>
     </form>
 {% endblock %}

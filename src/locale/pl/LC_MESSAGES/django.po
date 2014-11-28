@@ -1,0 +1,826 @@
+# -*- coding: utf-8 -*-
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-28 00:43+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: .\accounts\models.py:10
+msgid "user"
+msgstr "użytkownik"
+
+#: .\accounts\models.py:11
+#, fuzzy
+msgid "Email notifications"
+msgstr "Powiadomienia email"
+
+#: .\accounts\tables.py:18
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: .\attachments\forms.py:9
+msgid "Upload attachment"
+msgstr "Wyślij załącznik"
+
+#: .\attachments\models.py:36
+msgid "creator"
+msgstr "twórca"
+
+#: .\attachments\models.py:37
+msgid "attachment"
+msgstr "załącznik"
+
+#: .\attachments\models.py:38
+msgid "created"
+msgstr "utworzono"
+
+#: .\attachments\models.py:39
+msgid "modified"
+msgstr "zmodyfikowano"
+
+#: .\comments\models.py:25
+msgid "Comment"
+msgstr "Komentarz"
+
+#: .\dashboard\tables.py:34 .\templates\django_messages\view.html:15
+#: .\templates\issues\index.html:92 .\templates\projects\delete.html:26
+#: .\templates\projects\edit.html:30 .\templates\projects\edit.html.py:59
+#: .\templates\projects\role_edit.html:29 .\templates\workflow\delete.html:11
+#: .\templates\workflow\delete.html:21
+msgid "Delete"
+msgstr "Usuń"
+
+#: .\dashboard\tables.py:35 .\templates\django_messages\trash.html:10
+msgid "Subject"
+msgstr "Temat"
+
+#: .\dashboard\views.py:45 .\dashboard\views.py:60 .\dashboard\views.py:78
+#: .\dashboard\views.py:116
+msgid "User not found"
+msgstr "Nie znaleziono użytkownika"
+
+#: .\dashboard\views.py:89 .\dashboard\views.py:113 .\dashboard\views.py:142
+msgid "Ticket not found"
+msgstr "Nie znaleziono zgłoszenia"
+
+#: .\dashboard\views.py:158
+msgid "Unrecognized action"
+msgstr "Akcja nierozpoznana"
+
+#: .\flex\settings.py:133
+msgid "Polish"
+msgstr "Polski"
+
+#: .\flex\settings.py:134
+msgid "English"
+msgstr "Angielski"
+
+#: .\github_hook\models.py:12
+msgid "Repository"
+msgstr "Repozytorium"
+
+#: .\issues\filters.py:6 .\issues\models.py:80
+#: .\templates\issues\index.html:34
+msgid "Assigned to"
+msgstr "Przypisano do"
+
+#: .\issues\filters.py:7 .\issues\models.py:79
+#: .\templates\issues\index.html:31
+msgid "Submitter"
+msgstr "Zgłaszający"
+
+#: .\issues\filters.py:8 .\issues\models.py:77 .\projects\models.py:32
+#: .\templates\issues\index.html:24
+msgid "Created"
+msgstr "Utworzono"
+
+#: .\issues\filters.py:9 .\issues\models.py:73
+msgid "Title"
+msgstr "Tytuł"
+
+#: .\issues\filters.py:10 .\issues\models.py:75
+#: .\templates\issues\index.html:21
+msgid "Priority"
+msgstr "Priorytet"
+
+#: .\issues\models.py:72 .\projects\models.py:31
+msgid "Code"
+msgstr "Kod"
+
+#: .\issues\models.py:74
+msgid "Description"
+msgstr "Opis"
+
+#: .\issues\models.py:76 .\templates\issues\index.html:27
+msgid "Status"
+msgstr "Status"
+
+#: .\issues\models.py:78 .\templates\issues\index.html:28
+msgid "Modified"
+msgstr "Zmodyfikowano"
+
+#: .\issues\models.py:81 .\templates\issues\index.html:35
+msgid "Confidential"
+msgstr "Poufne"
+
+#: .\projects\forms.py:61 .\projects\models.py:34 .\workflow\models.py:38
+msgid "Workflow"
+msgstr "Przepływ pracy"
+
+#: .\projects\models.py:16
+msgid "Project"
+msgstr "Projekt"
+
+#: .\projects\models.py:17 .\projects\models.py:30
+#: .\templates\projects\edit.html:50 .\templates\projects\role_edit.html:55
+#: .\templates\projects\role_edit.html:111 .\workflow\models.py:34
+#: .\workflow\models.py:49
+msgid "Name"
+msgstr "Nazwa"
+
+#: .\projects\models.py:18
+msgid "Permissions"
+msgstr "Uprawnienia"
+
+#: .\projects\models.py:19
+msgid "Superuser"
+msgstr "Superużytkownik"
+
+#: .\projects\models.py:20 .\projects\models.py:33
+#: .\templates\projects\role_edit.html:40
+msgid "Members"
+msgstr "Członkowie"
+
+#: .\projects\models.py:31
+msgid "Used to generate ticket slugs"
+msgstr "Używane do generowania kodów zgłoszeń"
+
+#: .\projects\models.py:35
+msgid "Private"
+msgstr "Prywatne"
+
+#: .\projects\models.py:37
+msgid "GitHub repository address"
+msgstr "Adres repozytorium GitHub"
+
+#: .\projects\models.py:37
+msgid "Please add http://localhost:8000/hook to your GitHub webhooks."
+msgstr "Dodaj http://localhost:8000/hook do 'WebHooks' na GitHub"
+
+#: .\templates\base.html:54
+#, fuzzy
+msgid "search"
+msgstr "szukaj"
+
+#: .\templates\base.html:64
+msgid "Language"
+msgstr "Język"
+
+#: .\templates\base.html:94
+msgid "Welcome"
+msgstr "Witaj"
+
+#: .\templates\base.html:102
+#, fuzzy
+msgid "Profile"
+msgstr "Profile"
+
+#: .\templates\base.html:108
+#, fuzzy
+msgid "Messages"
+msgstr "Usunięte wiadomości"
+
+#: .\templates\base.html:114 .\templates\accounts\settings.html:15
+#: .\templates\projects\edit.html:16 .\templates\projects\role_edit.html:21
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: .\templates\base.html:120
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: .\templates\base.html:199
+msgid "View profile"
+msgstr "Zobacz profil"
+
+#: .\templates\base.html:200
+msgid "Edit details"
+msgstr "Edytuj szczegóły"
+
+#: .\templates\base.html:201 .\templates\userena\password_form.html:26
+msgid "Change password"
+msgstr "Zmień hasło"
+
+#: .\templates\base.html:202 .\templates\userena\email_form.html:26
+msgid "Change email"
+msgstr "Zmień email"
+
+#: .\templates\accounts\settings.html:26 .\templates\issues\index.html:17
+#: .\templates\projects\edit.html:100 .\templates\projects\edit.html.py:150
+msgid "Edit"
+msgstr "Edytuj"
+
+#: .\templates\attachments\add_form.html:6
+msgid "Select files..."
+msgstr "Wybierz pliki..."
+
+#: .\templates\attachments\add_form.html:81
+msgid "File upload failed."
+msgstr "Błąd przesyłania pliku."
+
+#: .\templates\attachments\delete_link.html:2
+msgid "Delete attachment"
+msgstr "Usuń załącznik"
+
+#: .\templates\comments\delete.html:6 .\templates\comments\delete.html:15
+msgid "Delete comment"
+msgstr "Usuń komentarz"
+
+#: .\templates\comments\delete.html:22
+#, python-format
+msgid "Are you sure you want to delete \"%(object_t.content)s\"?"
+msgstr "Czy na pewno usunąć \"%(object_t.content)s\"?"
+
+#: .\templates\comments\delete.html:27 .\templates\issues\create.html:70
+#: .\templates\projects\delete.html:27
+#: .\templates\userena\profile_form.html:27
+#: .\templates\workflow\delete.html:22
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\templates\dashboard\index.html:8 .\templates\dashboard\index.html.py:9
+msgid "Your feed"
+msgstr "Twój kanał"
+
+#: .\templates\dashboard\index.html:20 .\templates\projects\details.html:20
+msgid "Activity stream"
+msgstr "Strumień aktywności"
+
+#: .\templates\dashboard\index.html:30 .\templates\projects\details.html:30
+msgid "No actions yet"
+msgstr "Brak aktywności"
+
+#: .\templates\dashboard\index.html:41
+msgid "Assigned to me"
+msgstr "Przypisane do mnie"
+
+#: .\templates\dashboard\index.html:49
+msgid "You have no assigned tickets"
+msgstr "Nie masz przypisanych zgłoszeń"
+
+#: .\templates\django_messages\base.html:9
+#: .\templates\django_messages\inbox.html:7
+#: .\templates\django_messages\new_message.html:13
+msgid "Inbox"
+msgstr "Skrzynka odbiorcza"
+
+#: .\templates\django_messages\base.html:10
+#, fuzzy
+msgid "Sent Messages"
+msgstr "Usunięte wiadomości"
+
+#: .\templates\django_messages\base.html:11
+#, fuzzy
+msgid "New Message"
+msgstr "Usunięte wiadomości"
+
+#: .\templates\django_messages\base.html:12
+msgid "Trash"
+msgstr ""
+
+#: .\templates\django_messages\compose.html:6
+#: .\templates\django_messages\compose.html:16
+msgid "Compose Message"
+msgstr ""
+
+#: .\templates\django_messages\compose.html:26
+#, fuzzy
+msgid "Send"
+msgstr "Przesyłający"
+
+#: .\templates\django_messages\inbox.html:12
+#: .\templates\django_messages\outbox.html:12
+#: .\templates\django_messages\trash.html:26
+msgid "No messages."
+msgstr "Brak wiadomości."
+
+#: .\templates\django_messages\new_message.html:4
+#, python-format
+msgid ""
+"Hello %(recipient)s,\n"
+"\n"
+"you received a private message from %(sender)s with\n"
+"the following contents:"
+msgstr ""
+
+#: .\templates\django_messages\new_message.html:12
+#, python-format
+msgid "Sent from %(site_url)s"
+msgstr ""
+
+#: .\templates\django_messages\new_message.html:14
+msgid "Reply"
+msgstr ""
+
+#: .\templates\django_messages\outbox.html:7
+msgid "Outbox"
+msgstr ""
+
+#: .\templates\django_messages\trash.html:6
+msgid "Deleted Messages"
+msgstr "Usunięte wiadomości"
+
+#: .\templates\django_messages\trash.html:10
+msgid "Sender"
+msgstr "Przesyłający"
+
+#: .\templates\django_messages\trash.html:10
+msgid "Date"
+msgstr "Data"
+
+#: .\templates\django_messages\trash.html:10 .\templates\projects\edit.html:51
+#: .\templates\projects\role_edit.html:56
+#: .\templates\projects\role_edit.html:112
+msgid "Action"
+msgstr "Akcja"
+
+#: .\templates\django_messages\trash.html:19
+#: .\templates\django_messages\view.html:17 .\templates\issues\index.html:95
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: .\templates\django_messages\trash.html:20
+#, fuzzy
+msgid "undelete"
+msgstr "Odzyskaj"
+
+#: .\templates\django_messages\trash.html:29
+msgid ""
+"Deleted Messages are removed from the trash at unregular intervals, don't "
+"rely on this feature for long-time storage."
+msgstr ""
+
+#: .\templates\issues\create.html:11 .\templates\issues\create.html.py:25
+msgid "Create new issue"
+msgstr "Dodaj nowe zgłoszenie"
+
+#: .\templates\issues\create.html:66 .\templates\projects\edit.html:29
+#: .\templates\projects\role_edit.html:30
+msgid "Save"
+msgstr "Zapisz"
+
+#: .\templates\issues\create.html:67 .\templates\issues\index.html:123
+#: .\templates\projects\create.html:26
+msgid "Create"
+msgstr "Stwórz"
+
+#: .\templates\issues\index.html:11
+msgid "Issue"
+msgstr "Zgłoszenie"
+
+#: .\templates\issues\index.html:63
+msgid "Changes"
+msgstr "Zmiany"
+
+#: .\templates\issues\index.html:78
+msgid "Comments"
+msgstr "Komentarze"
+
+#: .\templates\issues\index.html:111
+msgid "Create new comment"
+msgstr "Dodaj komentarz"
+
+#: .\templates\issues\list.html:7
+msgid "Issues"
+msgstr "Zgłoszenia"
+
+#: .\templates\projects\create.html:6 .\templates\projects\create.html:15
+msgid "Create new project"
+msgstr "Stwórz nowy projekt"
+
+#: .\templates\projects\delete.html:6 .\templates\projects\delete.html:15
+msgid "Delete project"
+msgstr "Usuń projekt"
+
+#: .\templates\projects\delete.html:22 .\templates\workflow\delete.html:17
+#, python-format
+msgid "Are you sure you want to delete \"%(object_t)s\"?"
+msgstr "Czy na pewno usunąć \"%(object_t)s\"?"
+
+#: .\templates\projects\details.html:40 .\templates\projects\edit.html:41
+msgid "Groups"
+msgstr "Grupy"
+
+#: .\templates\projects\details.html:55
+msgid "This group is empty"
+msgstr "Ta grupa jest pusta"
+
+#: .\templates\projects\edit.html:71
+msgid "Add"
+msgstr "Dodaj"
+
+#: .\templates\projects\edit.html:107 .\templates\projects\edit.html.py:157
+msgid "Remove"
+msgstr "Usuń"
+
+#: .\templates\projects\list.html:6
+msgid "Projects"
+msgstr "Projekty"
+
+#: .\templates\projects\list.html:13
+msgid "There is no projects yet."
+msgstr "Brak projektów."
+
+#: .\templates\projects\list.html:13
+msgid "Create new one!"
+msgstr "Stwórz nowy!"
+
+#: .\templates\projects\role_edit.html:64
+#: .\templates\projects\role_edit.html:172
+msgid "Remove from group"
+msgstr "Usuń z grupy"
+
+#: .\templates\projects\role_edit.html:89
+msgid "Search..."
+msgstr "Szukaj..."
+
+#: .\templates\projects\role_edit.html:121
+msgid "Close"
+msgstr "Zamknij"
+
+#: .\templates\projects\role_edit.html:143
+msgid "Add to group"
+msgstr "Dodaj do grupy"
+
+#: .\templates\userena\activate_fail.html:5
+#: .\templates\userena\activate_retry.html:5
+msgid "Account activation failed."
+msgstr ""
+
+#: .\templates\userena\activate_fail.html:8
+#: .\templates\userena\activate_retry.html:8
+msgid "Your account could not be activated..."
+msgstr "Twoje konto nie może zostać aktywowane..."
+
+#: .\templates\userena\activate_fail.html:9
+msgid ""
+"Your account could not be activated. This could be because your activation "
+"link has aged."
+msgstr "Twoje konto nie może zostać aktywowane. Prawdopodobnie link wygasł."
+
+#: .\templates\userena\activate_fail.html:10
+msgid ""
+"Please try signing up again or contact us if you think something went wrong."
+msgstr "Skontaktyuj się z nami"
+
+#: .\templates\userena\activate_retry.html:9
+msgid "Your account could not be activated because activation link is expired."
+msgstr "Twoje konto nie może zostać aktywowane ponieważ link wygasł."
+
+#: .\templates\userena\activate_retry.html:10
+msgid "Request a new activation link."
+msgstr "Zażądaj kolejny link aktywacyjny."
+
+#: .\templates\userena\activate_retry_success.html:5
+msgid "Account re-activation succeeded."
+msgstr "Reaktywacja konta zakończona powodzeniem"
+
+#: .\templates\userena\activate_retry_success.html:8
+msgid "Account re-activation"
+msgstr "Reaktywacja konta"
+
+#: .\templates\userena\activate_retry_success.html:9
+msgid "You requested a new activation of your account.."
+msgstr ""
+
+#: .\templates\userena\activate_retry_success.html:10
+#: .\templates\userena\signup_complete.html:11
+msgid ""
+"You have been sent an e-mail with an activation link to the supplied email."
+msgstr ""
+
+#: .\templates\userena\activate_retry_success.html:11
+#: .\templates\userena\signup_complete.html:12
+#, python-format
+msgid ""
+"We will store your signup information for %(userena_activation_days)s days "
+"on our server. "
+msgstr ""
+
+#: .\templates\userena\disabled.html:5
+#, fuzzy
+msgid "Disabled account"
+msgstr "Posiadasz konto?"
+
+#: .\templates\userena\disabled.html:8
+msgid "Your account has been disabled"
+msgstr "Twoje konto zostało zablokowane"
+
+#: .\templates\userena\disabled.html:9
+msgid "It seems your account has been disabled."
+msgstr "Wygląda na to, że twoje konto jest wyłączone."
+
+#: .\templates\userena\disabled.html:10
+msgid ""
+"If you feel that injustice has been done to you, feel free to contact the "
+"administrators to find out why"
+msgstr ""
+
+#: .\templates\userena\email_change_complete.html:4
+msgid "Email verification"
+msgstr "Weryfikacja"
+
+#: .\templates\userena\email_change_complete.html:5
+msgid "Confirm your new email"
+msgstr "Potwiedź nowy adres email"
+
+#: .\templates\userena\email_change_complete.html:8
+#, python-format
+msgid "You have received an email at %(email)s."
+msgstr "Dostałeś nową wiadomość %(email)s."
+
+#: .\templates\userena\email_change_complete.html:9
+#, python-format
+msgid ""
+"To associate this email address with your account (%(username)s) click on "
+"the link provided in this email."
+msgstr ""
+
+#: .\templates\userena\email_confirm_complete.html:4
+msgid "Email changed!"
+msgstr "Email został zmieniony!"
+
+#: .\templates\userena\email_confirm_complete.html:6
+#, fuzzy
+msgid "New email"
+msgstr "Nowy email"
+
+#: .\templates\userena\email_confirm_complete.html:8
+#, python-format
+msgid ""
+"Your new email address is saved. You can continue using %(site)s with this "
+"email."
+msgstr "Twój nowy adres email został zapisany. Możesz go użyć na %(site)s"
+
+#: .\templates\userena\email_confirm_fail.html:4
+msgid "Email verification failed."
+msgstr "Weryfikacja zakończona niepowodzeniem."
+
+#: .\templates\userena\email_confirm_fail.html:5
+#: .\templates\userena\email_confirm_fail.html:8
+msgid "Your email could not be verified..."
+msgstr "Twój email nie może zostać zweryfikowany..."
+
+#: .\templates\userena\email_confirm_fail.html:9
+msgid "You could try changing it again in your account settings."
+msgstr "Możesz spróbować zmienić go w ustawieniach konta."
+
+#: .\templates\userena\email_form.html:6
+#: .\templates\userena\password_form.html:6
+#: .\templates\userena\profile_form.html:6
+#: .\templates\userena\profile_form.html:15
+msgid "Account"
+msgstr "Konto"
+
+#: .\templates\userena\email_form.html:15
+#, fuzzy
+msgid "Change email address"
+msgstr "Zmień email"
+
+#: .\templates\userena\password_complete.html:4
+msgid "Password changed"
+msgstr "Hasło zmienione"
+
+#: .\templates\userena\password_complete.html:5
+msgid "Your password has been changed"
+msgstr "Twoje hasło zostało zmienione"
+
+#: .\templates\userena\password_complete.html:8
+msgid "From now on you can use your new password to signin"
+msgstr "Od teraz możesz używać nowego hasła do logowania"
+
+#: .\templates\userena\password_form.html:15
+#, fuzzy
+msgid "Change Password"
+msgstr "Zmień hasło"
+
+#: .\templates\userena\password_reset_complete.html:5
+msgid "Password reset"
+msgstr "Resetowanie hasła"
+
+#: .\templates\userena\password_reset_complete.html:8
+msgid "Your password has been reset"
+msgstr "Twoje hasło zostało zresetowane"
+
+#: .\templates\userena\password_reset_complete.html:10
+#, python-format
+msgid ""
+"You can now <a href=\"%(signin_url)s\">signin</a> with your new password."
+msgstr ""
+"Możesz się teraz <a href=\"%(signin_url)s\">zalogować</a> używając nowego "
+"hasła"
+
+#: .\templates\userena\password_reset_confirm_form.html:6
+#: .\templates\userena\password_reset_confirm_form.html:10
+#: .\templates\userena\password_reset_confirm_form.html:17
+#: .\templates\userena\password_reset_form.html:6
+#: .\templates\userena\password_reset_form.html:10
+#, fuzzy
+msgid "Reset password"
+msgstr "Zresetuj hasło"
+
+#: .\templates\userena\password_reset_done.html:5
+#: .\templates\userena\password_reset_done.html:8
+msgid "Password reset email sent"
+msgstr "Email wysłany"
+
+#: .\templates\userena\password_reset_done.html:9
+msgid ""
+"An e-mail has been sent to you which explains how to reset your password."
+msgstr "Hasło z dalszą instrukcją zostało wysłane na twój email"
+
+#: .\templates\userena\password_reset_form.html:17
+#, fuzzy
+msgid "Send password"
+msgstr "Wyślij hasło"
+
+#: .\templates\userena\profile_detail.html:5
+#, python-format
+msgid "%(username)s's profile."
+msgstr "Profil %(username)s"
+
+#: .\templates\userena\profile_detail.html:14
+#, fuzzy
+msgid "User profile"
+msgstr "Zobacz profil"
+
+#: .\templates\userena\profile_detail.html:34
+#, fuzzy
+msgid "Send message"
+msgstr "Usunięte wiadomości"
+
+#: .\templates\userena\profile_form.html:26
+#, fuzzy
+msgid "Save changes"
+msgstr "Zapisz"
+
+#: .\templates\userena\profile_list.html:6
+#, fuzzy
+msgid "Profiles"
+msgstr "Profile"
+
+#: .\templates\userena\profile_list.html:16
+msgid "previous"
+msgstr "następny"
+
+#: .\templates\userena\profile_list.html:20
+#, python-format
+msgid ""
+"\n"
+"          Page %(page)s of %(num_pages)s\n"
+"          "
+msgstr ""
+"\n"
+"          Strona %(page)s z %(num_pages)s\n"
+"          "
+
+#: .\templates\userena\profile_list.html:26
+msgid "next"
+msgstr ""
+
+#: .\templates\userena\signin_form.html:6
+#: .\templates\userena\signin_form.html:24
+#, fuzzy
+msgid "Signin"
+msgstr "Rejestracja"
+
+#: .\templates\userena\signin_form.html:10
+msgid "Forgot your password?"
+msgstr "Zapomniałeś hasła?"
+
+#: .\templates\userena\signin_form.html:11
+#, fuzzy
+msgid "Need an account?"
+msgstr "Potrzebujesz konta?"
+
+#: .\templates\userena\signin_form.html:17
+#, fuzzy
+msgid "Login Page"
+msgstr "Logowanie"
+
+#: .\templates\userena\signout.html:5
+#, fuzzy
+msgid "Signed out"
+msgstr "Wylogowano"
+
+#: .\templates\userena\signout.html:9
+msgid "Do you want to login?"
+msgstr "Czy chcesz się zalogować?"
+
+#: .\templates\userena\signout.html:14
+#, fuzzy
+msgid "You have been signed out"
+msgstr "Zostałeś wylogowany"
+
+#: .\templates\userena\signout.html:15
+#, fuzzy
+msgid "You have been signed out. Till we meet again."
+msgstr "Zostałeś wylogowany"
+
+#: .\templates\userena\signup_complete.html:5
+msgid "Signup almost done!"
+msgstr "Rejestracja prawie zakończona!"
+
+#: .\templates\userena\signup_complete.html:8
+#: .\templates\userena\signup_form.html:6
+#: .\templates\userena\signup_form.html:23
+msgid "Signup"
+msgstr "Rejestracja"
+
+#: .\templates\userena\signup_complete.html:9
+msgid "Thank you for signing up with us!"
+msgstr "Dziękujemy za zarejestrowanie się z nami"
+
+#: .\templates\userena\signup_complete.html:15
+#, python-format
+msgid ""
+"You can now use the supplied credentials to <a href=\"%(login_url)s\">signin."
+"</a>"
+msgstr "Możesz użyć swoich danych do <a href=\"%(login_url)s\">logowania.</a>"
+
+#: .\templates\userena\signup_form.html:10
+msgid "Already have an account?"
+msgstr "Posiadasz konto?"
+
+#: .\templates\userena\signup_form.html:16
+msgid "Register Page"
+msgstr "Rejestracja"
+
+#: .\templates\watson\search_results.html:9
+#: .\templates\watson\searchentry_list.html:9
+#, python-format
+msgid "Search results for &ldquo;%(query_t)s&rdquo;"
+msgstr "Wyniki wyszukiwania dla &ldquo;%(query_t)s&rdquo;"
+
+#: .\templates\watson\search_results.html:11
+#: .\templates\watson\searchentry_list.html:11
+msgid "Search results"
+msgstr "Wyniki wyszukiwania"
+
+#: .\templates\watson\search_results.html:18
+#: .\templates\watson\searchentry_list.html:17
+msgid "There are no results to display."
+msgstr "Nie znaleziono wyników."
+
+#: .\templates\watson\search_results.html:19
+#: .\templates\watson\searchentry_list.html:18
+msgid "Try entering a less specific search term."
+msgstr "Spróbuj wpisać mniej szczegółową frazę"
+
+#: .\templates\watson\search_results.html:21
+#: .\templates\watson\searchentry_list.html:20
+msgid "Please enter a query in the search form."
+msgstr "Wpisz frazę w formularzu."
+
+#: .\templates\workflow\create.html:6
+msgid "Create new workflow"
+msgstr "Stwórz nowy diagram"
+
+#: .\templates\workflow\delete.html:6
+msgid "Delete workflow"
+msgstr "Usuń diagram"
+
+#: .\templates\workflow\mapping.html:5 .\templates\workflow\mapping.html:14
+msgid "Map states"
+msgstr "Mapuj stany"
+
+#: .\templates\workflow\mapping.html:25
+msgid "Map"
+msgstr "Mapuj"
+
+#: .\workflow\models.py:35
+msgid "Next states"
+msgstr "Następne stany"
+
+#: .\workflow\models.py:36
+msgid "Type"
+msgstr "Typ"
+
+#: .\workflow\models.py:37
+msgid "Action verb"
+msgstr "Czasownik"

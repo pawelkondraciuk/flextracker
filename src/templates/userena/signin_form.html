@@ -8,13 +8,13 @@
 {% block header %}
     <div class="text-right">
         <a href="{% url 'userena_password_reset' %}" class="pull-left txt-default" title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}</a>
-        <a href="{% url 'userena_signup' %}" class="txt-default">Need an account?</a>
+        <a href="{% url 'userena_signup' %}" class="txt-default">{% trans "Need an account?" %}</a>
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="text-center">
-        <h3 class="page-header">FlexTracker Login Page</h3>
+        <h3 class="page-header">FlexTracker {% trans "Login Page" %}</h3>
     </div>
     <form method="post">
         {% csrf_token %}

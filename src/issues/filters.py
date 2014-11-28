@@ -1,13 +1,13 @@
 import django_filters
 from issues.models import Ticket, PRIORITY_CHOICES
-
+from django.utils.translation import ugettext_lazy as _
 
 class TicketFilter(django_filters.FilterSet):
-    assigned_to = django_filters.CharFilter(name='assigned_to__username')
-    submitter = django_filters.CharFilter(name='submitter__username')
-    created = django_filters.CharFilter(lookup_type='startswith')
-    title = django_filters.CharFilter(lookup_type='icontains')
-    priority = django_filters.ChoiceFilter(choices=(('', '---------'),) + PRIORITY_CHOICES)
+    assigned_to = django_filters.CharFilter(name='assigned_to__username', label=_('Assigned to'))
+    submitter = django_filters.CharFilter(name='submitter__username', label=_('Submitter'))
+    created = django_filters.CharFilter(lookup_type='startswith', label=_('Created'))
+    title = django_filters.CharFilter(lookup_type='icontains', label=_('Title'))
+    priority = django_filters.ChoiceFilter(choices=(('', '---------'),) + PRIORITY_CHOICES, label=_('Priority'))
 
     class Meta:
         model = Ticket

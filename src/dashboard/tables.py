@@ -3,6 +3,7 @@ from django_messages.models import Message
 import django_tables2 as tables
 from django_tables2.utils import A, Accessor
 from issues.models import Ticket
+from django.utils.translation import ugettext_lazy as _
 
 class CustomTextURLColumn(tables.URLColumn):
     def __init__(self, custom_text=None, *args, **kwargs):
@@ -30,8 +31,8 @@ class CustomTextLinkColumn(tables.LinkColumn):
 
 class MessageTable(tables.Table):
     delete = CustomTextLinkColumn('messages_delete', kwargs={'message_id': A('pk')}, orderable=False, empty_values=(),
-                                  custom_text='Delete')
-    subject = tables.LinkColumn('messages_detail', args=[A('id'),])
+                                  custom_text=_('Delete'))
+    subject = tables.LinkColumn('messages_detail', args=[A('id'),], verbose_name=_('Subject'))
 
     class Meta:
         model = Message

@@ -2,13 +2,14 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django import dispatch
 import subprocess
+from django.utils.translation import ugettext_lazy as _
 
 
 @python_2_unicode_compatible
 class Hook(models.Model):
     name = models.CharField(max_length=255)
     user = models.CharField(max_length=255)
-    repo = models.CharField(max_length=255)
+    repo = models.CharField(max_length=255, verbose_name=_('Repository'))
     path = models.CharField(max_length=255)
 
     def execute(self):

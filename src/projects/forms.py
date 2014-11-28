@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 from projects.models import Role, Project
 from workflow.models import Workflow
-
+from django.utils.translation import ugettext_lazy as _
 
 class WorkflowRadioChoiceInput(forms.widgets.RadioChoiceInput):
 
@@ -58,7 +58,7 @@ class UpdateProjectForm(forms.ModelForm):
 
 
 class CreateProjectForm(forms.ModelForm):
-    workflow = forms.IntegerField(required=True)
+    workflow = forms.IntegerField(required=True, label=_('Workflow'))
 
     class Meta:
         model = Project

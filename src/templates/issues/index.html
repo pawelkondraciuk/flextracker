@@ -5,33 +5,34 @@
 {% load comments_tags %}
 {% load issues_tags %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content-header %}
-    Issue
+    {% trans "Issue" %}
 {% endblock %}
 
 {% block content %}
     <h3 class="page-header">
         {{ issue.title }} [{{ issue.slug }}]
-        <a href="{% url 'edit_issue' issue.object_id issue.slug %}" class="pull-right">Edit</a>
+        <a href="{% url 'edit_issue' issue.object_id issue.slug %}" class="pull-right">{% trans "Edit" %}</a>
     </h3>
     <div class="well issue">
         <div class="row">
-            <div class="col-xs-4">Priority<b
+            <div class="col-xs-4">{% trans "Priority" %}<b
                     class="label label-{{ issue.priority|priority_to_bootstrap }} pull-right">{{ issue.get_priority_display }}</b>
             </div>
-            <div class="col-xs-4 col-xs-offset-4">Created<b class="pull-right">{{ issue.created }}</b></div>
+            <div class="col-xs-4 col-xs-offset-4">{% trans "Created" %}<b class="pull-right">{{ issue.created }}</b></div>
         </div>
         <div class="row">
-            <div class="col-xs-4">Status<b class="pull-right">{{ issue.status }}</b></div>
-            <div class="col-xs-4 col-xs-offset-4">Modified<b class="pull-right">{{ issue.modified }}</b></div>
+            <div class="col-xs-4">{% trans "Status" %}<b class="pull-right">{{ issue.status }}</b></div>
+            <div class="col-xs-4 col-xs-offset-4">{% trans "Modified" %}<b class="pull-right">{{ issue.modified }}</b></div>
         </div>
         <div class="row">
-            <div class="col-xs-4">Submitter<b class="pull-right">{{ issue.submitter }}</b></div>
+            <div class="col-xs-4">{% trans "Submitter" %}<b class="pull-right">{{ issue.submitter }}</b></div>
         </div>
         <div class="row">
-            <div class="col-xs-4">Assigned to<b class="pull-right">{{ issue.assigned_to }}</b></div>
-            <div class="col-xs-4 col-xs-offset-4">Confidential<b class="pull-right">{{ issue.confidential }}</b></div>
+            <div class="col-xs-4">{% trans "Assigned to" %}<b class="pull-right">{{ issue.assigned_to }}</b></div>
+            <div class="col-xs-4 col-xs-offset-4">{% trans "Confidential" %}<b class="pull-right">{{ issue.confidential }}</b></div>
         </div>
 
         <div class="description">
@@ -59,7 +60,7 @@
     {% if issue.changes %}
         <div style="margin-top:15px;">
             <a data-toggle="collapse" href="#changes" class="accordion-toggle collapsed"><h4 class="page-header">
-                Changes</h4></a>
+                {% trans "Changes" %}</h4></a>
 
             <div id="changes" class="panel-collapse collapse">
                 {% for change in issue.changes.all %}
@@ -74,7 +75,7 @@
     {% endif %}
     <div style="margin-top:15px;">
         <a data-toggle="collapse" href="#comments" class="accordion-toggle collapsed"><h4 class="page-header">
-            Comments</h4></a>
+            {% trans "Comments" %}</h4></a>
 
         <div id="comments" class="panel-collapse collapse">
             {% get_comments_for issue %}
@@ -88,7 +89,7 @@
                         </div>
                         <div class="page-feed-content">
                             {% if comment.author == user %}
-                                <a href="{% url 'comment-delete' comment.id %}" class="pull-right">Delete</a>
+                                <a href="{% url 'comment-delete' comment.id %}" class="pull-right">{% trans "Delete" %}</a>
                             {% endif %}
                             <small class="time"><a
                                     href="{% url 'userena_profile_detail' comment.author.username %}">{{ comment.author }}</a>, {{ comment.created|date:_("DATETIME_FORMAT") }}
@@ -107,7 +108,7 @@
                     <div class="box-name">
                         <i class="fa fa-cog"></i>
                         <span>
-                            Create new comment
+                            {% trans "Create new comment" %}
                         </span>
                     </div>
                     <div class="no-move"></div>
@@ -119,7 +120,7 @@
 
                         {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary">{% trans "Create" %}</button>
                         </div>
                     </form>
                 </div>

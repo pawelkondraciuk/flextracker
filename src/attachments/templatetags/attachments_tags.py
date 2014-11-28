@@ -35,15 +35,15 @@ def attachment_ajax_form(context, obj):
     The user must own ``attachments.add_attachment permission`` to add
     attachments.
     """
-    if context['user'].has_perm('attachments.add_attachment'):
-        return {
-            'form': AttachmentForm(),
-            'form_url': add_url_for_obj(obj),
-        }
-    else:
-        return {
-            'form': None,
-        }
+    #if context['user'].has_perm('attachments.add_attachment'):
+    return {
+        'form': AttachmentForm(),
+        'form_url': add_url_for_obj(obj),
+    }
+    # else:
+    #     return {
+    #         'form': None,
+    #     }
 
 
 @register.inclusion_tag('attachments/delete_link.html', takes_context=True)
@@ -57,14 +57,14 @@ def attachment_delete_link(context, attachment):
     ``attachments.delete_foreign_attachments`` which allows him to delete all
     attachments.
     """
-    if context['user'].has_perm('delete_foreign_attachments') \
-            or (context['user'] == attachment.creator and \
-                        context['user'].has_perm('attachments.delete_attachment')):
-        return {
-            'next': context['request'].build_absolute_uri(),
-            'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
-        }
-    return {'delete_url': None, }
+    # if context['user'].has_perm('delete_foreign_attachments') \
+    #         or (context['user'] == attachment.creator and \
+    #                     context['user'].has_perm('attachments.delete_attachment')):
+    return {
+        'next': context['request'].build_absolute_uri(),
+        'delete_url': reverse('delete_attachment', kwargs={'attachment_pk': attachment.pk})
+    }
+    #return {'delete_url': None, }
 
 
 class AttachmentsForObjectNode(Node):

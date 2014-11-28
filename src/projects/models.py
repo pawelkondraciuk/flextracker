@@ -10,31 +10,31 @@ import watson
 from issues.models import Ticket
 from workflow.models import Workflow
 from github_hook.models import hook_signal
-
+from django.utils.translation import ugettext_lazy as _
 
 class Role(models.Model):
-    project = models.ForeignKey('Project', related_name='roles')
-    name = models.CharField(max_length=100)
-    permissions = models.ManyToManyField(Permission, blank=True)
-    superuser = models.BooleanField(default=False)
-    members = models.ManyToManyField(User, related_name='roles', blank=True)
+    project = models.ForeignKey('Project', related_name='roles', verbose_name=_('Project'))
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    permissions = models.ManyToManyField(Permission, blank=True, verbose_name=_('Permissions'))
+    superuser = models.BooleanField(default=False, verbose_name=_('Superuser'))
+    members = models.ManyToManyField(User, related_name='roles', blank=True, verbose_name=_('Members'))
 
     def __unicode__(self):
-        return ' | '.join((str(self.project), self.name))
+        return u' | '.join((str(self.project), self.name))
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('update_role', args=[str(self.pk)])
 
 class Project(models.Model):
-    name = models.CharField(max_length=255)
-    code = models.CharField(max_length=5, unique=True, help_text='Used to generate ticket slugs')
-    created = models.DateTimeField(default=timezone.now)
-    members = models.ForeignKey(Group, null=True, on_delete=models.CASCADE)
-    workflow = models.ForeignKey(Workflow)
-    private = models.BooleanField(default=False)
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    code = models.CharField(max_length=5, unique=True, help_text=_('Used to generate ticket slugs'), verbose_name=_('Code'))
+    created = models.DateTimeField(default=timezone.now, verbose_name=_('Created'))
+    members = models.ForeignKey(Group, null=True, on_delete=models.CASCADE, verbose_name=_('Members'))
+    workflow = models.ForeignKey(Workflow, verbose_name=_('Workflow'))
+    private = models.BooleanField(default=False, verbose_name=_('Private'))
 
-    github_hook = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name='GitHub repository address', help_text='Please add http://localhost:8000/hook to your GitHub webhooks.')
+    github_hook = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name=_('GitHub repository address'), help_text=_('Please add http://localhost:8000/hook to your GitHub webhooks.'))
 
     tickets = generic.GenericRelation(Ticket)
     workflows = generic.GenericRelation(Workflow)

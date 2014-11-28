@@ -9,6 +9,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
 import watson
+from django.utils.translation import ugettext_lazy as _
 
 
 class CommentManager(models.Manager):
@@ -21,7 +22,7 @@ class Comment(models.Model):
     objects = CommentManager()
 
     created = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
+    content = models.TextField(verbose_name=_('Comment'))
     author = models.ForeignKey(User)
     #
     content_type = models.ForeignKey(ContentType)

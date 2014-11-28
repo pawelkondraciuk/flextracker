@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load render_table from django_tables2 %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block content-header %}
-    Issues
+    {% trans "Issues" %}
 {% endblock %}
 
 {% block content %}

@@ -14,6 +14,7 @@ from taggit.managers import TaggableManager
 from userena.mail import send_mail
 from workflow.models import Status
 import watson
+from django.utils.translation import ugettext_lazy as _
 
 def unique_slug(item, slug_source, slug_field):
     """Ensures a unique slug field by appending an integer counter to duplicate slugs.
@@ -68,16 +69,16 @@ PRIORITY_CHOICES = (
 
 
 class Ticket(models.Model):
-    slug = models.SlugField(max_length=20, unique=True, verbose_name='Code')
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    priority = models.IntegerField(choices=PRIORITY_CHOICES)
-    status = models.ForeignKey(Status, related_name='tickets')
-    created = models.DateTimeField(auto_now_add=timezone.now)
-    modified = models.DateTimeField(auto_now=timezone.now)
-    submitter = models.ForeignKey(User, related_name='submitted_tickets')
-    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name='tickets')
-    confidential = models.BooleanField()
+    slug = models.SlugField(max_length=20, unique=True, verbose_name=_('Code'))
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
+    description = models.TextField(verbose_name=_('Description'))
+    priority = models.IntegerField(choices=PRIORITY_CHOICES, verbose_name=_('Priority'))
+    status = models.ForeignKey(Status, related_name='tickets', verbose_name=_('Status'))
+    created = models.DateTimeField(auto_now_add=timezone.now, verbose_name=_('Created'))
+    modified = models.DateTimeField(auto_now=timezone.now, verbose_name=_('Modified'))
+    submitter = models.ForeignKey(User, related_name='submitted_tickets', verbose_name=_('Submitter'))
+    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name='tickets', verbose_name=_('Assigned to'))
+    confidential = models.BooleanField(verbose_name=_('Confidential'))
 
     #
     content_type = models.ForeignKey(ContentType)

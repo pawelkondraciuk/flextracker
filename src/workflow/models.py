@@ -1,7 +1,7 @@
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-
+from django.utils.translation import ugettext_lazy as _
 
 class WorkflowManager(models.Manager):
     def workflow_for_object(self, obj):
@@ -31,11 +31,11 @@ class ReadNestedWriteFlatMixin(object):
 
 
 class Status(ReadNestedWriteFlatMixin, models.Model):
-    name = models.CharField(max_length=50)
-    available_states = models.ManyToManyField('self', blank=True, symmetrical=False)
-    type = models.IntegerField(choices=TYPE_CHOICES, default=1)
-    verb = models.CharField(max_length=50)
-    workflow = models.ForeignKey('Workflow', related_name='states', null=True, blank=True)
+    name = models.CharField(max_length=50, verbose_name=_('Name'))
+    available_states = models.ManyToManyField('self', blank=True, symmetrical=False, verbose_name=_('Next states'))
+    type = models.IntegerField(choices=TYPE_CHOICES, default=1, verbose_name=_('Type'))
+    verb = models.CharField(max_length=50, verbose_name=_('Action verb'))
+    workflow = models.ForeignKey('Workflow', related_name='states', null=True, blank=True, verbose_name=_('Workflow'))
 
     class Meta:
         verbose_name = 'Statu'
@@ -46,7 +46,7 @@ class Status(ReadNestedWriteFlatMixin, models.Model):
 
 
 class Workflow(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name=_('Name'))
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField(null=True, blank=True)

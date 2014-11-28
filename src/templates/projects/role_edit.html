@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-
+{% load i18n %}
 
 {% block content-header %}
     {{ project.name }} | {{ form.instance.name }}
@@ -18,7 +18,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-cog"></i>
-                    <span>Settings</span>
+                    <span>{% trans "Settings" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -26,8 +26,8 @@
                 {% bootstrap_form form exclude='members' %}
                 {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
                 <div class="text-right">
-                    <a href="{% url 'delete_role' form.instance.pk %}" class="remove-button btn btn-danger pull-left"> Delete</a>
-                    <button type="submit" class="btn btn-primary"> Edit</button>
+                    <a href="{% url 'delete_role' form.instance.pk %}" class="remove-button btn btn-danger pull-left"> {% trans "Delete" %}</a>
+                    <button type="submit" class="btn btn-primary"> {% trans "Save" %}</button>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-user"></i>
-                    <span>Members</span>
+                    <span>{% trans "Members" %}</span>
                 </div>
                 <div class="box-icons">
 					<a class="add-members">
@@ -52,8 +52,8 @@
                     <thead>
                         <tr>
                             <th class="col-xs-1">#</th>
-                            <th>Name</th>
-                            <th class="text-right col-xs-3">Action</th>
+                            <th>{% trans "Name" %}</th>
+                            <th class="text-right col-xs-3">{% trans "Action" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ member.username }}</td>
-                                <td class="text-right"><a href="#" data-id="{{ member.pk }}" class="remove-button label label-danger">Remove from group</a></td>
+                                <td class="text-right"><a href="#" data-id="{{ member.pk }}" class="remove-button label label-danger">{% trans "Remove from group" %}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -86,7 +86,7 @@
                 },
                 language: {
                     search: "_INPUT_",
-                    searchPlaceholder: "Search..."
+                    searchPlaceholder: "{% trans "Search..." %}"
                 }
             });
 
@@ -108,8 +108,8 @@
                         '    <thead>'+
                         '        <tr>'+
                         '            <th class="col-xs-1">#</th>'+
-                        '            <th>Name</th>'+
-                        '            <th class="text-right col-xs-1">Action</th>'+
+                        '            <th>{% trans "Name" %}</th>'+
+                        '            <th class="text-right col-xs-1">{% trans "Action" %}</th>'+
                         '        </tr>'+
                         '    </thead>'+
                         '    <tbody>'+
@@ -118,7 +118,7 @@
                         '</div>  </div>',
                     buttons: {
                         'cancel': {
-                            label: 'Close',
+                            label: '{% trans "Close" %}',
                         },
                     }
                 });
@@ -140,7 +140,7 @@
                                         .attr('href', '#')
                                         .attr('data-id', $(option).attr('value'))
                                         .attr('class', 'add-button label label-success')
-                                        .text('Add to group')
+                                        .text('{% trans "Add to group" %}')
                                     )
                                 )
                             );
@@ -169,7 +169,7 @@
                                     .attr('href', '#')
                                     .attr('data-id', id)
                                     .attr('class', 'remove-button label label-danger')
-                                    .text('Remove from group')
+                                    .text('{% trans "Remove from group" %}')
                                 )
                             )
                         );

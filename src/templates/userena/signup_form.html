@@ -7,13 +7,13 @@
 
 {% block header %}
     <div class="text-right">
-        <a href="{% url 'userena_signin' %}" class="txt-default">Already have an account?</a>
+        <a href="{% url 'userena_signin' %}" class="txt-default">{% trans "Already have an account?" %}</a>
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="text-center">
-        <h3 class="page-header">FlexTracker Register Page</h3>
+        <h3 class="page-header">FlexTracker {% trans "Register Page" %}</h3>
     </div>
     <form method="post">
         {% csrf_token %}

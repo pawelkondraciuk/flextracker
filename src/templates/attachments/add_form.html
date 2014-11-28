@@ -3,7 +3,7 @@
     {#    <form id="fileupload" method="post" enctype="multipart/form-data" action="{{ form_url }}"> {% csrf_token %}#}
     <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
-            <span>Select files...</span>
+            <span>{% trans "Select files..." %}</span>
         {% for field in form %}
             {{ field }}
         {% endfor %}
@@ -78,7 +78,7 @@
                 );
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index) {
-                    var error = $('<span class="text-danger"/>').text('File upload failed.');
+                    var error = $('<span class="text-danger"/>').text('{% trans "File upload failed." %}');
                     $(data.context.children()[index])
                             .append('<br>')
                             .append(error);

@@ -3,6 +3,7 @@
 {% load activity_tags i18n %}
 {% load account_tags %}
 {% load django_tables2 %}
+{% load i18n %}
 
 {% block content-header %}
     {{ project.name }}
@@ -16,7 +17,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-bell"></i>
-                    <span>Activity stream</span>
+                    <span>{% trans "Activity stream" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -36,7 +37,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-bell"></i>
-                    <span>Groups</span>
+                    <span>{% trans "Groups" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -51,7 +52,7 @@
                             {% get_user_table_for role.members.all as "users" %}
                             {% render_table users %}
                         {% else %}
-                            This group is empty
+                            {% trans "This group is empty" %}
                         {% endif %}
                     </div>
                 </div>

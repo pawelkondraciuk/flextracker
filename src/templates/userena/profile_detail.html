@@ -5,15 +5,13 @@
 {% block title %}{% blocktrans with profile.user.username as username %}{{ username }}'s profile.{% endblocktrans %}{% endblock %}
 {% block content_title %}<h2>{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>{% endblock %}
 
-
-
 {% block content %}
     <div class="col-sm-4 col-sm-offset-4 col-md-8 col-md-offset-2">
         <div class="box">
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-user"></i>
-                    <span>User profile</span>
+                    <span>{% trans "User profile" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -33,7 +31,7 @@
                     </p>
                     {% if request.user != profile.user %}
                         <p>
-                            <a href="{% url 'messages_compose_to' profile.user.username %}">Send message</a>
+                            <a href="{% url 'messages_compose_to' profile.user.username %}">{% trans "Send message" %}</a>
                         </p>
                     {% endif %}
                 </div>

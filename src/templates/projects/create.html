@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load i18n %}
 
 {% block content-header %}
-    Create new project
+   {% trans "Create new project" %}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-cog"></i>
-                    <span>Create new project</span>
+                    <span>{% trans "Create new project" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -22,7 +23,7 @@
 
                     {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary"> Create</button>
+                        <button type="submit" class="btn btn-primary"> {% trans "Create" %}</button>
                     </div>
                 </form>
             </div>

@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% load i18n %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +23,15 @@
 	</head>
 <body>
 <div class="container-fluid">
+	<div style="position: absolute; right:15px; top: 15px; z-index:500">
+		{% for lang in LANGUAGES %}
+			<a class="txt-default" href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;"><i class="fa{% if lang.0 == LANGUAGE_CODE %} fa-check{% endif %}"></i> {{ lang.1 }}</a>
+			<form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">{% csrf_token %}
+				<input name="next" type="hidden" value="/" />
+				<input type="hidden" name="language" value="{{ lang.0 }}" />
+			</form>
+		{% endfor %}
+	</div>
 	<div id="page-login" class="row">
 		<div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
             {% block header %}{% endblock %}
@@ -34,6 +45,9 @@
 </div>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bootstrapValidator.min.js' %}"></script>
+{% if LANGUAGE_CODE == 'pl' %}
+	<script src="{% static 'js/language/pl_PL.js' %}"></script>
+{% endif %}
 <script>
     $(document).ready(function() {
         $('form').bootstrapValidator();

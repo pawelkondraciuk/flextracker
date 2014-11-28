@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 
 {% block content-header %}
-    Create new project
+    {% trans "Map states" %}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-arrows-h"></i>
-                    <span>Map states</span>
+                    <span>{% trans "Map states" %}</span>
                 </div>
                 <div class="no-move"></div>
             </div>
@@ -22,7 +22,7 @@
 
                     {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary"> Map</button>
+                        <button type="submit" class="btn btn-primary"> {% trans "Map" %}</button>
                     </div>
                 </form>
             </div>

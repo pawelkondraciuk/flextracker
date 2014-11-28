@@ -3,6 +3,8 @@
 {% load activeurl %}
 {% load sitetree %}
 {% load activity_tags %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,28 +38,6 @@
 	</head>
 <body>
 <!--Start Header-->
-<div id="screensaver">
-	<canvas id="canvas"></canvas>
-	<i class="fa fa-lock" id="screen_unlock"></i>
-</div>
-<div id="modalbox">
-	<div class="devoops-modal">
-		<div class="devoops-modal-header">
-			<div class="modal-header-name">
-				<span>Basic table</span>
-			</div>
-			<div class="box-icons">
-				<a class="close-link">
-					<i class="fa fa-times"></i>
-				</a>
-			</div>
-		</div>
-		<div class="devoops-modal-inner">
-		</div>
-		<div class="devoops-modal-bottom">
-		</div>
-	</div>
-</div>
 <header class="navbar">
 	<div class="container-fluid expanded-panel">
 		<div class="row">
@@ -71,11 +51,32 @@
 						  <i class="fa fa-bars"></i>
 						</a>
 						<div id="search">
-                            <input name="q" value="{{request.GET.q}}" type="text" placeholder="search"/>
+                            <input name="q" value="{{request.GET.q}}" type="text" placeholder="{% trans "Search" %}"/>
                             <i class="fa fa-search"></i>
 						</div>
 					</div>
 					<div class="col-xs-4 col-sm-8 top-panel-right">
+                        <ul class="nav navbar-nav pull-right panel-menu">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                    <i class="fa fa-angle-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span style="margin-top: 10px;">{% trans "Language" %}</span>
+									</div>
+								</a>
+								<ul class="dropdown-menu">
+                                    {% for lang in LANGUAGES %}
+                                        <li>
+                                            <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;"><i class="fa{% if lang.0 == LANGUAGE_CODE %} fa-check{% endif %}"></i> {{ lang.1 }}</a>
+                                            <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">{% csrf_token %}
+                                                <input name="next" type="hidden" value="/" />
+                                                <input type="hidden" name="language" value="{{ lang.0 }}" />
+                                            </form>
+                                        </li>
+                                    {% endfor %}
+								</ul>
+							</li>
+						</ul>
 						<ul class="nav navbar-nav pull-right panel-menu">
 							<li class="hidden-xs">
 								<a href="{% url 'messages_inbox' %}">
@@ -90,7 +91,7 @@
 									</div>
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
-										<span class="welcome">Welcome,</span>
+										<span class="welcome">{% trans "Welcome" %},</span>
 										<span>{{ user.get_full_name|default:user.username }}</span>
 									</div>
 								</a>
@@ -98,25 +99,25 @@
 									<li>
 										<a href="{% url 'userena_profile_detail' user.username %}">
 											<i class="fa fa-user"></i>
-											<span>Profile</span>
+											<span>{% trans "Profile" %}</span>
 										</a>
 									</li>
 									<li>
 										<a href="{% url 'messages_inbox' %}" class="ajax-link">
 											<i class="fa fa-envelope"></i>
-											<span>Messages</span>
+											<span>{% trans "Messages" %}</span>
 										</a>
 									</li>
 									<li>
 										<a href="{% url 'settings' %}">
 											<i class="fa fa-cog"></i>
-											<span>Settings</span>
+											<span>{% trans "Settings" %}</span>
 										</a>
 									</li>
 									<li>
 										<a href="{% url 'userena_signout' %}">
 											<i class="fa fa-power-off"></i>
-											<span>Logout</span>
+											<span>{% trans "Logout" %}</span>
 										</a>
 									</li>
 								</ul>
@@ -241,6 +242,9 @@
 <script src="{% static 'js/jquery.fileupload.js' %}"></script>
 <script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
 <script src="{% static 'js/jquery.fileupload-image.js' %}"></script>
+{% if LANGUAGE_CODE == 'pl' %}
+	<script src="{% static 'js/language/pl_PL.js' %}"></script>
+{% endif %}
 <script>
     $(document).ready(function() {
 

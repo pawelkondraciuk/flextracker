@@ -9,6 +9,7 @@ urlpatterns = patterns('',
    # Examples:
    # url(r'^$', 'flex.views.home', name='home'),
    # url(r'^blog/', include('blog.urls')),
+   url(r'^i18n/', include('django.conf.urls.i18n')),
    url(r'^hook/', include('github_hook.urls')),
    url(r'^grappelli/', include('grappelli.urls')),
    url(r'^inbox/messages/', include('django_messages.urls')),

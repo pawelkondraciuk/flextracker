@@ -2,12 +2,13 @@
 {% load bootstrap3 %}
 {% load attachments_tags %}
 {% load thumbnail %}
+{% load i18n %}
 
 {% block content-header %}
     {% if issue.pk %}
         {{ issue.title }}
     {% else %}
-        Create new issue
+        {% trans "Create new issue" %}
     {% endif %}
 {% endblock %}
 
@@ -21,7 +22,7 @@
                         {% if issue.pk %}
                             {{ issue.title }}
                         {% else %}
-                            Create new issue
+                            {% trans "Create new issue" %}
                         {% endif %}
                     </span>
                 </div>
@@ -62,11 +63,11 @@
 
                     {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">{% if issue.pk %}Edit{% else %}
-                            Create{% endif %}</button>
+                        <button type="submit" class="btn btn-primary">{% if issue.pk %}{% trans "Save" %}{% else %}
+                            {% trans "Create" %}{% endif %}</button>
                         {% if issue.pk %}
                             <a href="{% url 'issue_details' issue.object_id issue.slug %}"
-                               class="btn btn-primary">Cancel</a>
+                               class="btn btn-primary">{% trans "Cancel" %}</a>
                         {% endif %}
                     </div>
                 </form>

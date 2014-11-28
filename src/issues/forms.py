@@ -10,6 +10,7 @@ class TicketForm(forms.ModelForm):
     def __init__(self, workflow, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
         self.fields['status'].queryset = (self.instance.status.available_states.all() | Status.objects.filter(pk=self.instance.status.pk)).distinct()
+        self.fields['assigned_to'].queryset = self.instance.content_object.members.user_set
 
     def save(self, commit=True):
         obj = super(TicketForm, self).save(commit=False)

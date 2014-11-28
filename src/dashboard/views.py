@@ -19,6 +19,7 @@ from comments.models import Comment
 from github_hook.models import hook_signal
 from issues.models import Ticket
 from projects.models import Project
+from django.utils.translation import ugettext_lazy as _
 
 
 class MatchException(Exception):
@@ -41,7 +42,7 @@ class AssignedResolver(RegexResolver):
             if User.objects.filter(username=match.group(1)).exists():
                 q = {'assigned_to': match.group(1)}
             else:
-                raise MatchException('User not found')
+                raise MatchException(_('User not found'))
 
         return q
 
@@ -56,7 +57,7 @@ class SubmittedResolver(RegexResolver):
             if User.objects.filter(username=match.group(1)).exists():
                 q.update({'submitter': match.group(1)})
             else:
-                raise MatchException('User not found')
+                raise MatchException(_('User not found'))
 
         if match and (match.group(2) or match.group(3)):
             try:
@@ -74,7 +75,7 @@ class Resolver(object):
             if User.objects.filter(username=match.group(1)).exists():
                 return match.group(1)
             else:
-                raise MatchException('User not found')
+                raise MatchException(_('User not found'))
         else:
             return None
 
@@ -85,7 +86,7 @@ class Resolver(object):
             if Ticket.objects.filter(slug=match.group(1)).exists():
                 return match.group(1)
             else:
-                raise MatchException('Ticket not found')
+                raise MatchException(_('Ticket not found'))
         else:
             return None
 
@@ -109,10 +110,10 @@ class ActionResolver(object):
             username = assign_match.group(2)
 
             if not Ticket.objects.filter(slug=ticket).exists():
-                raise MatchException('Ticket not found')
+                raise MatchException(_('Ticket not found'))
 
             if not User.objects.filter(username=username).exists():
-                raise MatchException('User not found')
+                raise MatchException(_('User not found'))
 
             ticket = Ticket.objects.get(slug=ticket)
             user = User.objects.get(username=username)
@@ -138,7 +139,7 @@ class ActionResolver(object):
             ticket = action_match.group(2)
 
             if not Ticket.objects.filter(slug=ticket).exists():
-                raise MatchException('Ticket not found')
+                raise MatchException(_('Ticket not found'))
 
             ticket = Ticket.objects.get(slug=ticket)
             project = Project.objects.get(pk=ticket.object_id)
@@ -154,7 +155,7 @@ class ActionResolver(object):
                     issue_type = ContentType.objects.get_for_model(Ticket)
                     Comment.objects.create(content='Closed ticket #%s' % self.commit_id, author=self.user, content_type=issue_type, object_id=ticket.id)
             else:
-                raise MatchException('Unrecognized action')
+                raise MatchException(_('Unrecognized action'))
 
             return redirect(ticket.get_absolute_url())
 
