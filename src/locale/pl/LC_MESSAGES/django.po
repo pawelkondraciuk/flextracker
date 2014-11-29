@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-28 01:21+0100\n"
+"POT-Creation-Date: 2014-11-29 21:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgid "Comment"
 msgstr "Komentarz"
 
 #: .\dashboard\tables.py:34 .\templates\django_messages\view.html:15
-#: .\templates\issues\index.html:92 .\templates\projects\delete.html:26
-#: .\templates\projects\edit.html:30 .\templates\projects\edit.html.py:59
+#: .\templates\issues\index.html:94 .\templates\projects\delete.html:26
+#: .\templates\projects\edit.html:29 .\templates\projects\edit.html.py:59
 #: .\templates\projects\role_edit.html:29 .\templates\workflow\delete.html:11
 #: .\templates\workflow\delete.html:21
 msgid "Delete"
@@ -93,17 +93,17 @@ msgid "Repository"
 msgstr "Repozytorium"
 
 #: .\issues\filters.py:6 .\issues\models.py:80
-#: .\templates\issues\index.html:34
+#: .\templates\issues\index.html:36
 msgid "Assigned to"
 msgstr "Przypisano do"
 
 #: .\issues\filters.py:7 .\issues\models.py:79
-#: .\templates\issues\index.html:31
+#: .\templates\issues\index.html:33
 msgid "Submitter"
 msgstr "Zgłaszający"
 
 #: .\issues\filters.py:8 .\issues\models.py:77 .\projects\models.py:32
-#: .\templates\issues\index.html:24
+#: .\templates\issues\index.html:26
 msgid "Created"
 msgstr "Utworzono"
 
@@ -112,7 +112,7 @@ msgid "Title"
 msgstr "Tytuł"
 
 #: .\issues\filters.py:10 .\issues\models.py:75
-#: .\templates\issues\index.html:21
+#: .\templates\issues\index.html:23
 msgid "Priority"
 msgstr "Priorytet"
 
@@ -124,15 +124,15 @@ msgstr "Kod"
 msgid "Description"
 msgstr "Opis"
 
-#: .\issues\models.py:76 .\templates\issues\index.html:27
+#: .\issues\models.py:76 .\templates\issues\index.html:29
 msgid "Status"
 msgstr "Status"
 
-#: .\issues\models.py:78 .\templates\issues\index.html:28
+#: .\issues\models.py:78 .\templates\issues\index.html:30
 msgid "Modified"
 msgstr "Zmodyfikowano"
 
-#: .\issues\models.py:81 .\templates\issues\index.html:35
+#: .\issues\models.py:81 .\templates\issues\index.html:37
 msgid "Confidential"
 msgstr "Poufne"
 
@@ -194,11 +194,11 @@ msgstr "Witaj"
 
 #: .\templates\base.html:102
 msgid "Profile"
-msgstr "Profile"
+msgstr "Profil"
 
 #: .\templates\base.html:108
 msgid "Messages"
-msgstr "Usunięte wiadomości"
+msgstr "Wiadomości"
 
 #: .\templates\base.html:114 .\templates\accounts\settings.html:15
 #: .\templates\projects\edit.html:16 .\templates\projects\role_edit.html:21
@@ -209,26 +209,55 @@ msgstr "Ustawienia"
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: .\templates\base.html:199
-msgid "View profile"
-msgstr "Zobacz profil"
+#: .\templates\base.html:142
+msgid "Dashboard"
+msgstr "Strona główna"
 
-#: .\templates\base.html:200
-msgid "Edit details"
-msgstr "Edytuj szczegóły"
+#: .\templates\base.html:148 .\templates\projects\list.html:6
+msgid "Projects"
+msgstr "Projekty"
 
-#: .\templates\base.html:201 .\templates\userena\password_form.html:26
-msgid "Change password"
-msgstr "Zmień hasło"
+#: .\templates\base.html:151 .\templates\base.html.py:186
+msgid "Create new"
+msgstr "Stwórz nowy"
 
-#: .\templates\base.html:202 .\templates\userena\email_form.html:26
-msgid "Change email"
-msgstr "Zmień email"
+#: .\templates\base.html:160
+msgid "Activity"
+msgstr "Aktywność"
 
-#: .\templates\accounts\settings.html:26 .\templates\issues\index.html:17
+#: .\templates\base.html:164 .\templates\base.html.py:172
+#: .\templates\accounts\settings.html:26 .\templates\issues\index.html:18
 #: .\templates\projects\edit.html:100 .\templates\projects\edit.html.py:150
 msgid "Edit"
 msgstr "Edytuj"
+
+#: .\templates\base.html:178 .\templates\issues\list.html:7
+msgid "Issues"
+msgstr "Zgłoszenia"
+
+#: .\templates\base.html:198
+msgid "My profile"
+msgstr "Mój profil"
+
+#: .\templates\base.html:201
+msgid "View profile"
+msgstr "Zobacz profil"
+
+#: .\templates\base.html:202
+msgid "Edit details"
+msgstr "Edytuj szczegóły"
+
+#: .\templates\base.html:203 .\templates\userena\password_form.html:26
+msgid "Change password"
+msgstr "Zmień hasło"
+
+#: .\templates\base.html:204 .\templates\userena\email_form.html:26
+msgid "Change email"
+msgstr "Zmień email"
+
+#: .\templates\base.html:210
+msgid "Users"
+msgstr "Użytkownicy"
 
 #: .\templates\attachments\add_form.html:6
 msgid "Select files..."
@@ -286,11 +315,11 @@ msgstr "Skrzynka odbiorcza"
 
 #: .\templates\django_messages\base.html:10
 msgid "Sent Messages"
-msgstr "Usunięte wiadomości"
+msgstr "Wyślij wiadomość"
 
 #: .\templates\django_messages\base.html:11
 msgid "New Message"
-msgstr "Usunięte wiadomości"
+msgstr "Nowa wiadomość"
 
 #: .\templates\django_messages\base.html:12
 msgid "Trash"
@@ -352,7 +381,7 @@ msgid "Action"
 msgstr "Akcja"
 
 #: .\templates\django_messages\trash.html:19
-#: .\templates\django_messages\view.html:17 .\templates\issues\index.html:95
+#: .\templates\django_messages\view.html:17 .\templates\issues\index.html:97
 msgid "DATETIME_FORMAT"
 msgstr ""
 
@@ -370,12 +399,12 @@ msgstr ""
 msgid "Create new issue"
 msgstr "Dodaj nowe zgłoszenie"
 
-#: .\templates\issues\create.html:66 .\templates\projects\edit.html:29
+#: .\templates\issues\create.html:66 .\templates\projects\edit.html:30
 #: .\templates\projects\role_edit.html:30
 msgid "Save"
 msgstr "Zapisz"
 
-#: .\templates\issues\create.html:67 .\templates\issues\index.html:123
+#: .\templates\issues\create.html:67 .\templates\issues\index.html:125
 #: .\templates\projects\create.html:26
 msgid "Create"
 msgstr "Stwórz"
@@ -384,21 +413,17 @@ msgstr "Stwórz"
 msgid "Issue"
 msgstr "Zgłoszenie"
 
-#: .\templates\issues\index.html:63
+#: .\templates\issues\index.html:65
 msgid "Changes"
 msgstr "Zmiany"
 
-#: .\templates\issues\index.html:78
+#: .\templates\issues\index.html:80
 msgid "Comments"
 msgstr "Komentarze"
 
-#: .\templates\issues\index.html:111
+#: .\templates\issues\index.html:113
 msgid "Create new comment"
 msgstr "Dodaj komentarz"
-
-#: .\templates\issues\list.html:7
-msgid "Issues"
-msgstr "Zgłoszenia"
 
 #: .\templates\projects\create.html:6 .\templates\projects\create.html:15
 msgid "Create new project"
@@ -428,10 +453,6 @@ msgstr "Dodaj"
 #: .\templates\projects\edit.html:107 .\templates\projects\edit.html.py:157
 msgid "Remove"
 msgstr "Usuń"
-
-#: .\templates\projects\list.html:6
-msgid "Projects"
-msgstr "Projekty"
 
 #: .\templates\projects\list.html:13
 msgid "There is no projects yet."
@@ -655,7 +676,7 @@ msgstr "Zobacz profil"
 
 #: .\templates\userena\profile_detail.html:34
 msgid "Send message"
-msgstr "Usunięte wiadomości"
+msgstr "Wyślij wiadomość"
 
 #: .\templates\userena\profile_form.html:26
 msgid "Save changes"
@@ -780,11 +801,11 @@ msgstr "Stwórz nowy diagram"
 msgid "Delete workflow"
 msgstr "Usuń diagram"
 
-#: .\templates\workflow\mapping.html:5 .\templates\workflow\mapping.html:14
+#: .\templates\workflow\mapping.html:6 .\templates\workflow\mapping.html:15
 msgid "Map states"
 msgstr "Mapuj stany"
 
-#: .\templates\workflow\mapping.html:25
+#: .\templates\workflow\mapping.html:26
 msgid "Map"
 msgstr "Mapuj"
 

@@ -47,7 +47,7 @@
 			<div id="top-panel" class="col-xs-12 col-sm-10">
 				<div class="row">
 					<div class="col-xs-8 col-sm-4">
-						<a href="#" class="show-sidebar">
+						<a href="#" class="show-sidebar hidden-sm hidden-md hidden-lg">
 						  <i class="fa fa-bars"></i>
 						</a>
 						<div id="search">
@@ -139,16 +139,16 @@
 				<li>
 					<a href="{% url 'dashboard' %}" class="ajax-link">
 						<i class="fa fa-dashboard"></i>
-						<span class="hidden-xs">Dashboard</span>
+						<span class="hidden-xs">{% trans "Dashboard" %}</span>
 					</a>
 				</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">
-                    <i class="fa fa-bar-chart-o"></i>
-						<span class="hidden-xs">Projects</span>
+                    <i class="fa fa-folder"></i>
+						<span class="hidden-xs">{% trans "Projects" %}</span>
 					</a>
 					<ul class="dropdown-menu">
-                        <li><a href="{% url 'create_project' %}">Create new</a></li>
+                        <li><a href="{% url 'create_project' %}">{% trans "Create new" %}</a></li>
                         {% if projects %}
                             {% for project in projects %}
                             <li class="dropdown">
@@ -157,23 +157,25 @@
                                     <span class="hidden-xs">{{ project.name }}</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'project_details' project.pk %}">Activity</a></li>
+                                    <li><a href="{% url 'project_details' project.pk %}">{% trans "Activity" %}</a></li>
                                     {% if role and role.project == project %}
                                         <li class="dropdown">
                                             <a href="{% url 'update_project' project.pk %}" class="dropdown-toggle">
-                                                <span class="hidden-xs">Edit</span>
+                                                <span class="hidden-xs">{% trans "Edit" %}</span>
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{% url 'update_role' role.pk %}">{{ role.name }}</a></li>
                                             </ul>
                                         </li>
                                     {% else %}
-                                    <li><a href="{% url 'update_project' project.pk %}">Edit</a></li>
+                                        {% if user in project.members.user_set.all %}
+                                            <li><a href="{% url 'update_project' project.pk %}">{% trans "Edit" %}</a></li>
+                                        {% endif %}
                                     {% endif %}
                                     <li class="dropdown">
                                         <a href="{% url 'project_issues' project.pk %}" class="dropdown-toggle">
                                         <i class="fa fa-bar-chart-o"></i>
-                                            <span class="hidden-xs">Issues</span>
+                                            <span class="hidden-xs">{% trans "Issues" %}</span>
                                         </a>
                                         <ul class="dropdown-menu">
                                             {% if issue and issue.content_object == project %}
@@ -181,7 +183,7 @@
                                                         href="{% url 'issue_details' project.pk issue.slug %}"></a></li>
                                             {% endif %}
 
-                                            <li><a href="{% url 'create_issue' project.pk %}">Create new {{ issue.name }}</a></li>
+                                            <li><a href="{% url 'create_issue' project.pk %}">{% trans "Create new" %} {{ issue.name }}</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -192,8 +194,8 @@
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
-						<i class="fa fa-bar-chart-o"></i>
-						<span class="hidden-xs">My profile</span>
+						<i class="fa fa-user"></i>
+						<span class="hidden-xs">{% trans "My profile" %}</span>
 					</a>
 					<ul class="dropdown-menu">
                         <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
@@ -204,8 +206,8 @@
 				</li>
                 <li>
 					<a href="{% url 'userena_profile_list' %}" class="ajax-link">
-						<i class="fa fa-dashboard"></i>
-						<span class="hidden-xs">Users</span>
+						<i class="fa fa-users"></i>
+						<span class="hidden-xs">{% trans "Users" %}</span>
 					</a>
 				</li>
 			</ul>
