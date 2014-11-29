@@ -247,6 +247,12 @@ class EditIssueView(generic.UpdateView):
         set_attachments_object(self.request.user, ticket, self.request.POST.getlist('files[]'))
         return super(EditIssueView, self).form_valid(form)
 
+    def get_form_class(self):
+        user = self.request.user
+        if self.object.submitter == user and user not in self.object.content_object.members.user_set.all():
+            return CreateTicketForm
+        return TicketForm
+
     def get_form(self, form_class):
         return form_class(Project.objects.get(pk=self.kwargs['project_pk']).workflow, **self.get_form_kwargs())
 

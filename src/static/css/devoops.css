@@ -84,5 +84,10 @@ table td {
 
 /* line 80, ../sass/devoops/_base.scss */
 .box-content > .form-group:first-child {
-  margin-top: 0;
+  margin-top: 0px;
+}
+
+/* line 84, ../sass/devoops/_base.scss */
+.accordion-collapse a {
+  text-decoration: none;
 }

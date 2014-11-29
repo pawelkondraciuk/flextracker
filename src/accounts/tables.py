@@ -15,7 +15,7 @@ class ImageColumn(tables.Column):
 
 class UserTable(tables.Table):
     user_avatar = ImageColumn('Avatar', accessor='get_mugshot_url', orderable=False, )
-    username = tables.LinkColumn(verbose_name=_('Username'), 'userena_profile_detail', accessor='user.username', args=[A('user.username')])
+    username = tables.LinkColumn('userena_profile_detail', verbose_name=_('Username'), accessor='user.username', args=[A('user.username')])
 
     class Meta:
         model = UserProfile

@@ -14,7 +14,9 @@
 {% block content %}
     <h3 class="page-header">
         {{ issue.title }} [{{ issue.slug }}]
-        <a href="{% url 'edit_issue' issue.object_id issue.slug %}" class="pull-right">{% trans "Edit" %}</a>
+        {% if issue.submitter == user or user in issue.content_object.members.user_set.all %}
+            <a href="{% url 'edit_issue' issue.object_id issue.slug %}" class="pull-right">{% trans "Edit" %}</a>
+        {% endif %}
     </h3>
     <div class="well issue">
         <div class="row">
@@ -58,7 +60,7 @@
         </div>
     </div>
     {% if issue.changes %}
-        <div style="margin-top:15px;">
+        <div style="margin-top:15px;" class="accordion-collapse">
             <a data-toggle="collapse" href="#changes" class="accordion-toggle collapsed"><h4 class="page-header">
                 {% trans "Changes" %}</h4></a>
 
@@ -73,7 +75,7 @@
             </div>
         </div>
     {% endif %}
-    <div style="margin-top:15px;">
+    <div style="margin-top:15px;" class="accordion-collapse">
         <a data-toggle="collapse" href="#comments" class="accordion-toggle collapsed"><h4 class="page-header">
             {% trans "Comments" %}</h4></a>
 

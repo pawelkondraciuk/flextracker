@@ -25,9 +25,9 @@
                     {% if next %}<input type="hidden" name="next" value="{{ next }}"/>{% endif %}
                     <input type="hidden" name="form"/>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary"> {% trans "Save" %}</button>
-                        <a href="{% url 'delete_project' project.pk %}" class="btn btn-danger pull-right"> {% trans "Delete" %}</a>
+                    <div>
+                        <a href="{% url 'delete_project' project.pk %}" class="btn btn-danger"> {% trans "Delete" %}</a>
+                        <button type="submit" class="btn btn-primary pull-right"> {% trans "Save" %}</button>
                     </div>
                 </form>
             </div>
