@@ -103,6 +103,11 @@ class Ticket(models.Model):
         if self.slug == '':
             unique_slug(self, slug_source='get_code', slug_field='slug')
 
+        old = Ticket.objects.get(pk=self.pk)
+        if old.assigned_to != self.assigned_to and self.status.type != 4:
+            if self.status.available_states.filter(type=4).exists():
+                self.status = self.status.available_states.get(type=4)
+
         return super(Ticket, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

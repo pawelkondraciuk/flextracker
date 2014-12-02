@@ -13,7 +13,8 @@ class WorkflowManager(models.Manager):
 TYPE_CHOICES = (
     (1, 'Start'),
     (2, 'Middle'),
-    (3, 'Last')
+    (3, 'Last'),
+    (4, 'Assigned')
 )
 
 
@@ -61,9 +62,12 @@ class Workflow(models.Model):
 
         if pk is None:
             open = Status.objects.create(name='Open', type=1, workflow=self, verb='opened')
+            assigned = Status.objects.create(name='Assigned', type=4, workflow=self, verb='assigned')
             closed = Status.objects.create(name='Closed', type=3, workflow=self, verb='closed')
-            open.available_states = [closed]
+            open.available_states = [closed, assigned]
+            assigned.available_states = [open, closed]
             open.save()
+            assigned.save()
             closed.save()
 
         return ret

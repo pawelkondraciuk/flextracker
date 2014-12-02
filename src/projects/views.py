@@ -35,7 +35,7 @@ class ProjectListView(SingleTableView):
 class CreateProjectView(generic.CreateView):
     template_name = 'projects/create.html'
     model = Project
-    fields = ('name', 'code', 'github_hook', 'workflow')
+    fields = ('name', 'code', 'workflow')
 
     def get_form(self, form_class):
         form = super(CreateProjectView, self).get_form(form_class)
