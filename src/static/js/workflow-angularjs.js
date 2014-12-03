@@ -33,12 +33,7 @@ angular.module('workflow', ['workflow.urls'])
                     state.available_states[i] = Number(state.available_states[i]);
                 }
             })
-            if (id == undefined) {
-                if (TemplateData.projectId == undefined) {
-                    $window.opener.workflow({id: $scope.workflow.id, value: $scope.workflow.name});
-                    $window.close();
-                    return;
-                }
+            if (id == undefined && TemplateData.projectId != undefined) {
                 WorkflowFactory.bind($scope.workflow, TemplateData.projectId)
                     .success(function (result) {
                         $window.opener.workflow({id: $scope.workflow.id, value: $scope.workflow.name});
