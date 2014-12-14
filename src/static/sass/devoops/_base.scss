@@ -84,3 +84,9 @@ table td {
 .accordion-collapse a {
   text-decoration: none;
 }
+
+@media (min-width: 768px) {
+  #search {
+    margin-left: 0px;
+  }
+}

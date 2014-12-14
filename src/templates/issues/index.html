@@ -90,7 +90,7 @@
                                     src="{{ comment.author.profile.get_mugshot_url }}" style="width: 80px; height: initial;"></a>
                         </div>
                         <div class="page-feed-content">
-                            {% if comment.author == user %}
+                            {% if comment.author == user or user in issue.content_object.managers %}
                                 <a href="{% url 'comment-delete' comment.id %}" class="pull-right">{% trans "Delete" %}</a>
                             {% endif %}
                             <small class="time"><a

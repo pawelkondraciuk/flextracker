@@ -39,6 +39,10 @@ class Project(models.Model):
     tickets = generic.GenericRelation(Ticket)
     workflows = generic.GenericRelation(Workflow)
 
+    @property
+    def managers(self):
+        return self.roles.get(superuser=True).members.all()
+
     def __unicode__(self):
         return self.name
 
