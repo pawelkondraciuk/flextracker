@@ -66,11 +66,21 @@
 
             <div id="changes" class="panel-collapse collapse">
                 {% for change in issue.changes.all %}
-                    <a href="{% url 'userena_profile_detail' change.user.username %}">{{ change.user }}</a> on {{ change.date|date:"SHORT_DATETIME_FORMAT" }}
-                    {% for detail in change.details.all %}
-                        <p>{{ detail.field }} {{ detail.old_value }} <i
-                                class="fa fa-arrow-circle-right"></i> {{ detail.new_value }}</p>
-                    {% endfor %}
+                    <div class="well">
+                        <a href="{% url 'userena_profile_detail' change.user.username %}">{{ change.user }}</a> on {{ change.date|date:"SHORT_DATETIME_FORMAT" }}
+                        <pre>
+                        {% for detail in change.details.all %}
+
+                            <div>
+                                {{ detail.field }} {{ detail.old_value }}
+                                <i class="fa fa-arrow-circle-right"></i>
+                                {{ detail.new_value }}
+                            </div>
+
+                        {% endfor %}
+                        </pre>
+                    </div>
+
                 {% endfor %}
             </div>
         </div>

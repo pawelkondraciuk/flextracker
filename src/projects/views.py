@@ -75,7 +75,7 @@ class EditProjectView(generic.UpdateView):
         ret = super(EditProjectView, self).form_valid(form)
 
         if isinstance(form, self.get_form_class()):
-            if self.object.workflow.pk != form.data['workflow']:
+            if self.object.workflow.pk != int(form.data['workflow']):
                 return redirect(reverse('map_workflow', args=[form.cleaned_data['workflow'].pk, int(form.data['workflow'])]))
 
         return ret

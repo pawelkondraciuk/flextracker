@@ -25,11 +25,11 @@ class WorkflowRadioSelect(forms.RadioSelect):
 class RoleEditForm(forms.ModelForm):
     class Meta:
         model = Role
-        exclude = ('project',)
+        exclude = ('project', 'permissions', 'superuser')
 
     def __init__(self, *args, **kwargs):
         super(RoleEditForm, self).__init__(*args, **kwargs)
-        self.fields['permissions'].queryset = Permission.objects.filter(content_type__model__in=['ticket', 'attachment', 'role', 'project'])
+        #self.fields['permissions'].queryset = Permission.objects.filter(content_type__model__in=['ticket', 'attachment', 'role', 'project'])
 
 class RoleAddForm(forms.ModelForm):
     class Meta:
